@@ -1,3 +1,37 @@
 from django.db import models
-
+from django.utils import timezone
+from django.contrib.auth.models import User
 # Create your models here.
+
+class Persona(models.Model): 
+    persona_name = models.CharField(max_length=256)
+    persona_message = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(blank=True, null=True)
+    author = models.ForeignKey(User, null=True, on_delete= models.CASCADE)
+
+    def update_date(self): # 나중에 수정할 때 사용
+        self.updated_at = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.persona_name
+
+class Category(models.Model):
+    content = models.TextField()
+    persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, null=True, on_delete=models.CASCADE) 
+
+class Todo(models.Model):
+    content = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(blank=True, null=True)
+    author = models.ForeignKey(User, null=True, on_delete=models.CASCADE) 
+
+    def update_date(self): 
+        self.updated_at = timezone.now()
+        self.save()
+
+
