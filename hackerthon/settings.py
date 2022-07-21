@@ -47,6 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sass_processor',
     'todotodo',
+    'accounts',
+    'tutorial',
+    'mypage',
+    'history',
+    'alertcenter',
 ]
 
 MIDDLEWARE = [
