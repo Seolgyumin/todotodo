@@ -18,6 +18,7 @@ prpr
 - 브랜치 변경: git checkout [브랜치명]
 - 브랜치 강제 변경: git checkout -f [브랜치명] (주의: 커밋하지 않은 작업은 날아갑니다)
 - 현재 브랜치에서 분기되는 브랜치 생성하며 브랜치 변경: git checkout -b [생성할 브랜치 명]
+
 *** 특정 issue를 assign하여 작업을 진행할 경우 IssueName-IssueNumber 식으로 branch 생성할 것
     Issue 명이 한글일 경우 모두가 해당 이슈라고 이해할 수 있도록 적절한 영어명으로 만들 것!
     ex) Issue: create-models #1 -> branch: create-models-1
