@@ -6,50 +6,61 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
+class Profile(models.Model):
+    name = models.CharField(max_length=256, default='')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    friends = models.ManyToManyField('self', through='Friendship', related_name='friendship')
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.name
+
 class Friendship(models.Model):
-    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE) #sender
-    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE) #receiver
+    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_sender') #sender
+    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_receiver') #receiver
     created_at = models.DateTimeField(default=timezone.now)
 
 class Persona(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=256)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    name = models.CharField(max_length=256, default='')
     message = models.TextField()
     # emozi = 
     created_at = models.DateTimeField(default=timezone.now)
 
 class FriendshipRequest(models.Model):
-    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE) #sender
-    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE) #receiver
-    persona1_ids = ArrayField(models.ForeignKey(Persona, on_delete=CASCADE)) #sender's open persona list
-    persona2_ids = ArrayField(models.ForeignKey(Persona, on_delete=CASCADE)) #receiver's open persona list
+    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_request_sender') #sender
+    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_request_receiver') #receiver
+    persona1_ids = models.ManyToManyField(Persona, related_name='sender_persona_open') #sender's open persona list
+    persona2_ids = models.ManyToManyField(Persona, related_name='receiver_persona_open') #receiver's open persona list
     created_at = models.DateTimeField(default=timezone.now)
 
 class PersonaPermission(models.Model):
-    friendship_id = models.ForeignKey(Friendship, on_delete=CASCADE)
-    persona_id = models.ForeignKey(Persona, on_delete=CASCADE)
+    friendship_id = models.ForeignKey(Friendship, on_delete=models.CASCADE)
+    persona_id = models.ForeignKey(Persona, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
 
 class Category(models.Model):
     persona_id = models.ForeignKey(Persona, on_delete=models.CASCADE)
-    name = models.CharField(max_length=256)
-    color = models.CharField(max_length=6) #settings.py의 hex code
+    name = models.CharField(max_length=256, default='')
+    color = models.CharField(max_length=7, default='#DDDDDD') #settings.py의 hex code
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(blank=True, null=True)
 
 class Todo(models.Model):
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
-    name = models.CharField(max_length=256)
-    start_date = models.DateField(timezone.now)
+    name = models.CharField(max_length=256, default='')
+    start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(null=True, blank=True)
-    sender_id = models.ForeignKey(User)
+    sender_id = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    created_at = models.DateTimeField(default=timezone.now)
 
 class TodoRequest(models.Model):
-    sender_id = models.ForeignKey(User, on_delete=CASCADE)
-    reciever_id = models.ForeignKey(User, on_delete=CASCADE)
-    todo_name = models.CharField(max_length=256)
+    sender_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todo_sender', default=1)
+    reciever_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todo_receiver', default=1)
+    todo_name = models.CharField(max_length=256, default='')
     todo_start_date = models.DateField(default=timezone.now)
     todo_end_date = models.DateField(null=True, blank=True)
-    todo_id = models.ForeignKey(Todo, null=True, blank=True)
-    status = models.IntegerField(MinValueValidator(0), MaxValueValidator(2))
+    todo_id = models.ForeignKey(Todo, null=True, blank=True, on_delete=models.CASCADE)
+    status = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(2)])
+    created_at = models.DateTimeField(default=timezone.now)
     

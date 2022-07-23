@@ -45,8 +45,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'sass_processor',
     'todotodo',
+
+    #allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +140,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SASS_PROCESSOR_ENABLED =  True
 SASS_PROCESSOR_ROOT =  os.path.join(BASE_DIR, 'todotodo', 'static')
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+LOGIN_REDIRECT_URL = ""
+LOGOUT_REDIRECT_URL = ""
+
+SITE_ID = 1
+
+ACCOUNT_LOGOUT_ON_GET = True
+
+# 소셜 로그인 버튼 눌렀을 때 확인 페이지 스킵
+SOCIALACCOUNT_LOGIN_ON_GET = True
 
 # color들 여기에 추가하기
 
