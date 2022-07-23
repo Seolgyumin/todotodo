@@ -4,6 +4,7 @@ from todotodo import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('<int:id>/', views.index, name='index'),
     path('accounts/', include('accounts.urls')),
     path('mypage/', include('mypage.urls')),
     path('history/', include('history.urls')),
