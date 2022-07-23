@@ -21,6 +21,9 @@ import todotodo.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', todotodo.views.index, name='index'),
-    path('todo/', include('todotodo.urls')),
+    path('todo/', include('todotodo.urls')), 
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('social_accounts/', include('allauth.urls')),
+
 ]
 

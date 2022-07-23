@@ -48,11 +48,15 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'sass_processor',
     'todotodo',
+    'accounts.apps.AccountsConfig',
 
     #allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
+    #provider
+    'allauth.socialaccount.providers.kakao',
 ]
 
 MIDDLEWARE = [
@@ -146,8 +150,8 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-LOGIN_REDIRECT_URL = ""
-LOGOUT_REDIRECT_URL = ""
+LOGIN_REDIRECT_URL = "/todo/"
+LOGOUT_REDIRECT_URL = "/todo/"
 
 SITE_ID = 1
 
