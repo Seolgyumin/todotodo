@@ -70,6 +70,29 @@
                 <p>{{ friend.name }}에게 투두 보내기</p>
                 <button>📨 투두 보내기</button>
             </div>
+            <div class="request-modal">
+                <p>투두 보내기</p>
+                <div id = "todo-title">
+                    <p>부탁할 투두에 제목을 붙여 주세요.*</p>
+                    <input name="todo-title" type="text" value="" placeholder="ex. 방 청소하기">
+                </div>
+                <div id="todo-message">
+                    <p>간단한 메시지도 덧붙여 보세요.</p>
+                    <input name="todo-title" type="text" value="" placeholder="ex. 방 청소하기">
+                </div>
+                <div id="deadline-setting">
+                    <p>정해진 데드라인이 있어요.<input type="checkbox" name="deadline-option" value=""></p>
+                </div>
+                <div class="deadline-modal"> {% comment %} 숨겨져 있는 modal, 체크 시에 아래에서 연결되어 올라옴{% endcomment %}
+                    <p>
+                    <input name="deadline-year" type="number" value="" placeholder="ex. 2032. 01. 01" maxlength="4">
+                    <input id="deadline-month" type="number" value="" maxlength="2"> {% comment %} 숨겨져 있는 input 창 {% endcomment %}
+                    <input id="deadline-date" type="number" value="" maxlength="2"> {% comment %} 숨겨져 있는 input 창 {% endcomment %}
+                    까지
+                    </p>
+                </div>
+            </div>
+
             {% comment %} 여기까지 {% endcomment %}
             <div class="category-container">
                 <div class="category-name">
