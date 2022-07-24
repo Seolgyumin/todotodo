@@ -48,6 +48,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'sass_processor',
     'todotodo',
+    'tutorial',
+    'mypage',
+    'history',
+    'alertcenter',
     'accounts.apps.AccountsConfig',
 
     #allauth

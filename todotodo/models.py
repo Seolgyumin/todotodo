@@ -6,8 +6,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 class Friendship(models.Model):
-    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_sender') #sender
-    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_receiver') #receiver
+    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_sender')
+    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_receiver')
     created_at = models.DateTimeField(default=timezone.now)
 
 class Persona(models.Model):
@@ -18,10 +18,9 @@ class Persona(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
 class FriendshipRequest(models.Model):
-    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_request_sender') #sender
-    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_request_receiver') #receiver
-    persona1_ids = models.ManyToManyField(Persona, related_name='sender_persona_open') #sender's open persona list
-    persona2_ids = models.ManyToManyField(Persona, related_name='receiver_persona_open') #receiver's open persona list
+    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_request_sender')
+    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_request_receiver')
+    persona1_ids = models.JSONField(default=dict) #sender's open persona list
     created_at = models.DateTimeField(default=timezone.now)
 
 class PersonaPermission(models.Model):
