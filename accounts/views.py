@@ -1,6 +1,3 @@
-def index():
-    return
-
 def signup():
     return
 
