@@ -138,4 +138,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SASS_PROCESSOR_ENABLED =  True
-SASS_PROCESSOR_ROOT =  os.path.join(BASE_DIR, 'blogPosts', 'static')
+SASS_PROCESSOR_ROOT =  os.path.join(BASE_DIR, 'todotodo', 'static')
+
+# color들 여기에 추가하기
+
+# request status 상태값 variables 여기에 정의하기
