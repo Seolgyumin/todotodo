@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Page</title>
+</head>
+<body>
+    <h1>{{ user.get_username }}님,
+    <br> 안녕하세요 </h1>
+    <str>친구 {{ friend.set.count }}명</str>
+    {% for friend in friends %}
+        <div id="friends-container">
+            <a href="/{{ friend.id }}/">
+            <img src="" id="{{ friend.id }}-photo"/>
+            </a>
+            <br> {{ friend.name }}
+        </div>
+    {% endfor %}
+    {% for persona in personas %}
+        <div id="personas-container">
+            <img src="" id="{{ persona.id }}-photo"/>
+            <br> {{ persona.name }}
+            </a>
+            <button> + </button>
+        </div>
+    {% endfor %}
+    {% for category in categories %}
+        <div id="categories-container">
+            <p>{{ category.name }}</p>
+            <button> + </button>
+        </div>
+    {% endfor %}
+</body>
+</html> 

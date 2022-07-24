@@ -1,3 +1,10 @@
+from django.shortcuts import render
+from todotodo.models import Persona
+
+def index(request):
+    personas = Persona.objects.all()
+    return render(request, 'mypage/index.html', {'personas': personas})
+
 def index():
     return
 
