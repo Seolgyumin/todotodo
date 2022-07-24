@@ -5,3 +5,6 @@ from .models import Persona
 def index(request):
     personas = Persona.objects.all()
     return render(request, 'todotodo/index.html', {'personas': personas})
+
+def send_todo():
+    return
