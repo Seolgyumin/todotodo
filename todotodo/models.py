@@ -7,8 +7,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 class Friendship(models.Model):
-    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE) #sender
-    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE) #receiver
+    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_sender')
+    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_receiver')
     created_at = models.DateTimeField(default=timezone.now)
 
 class Persona(models.Model):
@@ -19,15 +19,15 @@ class Persona(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
 class FriendshipRequest(models.Model):
-    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE) #sender
-    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE) #receiver
-    persona1_ids = ArrayField(models.ForeignKey(Persona, on_delete=CASCADE)) #sender's open persona list
-    persona2_ids = ArrayField(models.ForeignKey(Persona, on_delete=CASCADE)) #receiver's open persona list
+    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_request_sender')
+    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_request_receiver')
+    persona1_ids = models.JSONField(default=dict) #sender's open persona list
+    # persona2_ids = ArrayField(models.IntegerField()) #receiver's open persona list
     created_at = models.DateTimeField(default=timezone.now)
 
 class PersonaPermission(models.Model):
-    friendship_id = models.ForeignKey(Friendship, on_delete=CASCADE)
-    persona_id = models.ForeignKey(Persona, on_delete=CASCADE)
+    friendship_id = models.ForeignKey(Friendship, on_delete=models.CASCADE)
+    persona_id = models.ForeignKey(Persona, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
 
 class Category(models.Model):
@@ -42,14 +42,14 @@ class Todo(models.Model):
     name = models.CharField(max_length=256)
     start_date = models.DateField(timezone.now)
     end_date = models.DateField(null=True, blank=True)
-    sender_id = models.ForeignKey(User)
+    sender_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class TodoRequest(models.Model):
-    sender_id = models.ForeignKey(User, on_delete=CASCADE)
-    reciever_id = models.ForeignKey(User, on_delete=CASCADE)
+    sender_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todo_request_sender')
+    receiver_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todo_request_receiver')
     todo_name = models.CharField(max_length=256)
     todo_start_date = models.DateField(default=timezone.now)
     todo_end_date = models.DateField(null=True, blank=True)
-    todo_id = models.ForeignKey(Todo, null=True, blank=True)
-    status = models.IntegerField(MinValueValidator(0), MaxValueValidator(2))
+    todo_id = models.ForeignKey(Todo, null=True, blank=True, on_delete=models.CASCADE)
+    status = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(2)])
     
