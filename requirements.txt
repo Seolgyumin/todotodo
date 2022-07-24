@@ -3,7 +3,9 @@ Django==4.0.6
 django-appconf==1.0.5
 django-compressor==4.0
 django-sass-processor==1.2.1
+environ==1.0
 libsass==0.21.0
+python-dotenv==0.20.0
 rcssmin==1.1.0
 rjsmin==1.2.0
 six==1.16.0
