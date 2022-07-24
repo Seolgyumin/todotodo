@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
@@ -51,5 +50,5 @@ class TodoRequest(models.Model):
     todo_end_date = models.DateField(null=True, blank=True)
     todo_id = models.ForeignKey(Todo, null=True, blank=True, on_delete=models.CASCADE)
     status = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(2)])
+    message = models.TextField(null=True)
     created_at = models.DateTimeField(default=timezone.now)
-    
