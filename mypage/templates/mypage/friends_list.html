@@ -1,0 +1,41 @@
+{% extends 'todotodo/base.html' %}
+
+<!DOCTYPE html>
+<html>
+    {% block content %}
+    <head>
+        <meta charset='utf-8'>
+        <title>friend list</title>
+        {% load static %} {% load sass_tags %}
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% sass_src 'mypage/scss/friends_list.css' %}"
+        />
+    </head>
+    <body>
+        <div class="body-container">
+            <div class="inner-body-container">
+                <header>
+                    <button onclick="goBack()"> X </button>
+                </header>
+                <main>
+                    <h2>투두 친구들</h2>
+                    <div class="friend-container">
+                        <img src=""/>
+                        <div class="friend-profile">
+                            <span>{{ friend.name }}</span>
+                            <p>{{ friend.status }}</p>
+                        </div>
+                    </div>
+                </main>
+                <script>
+                    function goBack() {
+                        window.history.go(-1);
+                    }
+                </script>
+            </div>
+        </div>
+    </body>
+    {% endblock content %}
+</html>
