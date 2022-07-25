@@ -1,0 +1,51 @@
+@font-face {
+    font-family: "EarlyFontDiary";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_220508@1.0/EarlyFontDiary.woff2")
+        format("woff2");
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(209, 215, 221);
+}
+
+#landing-page {
+    height: 840px;
+    width: 500px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#landing-body {
+    height: 50%;
+    width: 100%;
+    margin-top: 230px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo {
+    height: 156px;
+    width: 156px;
+    background-color: #D9D9D9;
+    border-radius: 100%;
+    margin-bottom: 24px;
+}
+
+#kakao-button {
+    height: 69px;
+    width: 460px;
+    margin-bottom: 24px;
+    display: flex;
+    align-content: flex-end;
+}
