@@ -162,7 +162,7 @@ SITE_ID = 1
 ACCOUNT_LOGOUT_ON_GET = True
 
 # 소셜 로그인 버튼 눌렀을 때 확인 페이지 스킵
-SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_LOGIN_ON_GET = False
 
 # color들 여기에 추가하기
 

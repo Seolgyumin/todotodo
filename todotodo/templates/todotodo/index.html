@@ -16,12 +16,12 @@
   <body>
     <div id="landing-page">
       <div id="landing-body">
-        <div style=""></div>
+        <div id="logo">logo</div>
         <p>투두투두에 오신걸 환영해요! 🤪</p>
         <p>아래 버튼을 눌러 카카오로 시작하세요</p>
       </div>
       <div id="kakao-login-button">
-        <a href="{% provider_login_url 'kakao' method='oauth2' %}">
+        <a href="{% url 'kakao-login' %}">
           <img id="kakao-button" src="{% static 'todotodo/img/kakao_login_medium_wide.png' %}"/>
         </a>
       </div>

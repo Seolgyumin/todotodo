@@ -10,7 +10,7 @@ class Friendship(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
 class Persona(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=dict)
     name = models.CharField(max_length=256, default='')
     message = models.TextField()
     # emozi = 
@@ -43,9 +43,9 @@ class Todo(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
 class TodoRequest(models.Model):
-    sender_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todo_sender', default=1)
-    reciever_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todo_receiver', default=1)
-    todo_name = models.CharField(max_length=256, default='')
+    sender_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todo_sender', default=dict)
+    reciever_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todo_receiver', default=dict)
+    todo_name = models.CharField(max_length=256)
     todo_start_date = models.DateField(default=timezone.now)
     todo_end_date = models.DateField(null=True, blank=True)
     todo_id = models.ForeignKey(Todo, null=True, blank=True, on_delete=models.CASCADE)
