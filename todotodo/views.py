@@ -8,7 +8,7 @@ def index(request):
     return render(request, 'todotodo/index.html', {'personas': personas})
 
 def home(request):
-    return
+    return render(request, 'todotodo/home.html')
 
 def send_todo():
     return

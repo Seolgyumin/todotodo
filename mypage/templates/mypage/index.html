@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+{% load static %}
+
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -10,10 +13,13 @@
     <h1>{{ user.get_username }}님,
     <br> 안녕하세요 </h1>
     <str>친구 {{ friend.set.count }}명</str>
+    <a href="/todo/mypage/friends_list">
+    <img src="https://cdn1.vectorstock.com/i/1000x1000/88/85/right-arrow-icon-vector-21638885.jpg" height="20px" width="20px"/>
+    </a>
     {% for friend in friends %}
         <div id="friends-container">
-            <a href="/{{ friend.id }}/">
-            <img src="" id="{{ friend.id }}-photo"/>
+            <a href="/todo/home/">
+            <img src="https://cdn1.vectorstock.com/i/1000x1000/88/85/right-arrow-icon-vector-21638885.jpg" id="{{ friend.id }}-photo" height="20px" width="20px"/>
             </a>
             <br> {{ friend.name }}
         </div>
@@ -23,7 +29,7 @@
             <img src="" id="{{ persona.id }}-photo"/>
             <br> {{ persona.name }}
             </a>
-            <button> + </button>
+            <button id="add-persona-button"> + </button>
         </div>
     {% endfor %}
     {% for category in categories %}
@@ -32,5 +38,6 @@
             <button> + </button>
         </div>
     {% endfor %}
+    <script src="{% static 'mypage/js/mypage.js' %}"></script>
 </body>
 </html> 
