@@ -6,34 +6,6 @@
     font-style: normal;
 }
 
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(209, 215, 221);
-}
-
-#landing-page {
-    height: 840px;
-    width: 500px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
-#landing-body {
-    height: 50%;
-    width: 100%;
-    margin-top: 230px;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-}
-
 #logo {
     height: 156px;
     width: 156px;

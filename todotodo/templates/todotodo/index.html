@@ -1,7 +1,8 @@
-<!-- index.html -->
+{% extends 'todotodo/base.html' %}
 
 <!DOCTYPE html>
 <html>
+  {% block content %}
   <head>
     <meta charset='utf-8'>
     <title>snulion</title>
@@ -14,18 +15,18 @@
     />
   </head>
   <body>
-    <div id="landing-page">
-      <div id="landing-body">
+    <div class="body-container">
+      <div class="inner-body-container">
         <div id="logo">logo</div>
         <p>투두투두에 오신걸 환영해요! 🤪</p>
         <p>아래 버튼을 눌러 카카오로 시작하세요</p>
-      </div>
-      <div id="kakao-login-button">
-        <a href="{% url 'kakao-login' %}">
-          <img id="kakao-button" src="{% static 'todotodo/img/kakao_login_medium_wide.png' %}"/>
-        </a>
-      </div>
+        </div>
+        <div id="kakao-login-button">
+          <a href="{% url 'kakao-login' %}">
+            <img id="kakao-button" src="{% static 'todotodo/img/kakao_login_medium_wide.png' %}"/>
+          </a>
+        </div>
     </div>
-    
   </body>
+  {% endblock content %}
 </html>
