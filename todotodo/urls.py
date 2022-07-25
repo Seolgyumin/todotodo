@@ -5,9 +5,9 @@ from todotodo import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('home/', views.home, name='home'),
+    path('friend/<int:id>/', views.friend, name='friend'),
     path('accounts/', include('accounts.urls')),
     path('mypage/', include('mypage.urls')),
-    path('history/', include('history.urls')),
     path('alertcenter/', include('alertcenter.urls')),
-    path('send_todo/', views.send_todo),
+    path('history/', include('history.urls')),
 ]

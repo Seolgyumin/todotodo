@@ -19,19 +19,16 @@
                 {% for persona in personas %}
                     <p> 
                     <img src="" id="{{ persona.id }}-photo"/>
-                    <br> {{ persona.name }}
-                    <button> + </button>
+                    <br> {{ persona.name }} 
                     </p>
                 {% endfor %}
-                </div>
+            </div>
             </div>
             <div class="profile-container">
                 <div class="profile-photo">
                 </div>
                 <div class="profile-description">
                     <div class="persona-name">
-                        <h1>{{ user.get_username }}님</h1>
-                        <h2>{{user.message}}</h2> {%comment%} model에서 user message 정의 필요{%endcomment%}
                     </div>
                     <div class="persona-description">
                     </div>
@@ -102,3 +99,42 @@
         </footer>
     </body>
 </html>
+
+<div class="waiting-list-container">
+    <span>📩 대기 중!</span>
+    {% for todorequest in todorequests %}
+    <div class="waiting-todo-container">
+        <img src=""/>
+        <div class="waiting-todo-content">
+            <span>{{todorequest.todo_name}}</span>
+            <p>{{todorequest.sender_id}}•{{todorequest.todo_end_date}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="request-container">
+    <p>{{ friend.name }}에게 투두 보내기</p>
+    <button>📨 투두 보내기</button>
+</div>
+<div class="request-modal">
+    <p>투두 보내기</p>
+    <div id = "todo-title">
+        <p>부탁할 투두에 제목을 붙여 주세요.*</p>
+        <input name="todo-title" type="text" value="" placeholder="ex. 방 청소하기">
+    </div>
+    <div id="todo-message">
+        <p>간단한 메시지도 덧붙여 보세요.</p>
+        <input name="todo-title" type="text" value="" placeholder="ex. 방 청소하기">
+    </div>
+    <div id="deadline-setting">
+        <p>정해진 데드라인이 있어요.<input type="checkbox" name="deadline-option" value=""></p>
+    </div>
+    <div class="deadline-modal"> {% comment %} 숨겨져 있는 modal, 체크 시에 아래에서 연결되어 올라옴{% endcomment %}
+        <p>
+        <input name="deadline-year" type="number" value="" placeholder="ex. 2032. 01. 01" maxlength="4">
+        <input id="deadline-month" type="number" value="" maxlength="2"> {% comment %} 숨겨져 있는 input 창 {% endcomment %}
+        <input id="deadline-date" type="number" value="" maxlength="2"> {% comment %} 숨겨져 있는 input 창 {% endcomment %}
+        까지
+        </p>
+    </div>
+</div>

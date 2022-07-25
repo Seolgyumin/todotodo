@@ -16,3 +16,14 @@ def add_category():
 
 def add_friend():
     return
+
+class FriendView:
+    def delete():
+        return
+
+class FriendPersonaPermission:
+    def create():
+        return
+
+    def delete():
+        return
