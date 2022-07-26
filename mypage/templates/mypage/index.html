@@ -8,36 +8,79 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Page</title>
+    {% load static %} {% load sass_tags %} {% load socialaccount %}
+    {% providers_media_js %}
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="{% sass_src 'mypage/scss/index.css' %}"
+    />
 </head>
 <body>
-    <h1>{{ user.get_username }}님,
-    <br> 안녕하세요 </h1>
-    <str>친구 {{ friend.set.count }}명</str>
-    <a href="/todo/mypage/friends_list">
-    <img src="https://cdn1.vectorstock.com/i/1000x1000/88/85/right-arrow-icon-vector-21638885.jpg" height="20px" width="20px"/>
-    </a>
-    {% for friend in friends %}
+    <div id="mypage">
+        <h1>{{ user.get_username }}님,
+        <br> 안녕하세요 </h1>
+        
         <div id="friends-container">
-            <a href="/todo/home/">
-            <img src="https://cdn1.vectorstock.com/i/1000x1000/88/85/right-arrow-icon-vector-21638885.jpg" id="{{ friend.id }}-photo" height="20px" width="20px"/>
-            </a>
-            <br> {{ friend.name }}
+            <div id="friends-container-title">
+                <span class="container-title">친구 {{ friend.set.count }}00명</span>
+                <a href="/todo/mypage/friends_list">
+                    <img src="https://cdn1.vectorstock.com/i/1000x1000/88/85/right-arrow-icon-vector-21638885.jpg" height="20px" width="20px"/>
+                </a>
+            </div>
+            <div id="friend-list">
+                {% for friend in friends %}
+                    <div id="each-friend">
+                        <a href="/todo/home/">
+                            <img src="https://cdn1.vectorstock.com/i/1000x1000/88/85/right-arrow-icon-vector-21638885.jpg" id="{{ friend.id }}-photo" height="20px" width="20px"/>
+                        </a>
+                        <br> {{ friend.name }}
+                    </div>
+                {% endfor %}
+                <div id="each-friend-example">
+                    <div id="friend-img-example"></div>
+                    <span id="friend-name">어쩌구</span>
+                </div>
+            </div>
         </div>
-    {% endfor %}
-    {% for persona in personas %}
         <div id="personas-container">
-            <img src="" id="{{ persona.id }}-photo"/>
-            <br> {{ persona.name }}
-            </a>
-            <button id="add-persona-button"> + </button>
+            <div id="personas-container-title">
+                <span class="container-title">내 페르소나</span>
+            </div>
+            <div id="persona-list">
+                {% for persona in personas %}
+                    <div id="each-persona">
+                        <img src="" id="{{ persona.id }}-photo"/>
+                        <p>{{ persona.name }}</p>
+                    </div>
+                {% endfor %}
+                <div id="each-persona-example">
+                    <div id="persona-img-example"></div>
+                    <span id="persona-name">어쩌구</span>
+                </div>
+                <div id="add-persona-button" onclick=""> + </div>
+            </div>
         </div>
-    {% endfor %}
-    {% for category in categories %}
+
         <div id="categories-container">
-            <p>{{ category.name }}</p>
-            <button> + </button>
+            <div id="category-title">
+                <span class="container-title">내 투두카테고리</span>
+            </div>
+            <div id="category-list">
+                {% for category in categories %}
+                    <div class="each-category">{{ category.name }}</div>
+                {% endfor %}
+                <div class="each-category">
+                    <span class="category-name">Routine</span>
+                </div>
+                <div class="each-category"> + </div>
+            </div>
         </div>
-    {% endfor %}
+    </div>
+    <div id="modal-create-persona">
+    </div>
+    <div id="modal-add-todo">
+    </div>
     <script src="{% static 'mypage/js/mypage.js' %}"></script>
 </body>
 </html> 

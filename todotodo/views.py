@@ -7,7 +7,6 @@ from django.views import View
 def index(request):
     return render(request, 'todotodo/index.html')
 
-
 def home(request):
     return render(request, 'todotodo/home.html')
 
