@@ -3,11 +3,17 @@
     <head>
         <meta charset='utf-8'>
         <title>snulion</title>
-        {% load static %} {% load sass_tags %}
+        {% load static %} {% load sass_tags %} {% load socialaccount %}
+        {% providers_media_js %}
         <link
             rel="stylesheet"
             type="text/css"
             href="{% sass_src 'todotodo/scss/base.css' %}"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% sass_src 'todotodo/scss/index.css' %}"
         />
         {% block style %}
         {% endblock style %}
@@ -16,13 +22,6 @@
         {% endblock js %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
         <script src="{% static 'todotodo/js/base2.js' %}"></script>
-        {% comment %} {% load socialaccount %} {% endcomment %}
-        {% comment %} {% providers_media_js %} {% endcomment %}
-        <link
-        rel="stylesheet"
-        type="text/css"
-        href="{% sass_src 'todotodo/scss/index.css' %}"
-        />
     </head>
     {% block content %}
     {% endblock %}

@@ -45,13 +45,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'sass_processor',
     'todotodo',
-    'accounts',
     'tutorial',
     'mypage',
     'history',
     'alertcenter',
+    'accounts.apps.AccountsConfig',
+
+    #allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    #provider
+    'allauth.socialaccount.providers.kakao',
 ]
 
 MIDDLEWARE = [
@@ -138,8 +147,27 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SASS_PROCESSOR_ENABLED =  True
-SASS_PROCESSOR_ROOT =  os.path.join(BASE_DIR, 'todotodo', 'static')
+SASS_PROCESSOR_ROOT =  os.path.join(BASE_DIR, 'static')
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+LOGIN_REDIRECT_URL = "/todo/"
+LOGOUT_REDIRECT_URL = "/todo/"
+
+SITE_ID = 1
+
+ACCOUNT_LOGOUT_ON_GET = True
+
+# 소셜 로그인 버튼 눌렀을 때 확인 페이지 스킵
+SOCIALACCOUNT_LOGIN_ON_GET = False
 
 # color들 여기에 추가하기
 
 # request status 상태값 variables 여기에 정의하기
+
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR, 'accounts', 'static')
+] #static 파일들이 어디에 있는지를 쓰는곳

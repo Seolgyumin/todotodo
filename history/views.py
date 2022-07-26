@@ -1,5 +1,7 @@
-def index():
-    return
+from django.shortcuts import render
 
-def chat():
-    return
+def index(request):
+    return render(request, 'history/history.html')
+
+def chat_index(request):
+    return render(request, 'history/chat.html')

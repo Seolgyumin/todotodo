@@ -7,9 +7,7 @@ from datetime import date
 import calendar as cd
 import json
 
-
 # Create your views here.
-
 def index(request):
     return render(request, 'todotodo/index.html')
 

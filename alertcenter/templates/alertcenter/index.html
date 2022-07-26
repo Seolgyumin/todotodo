@@ -1,0 +1,46 @@
+{% extends 'todotodo/base.html' %}
+
+<!DOCTYPE html>
+<html>
+    {% block content %}
+
+    <head>
+        <meta charset='utf-8'>
+        <title>snulion</title>
+        {% load static %} {% load sass_tags %} {% load socialaccount %}
+        {% providers_media_js %}
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% sass_src 'alertcenter/scss/index.css' %}"
+        />
+    </head>
+    <body>
+        <div class="body-container">
+            <div class="inner-body-container">
+                <header>
+                    <button onclick="goBack()"> X </button>
+                    <h2>투두 알림</h2>
+                </header>
+                <main>
+                {% for alert in alerts %}
+                    <div class="todo-alert-container">
+                        <img src=""/>
+                        <div class="todo-content-container">
+                            <span>{{ friend.name }}님이 {{ sent.todo.content }} 투두를 {{ sent.todo.status }}했어요</span>
+                            <p>함께한 투두 목록에서 확인하세요.</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                </main>
+            </div>
+        </div>
+    </body>
+    <script>
+        function goBack() {
+            window.history.go(-1);
+        }
+    </script>
+
+    {% endblock content%}
+</html>

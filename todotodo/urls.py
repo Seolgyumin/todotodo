@@ -2,6 +2,7 @@ from django.urls import path
 from django.conf.urls import include
 from todotodo import views
 
+app_name = "todo"
 urlpatterns = [
     path('', views.index, name='index'),
     path('home/<int:id>/', views.home, name='home'),
