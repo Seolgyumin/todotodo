@@ -100,4 +100,3 @@ class TodoView:
         todo = Todo.objects.get(id=id)
         todo.update(name=request.POST['name'], end_date=request.POST['end_date'])
         return JsonResponse({'updateTodoName':todo.name, 'updateTodoEndDate':todo.end_date})
-

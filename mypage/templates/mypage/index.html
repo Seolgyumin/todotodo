@@ -1,6 +1,9 @@
 {% extends 'todotodo/base.html' %}
 
 <!DOCTYPE html>
+
+{% load static %}
+
 <html lang="ko">
     {% block content %}
     <head>
@@ -8,7 +11,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>My Page</title>
-        {% load static %} {% load sass_tags %}
+        {% load static %} {% load sass_tags %} {% load socialaccount %}
+        {% providers_media_js %}
         <link
             rel="stylesheet"
             type="text/css"
@@ -16,35 +20,113 @@
         />
     </head>
     <body>
-        <div class="body-container">
-            <div class="inner-body-container">
-                <h1>{{ user.get_username }}님,
-                <br> 안녕하세요 </h1>
-                <str>친구 {{ friend.set.count }}명</str>
-                {% for friend in friends %}
-                    <div id="friends-container">
-                        <a href="/{{ friend.id }}/">
-                        <img src="" id="{{ friend.id }}-photo"/>
-                        </a>
-                        <br> {{ friend.name }}
+        <div class="body-container" id="main-container">
+            <h1>
+                {{ user.get_username }}님,<br> 안녕하세요 
+            </h1>
+            
+            <div id="friends-container">
+                <div id="friends-container-title">
+                    <span class="container-title">친구 {{ friend.set.count }}00명</span>
+                    <a href="/todo/mypage/friends_list">
+                        <img src="{% static 'mypage/img/arrow_back_friends_details.svg'%}"/>
+                    </a>
+                </div>
+                <div id="friend-list">
+                    {% for friend in friends %}
+                        <div id="each-friend">
+                            <a href="/todo/home/">
+                                <img src="https://cdn1.vectorstock.com/i/1000x1000/88/85/right-arrow-icon-vector-21638885.jpg" id="{{ friend.id }}-photo" height="20px" width="20px"/>
+                            </a>
+                            <br> {{ friend.name }}
+                        </div>
+                    {% endfor %}
+                    <div id="each-friend-example">
+                        <div id="friend-img-example"></div>
+                        <span id="friend-name">어쩌구</span>
                     </div>
-                {% endfor %}
-                {% for persona in personas %}
-                    <div id="personas-container">
-                        <img src="" id="{{ persona.id }}-photo"/>
-                        <br> {{ persona.name }}
-                        </a>
-                        <button> + </button>
+                </div>
+            </div>
+            <div id="my-info-container">
+                <span class="container-title">나의 투두투두</span>
+                <div id="my-info">
+                    <div id="new-info" onclick="showAddPersonaModal()">
+                        <div id="new-info-inner">
+                            <img id="new-persona-img" src="{% static 'mypage/img/create_new_persona.svg' %}" />
+                            <span>새 페르소나</span>
+                        </div>
                     </div>
-                {% endfor %}
-                {% for category in categories %}
-                    <div id="categories-container">
-                        <p>{{ category.name }}</p>
-                        <button> + </button>
+                    <div id="persona-list">
+                        <div class="each-persona" id="each-persona-example" onclick="showUpdatePersonaModal()">
+                            <div id="persona-img-example"></div>
+                            <span id="persona-name">어쩌구</span>
+                            <img src="{% static 'mypage/img/arrow_back_persona_details.svg'%}" />
+                        </div>
+                        <div id="category-list">
+                            <div class="each-category">
+                                <span class="category-name">Routine</span>
+                            </div>
+                            <div class="each-category" id="add-category-button" onclick="showAddCategoryModal()"> + </div>
+                        </div>
+                    {% for persona in personas %}
+                        <div class="each-persona" id="each-persona-{{ persona.id }}" onclick="showUpdatePersonaModal()">
+                            <img src="" id="{{ persona.id }}-photo"/>
+                            <div>
+                                <span id="persona-{{ persona.id }}-name">{{ persona.name }}</span>
+                                <img src="{% static 'mypage/img/arrow_back_persona_details.svg'%}" />
+                            </div>
+                            <div id="category-list">
+                                {% for category in categories %}
+                                    <div class="each-category">{{ category.name }}</div>
+                                {% endfor %}
+                                <div class="each-category">
+                                    <span class="category-name">Routine</span>
+                                </div>
+                                <div class="each-category" id="add-category-button" onclick="showAddCategoryModal()"> + </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                     </div>
-                {% endfor %}
+                </div>
+            </div>
+            <div class="mypage-modal hide" id="add-persona-modal">
+                <div class="background-space" onclick="hideAddPersonaModal()"></div>
+                <div id="inner-add-persona-modal">
+                    <div class="modal-top">
+                        <span>새 페르소나</span>
+                        <div class="modal-complete">
+                            <img src="{% static 'mypage/img/complete_check.svg'%}" />
+                            <span>완료</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mypage-modal hide" id="update-persona-modal">
+                <div class="background-space" onclick="hideUpdatePersonaModal()"></div>
+                <div id="inner-update-persona-modal">
+                    <div class="modal-top">
+                        <span>수정할 이름</span>
+                        <div class="modal-complete">
+                            <img src="{% static 'mypage/img/complete_check.svg'%}" />
+                            <span>완료</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mypage-modal hide" id="add-category-modal">
+                <div class="background-space" onclick="hideCategoryModal()"></div>
+                <div id="inner-add-category-modal">
+                    <div class="modal-top">
+                        <span>새 카테고리</span>
+                        <div class="modal-complete">
+                            <img src="{% static 'mypage/img/complete_check.svg'%}" />
+                            <span>완료</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    {% endblock content%}
-</body>
+        <script src="{% static 'mypage/js/mypage.js' %}"></script>
+    </body>
+{% endblock content%}
 </html> 

@@ -29,6 +29,6 @@ urlpatterns = [
     path('accounts/kakao-login/', accounts.views.kakao_login, name='kakao-login'),
     path('accounts/signin/kakao/callback/', accounts.views.kakao_callback, name='kakao-callback'),
     path('social_accounts/', include('allauth.urls')),
-
+    
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
