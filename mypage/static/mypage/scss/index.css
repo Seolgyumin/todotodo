@@ -1,7 +1,16 @@
+#main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+    z-index: 1;
+}
 
 #friends-container {
     height: 109px;
     width: 100%;
+    margin-bottom: 32.26px;
     padding-left: 20px;
     padding-right: 20px;
     display: flex;
@@ -14,6 +23,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
 }
 
 .container-title {
@@ -56,6 +66,40 @@
     background-color: #F4F4F4;
 }
 
+#my-info-container {
+    height: fit-content;
+    width: fit-content;
+    margin-inline: 20px;
+}
+
+#new-info {
+    height: 48px;
+    width: 133px;
+    margin-top: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #F5F5F5;
+    border-radius: 12px;
+}
+#new-info-inner{
+    margin: 8px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+#new-info-inner span {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 19px;
+    color: #626262'
+}
+
 #personas-container {
     height: 128px;
     width: 100%;
@@ -67,14 +111,21 @@
     justify-content: space-between;
 }
 #persona-list {
-    height: 91px;
-    width: 100%;
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+.each-persona {
+    margin-bottom: 12.26px;
     display: flex;
     flex-direction: row;
-
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
 }
 
-#each-persona-example {
+/* #each-persona-example {
     height: 91px;
     width: 64px;
     display: flex;
@@ -82,7 +133,7 @@
     justify-content: space-between;
     align-content: center;
     margin-right: 10px;
-}
+} */
 #persona-name {
     font-size: 14px;
     font-weight: 500;
@@ -93,8 +144,8 @@
 }
 
 #persona-img-example {
-    height: 64px;
-    width: 64px;
+    height: 32px;
+    width: 32px;
     border-radius: 100%;
     background-color: #F4F4F4;
 }
@@ -107,6 +158,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 #categories-container {
@@ -145,9 +197,101 @@
     align-items: center;
 }
 
+#add-category-button {
+    cursor: pointer;
+}
+
 .category-name {
     font-size: 16px;
     font-weight: 600;
     line-height: 19px;
     color: #515151;
+}
+
+.mypage-modal {
+    height: 840px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0,0,0,0.2);
+    position: absolute;
+}
+
+.mypage-modal.hide {
+    display: none;
+}
+
+#add-persona-modal {
+    z-index: 2;
+}
+
+#inner-add-persona-modal {
+    height: 398px;
+    width: 500px;
+    background-color: #FFFFFF;
+    border-radius: 28px 28px 0px 0px;
+}
+
+#update-persona-modal {
+    z-index: 3;
+}
+
+#inner-update-persona-modal {
+    height: 398px;
+    width: 500px;
+    background-color: #FFFFFF;
+    border-radius: 28px 28px 0px 0px;
+}
+
+#add-category-modal {
+    z-index: 4;
+}
+
+#inner-add-category-modal {
+    height: 398px;
+    width: 500px;
+    background-color: #FFFFFF;
+    border-radius: 28px 28px 0px 0px;
+}
+
+.background-space {
+    height: 442px;
+    width: 500px;
+}
+
+.modal-top {
+    height: 39px;
+    width: 436px;
+    margin-inline: 32px;
+    margin-top: 38px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-top span {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 150%;
+    color: #282828;
+}
+
+.modal-complete {
+    height: 24px;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+}
+.modal-complete span {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    color: rgba(233, 127, 29, 0.4);
 }
