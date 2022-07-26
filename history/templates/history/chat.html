@@ -1,44 +1,58 @@
+{% extends 'todotodo/base.html'%}
+
 <!DOCTYPE html>
 <html>
+    {% block content %}
     <head>
         <meta charset='utf-8'>
         <title>chat</title>
+        {% load static %} {% load sass_tags %}
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% sass_src 'history/scss/chat.css' %}"
+        />
     </head>
     <body>
-        <header>
-            <img src=""/>
-            <span>{{ friend.name }}</span>
-        </header>
-        <main>
-            <span>{{ todo.date }}</span>
-            <div class="my-chat">
-                <span>{{ request.time }}</span>
-                <div class="request-todo-container">
-                    <div class="my-todo-name-container">
-                        <span>{{ request.todo.content }}</span>
-                        <img src=""/>
+        <div class="body-container">
+            <div class="inner-body-container">
+                <header>
+                    <img src=""/>
+                    <span>{{ friend.name }}</span>
+                </header>
+                <main>
+                    <span>{{ todo.date }}</span>
+                    <div class="my-chat">
+                        <span>{{ request.time }}</span>
+                        <div class="request-todo-container">
+                            <div class="my-todo-name-container">
+                                <span>{{ request.todo.content }}</span>
+                                <img src=""/>
+                            </div>
+                            <span>{{ request.todo.message }}</span>
+                            <p>{{ request.todo.deadline }}</p>
+                            <hr>
+                            <p>{{ request.todo.status }}</p>
+                        </div>
                     </div>
-                    <span>{{ request.todo.message }}</span>
-                    <p>{{ request.todo.deadline }}</p>
-                    <hr>
-                    <p>{{ request.todo.status }}</p>
-                </div>
-            </div>
-            <div class="friend-chat">
-                <img src="">
-                {% comment %} 친구 사진 {% endcomment %}
-                <div class="sent-todo-container">
-                    <div class="friend-todo-name-container">
-                        <span>{{ sent.todo.content }}</span>
-                        <img src=""/>
+                    <div class="friend-chat">
+                        <img src="">
+                        {% comment %} 친구 사진 {% endcomment %}
+                        <div class="sent-todo-container">
+                            <div class="friend-todo-name-container">
+                                <span>{{ sent.todo.content }}</span>
+                                <img src=""/>
+                            </div>
+                            <span>{{ sent.todo.message }}</span>
+                            <p>{{ sent.todo.deadline }}</p>
+                            <hr>
+                            <p>{{ sent.todo.status }}</p>
+                        </div>
+                        <span>{{ sent.time }}</span>
                     </div>
-                    <span>{{ sent.todo.message }}</span>
-                    <p>{{ sent.todo.deadline }}</p>
-                    <hr>
-                    <p>{{ sent.todo.status }}</p>
-                </div>
-                <span>{{ sent.time }}</span>
+                </main>
             </div>
-        </main>
+        </div>
     </body>
+    {% endblock content %}
 </html>

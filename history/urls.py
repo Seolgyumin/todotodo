@@ -3,4 +3,5 @@ from history import views
 
 urlpatterns = [
     path('', views.index, name='history_index'),
+    path('chat/', views.chat_index),
 ]

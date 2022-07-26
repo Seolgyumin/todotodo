@@ -5,31 +5,35 @@
     {% block content %}
     <head>
         <meta charset='utf-8'>
-        <title>history</title>
+        <title>friend list</title>
         {% load static %} {% load sass_tags %}
         <link
             rel="stylesheet"
             type="text/css"
-            href="{% sass_src 'history/scss/history.css' %}"
+            href="{% sass_src 'mypage/scss/friends_list.css' %}"
         />
     </head>
     <body>
         <div class="body-container">
             <div class="inner-body-container">
                 <header>
-                    <button> X </button>
-                    <h2>함께한 투두</h2>
+                    <button onclick="goBack()"> X </button>
                 </header>
                 <main>
-                    <div class="friend-list-container">
+                    <h2>투두 친구들</h2>
+                    <div class="friend-container">
                         <img src=""/>
-                        <div class="friend-description">
+                        <div class="friend-profile">
                             <span>{{ friend.name }}</span>
-                            <p>{{sent.todo.content}}</p>
+                            <p>{{ friend.status }}</p>
                         </div>
-                        <span>{{ sent.date }}</span>
                     </div>
                 </main>
+                <script>
+                    function goBack() {
+                        window.history.go(-1);
+                    }
+                </script>
             </div>
         </div>
     </body>
