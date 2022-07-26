@@ -12,12 +12,17 @@ def kakao_login(request):
     kakao_auth_api = 'https://kauth.kakao.com/oauth/authorize?'
     return redirect(f'{kakao_auth_api}client_id={client_id}&redirect_uri={redirect_uri}&response_type=code')
 
+def kakao_callback(request):
+    return redirect('/accounts/signin')
 
 def signin(request):
     if request.user.is_authenticated:
         return render(request, 'accounts/signin.html')
     else:
         return render(request, 'accounts/signin.html')
+
+def congrats(request):
+    return render(request, 'accounts/congrats.html')
 
 def login():
     return

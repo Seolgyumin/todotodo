@@ -65,6 +65,7 @@ class Migration(migrations.Migration):
                 ('todo_start_date', models.DateField(default=django.utils.timezone.now)),
                 ('todo_end_date', models.DateField(blank=True, null=True)),
                 ('status', models.IntegerField(validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(2)])),
+                ('message', models.TextField(null=True)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
                 ('reciever_id', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='todo_receiver', to=settings.AUTH_USER_MODEL)),
                 ('sender_id', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='todo_sender', to=settings.AUTH_USER_MODEL)),

@@ -1,0 +1,22 @@
+{% extends 'todotodo/base.html' %}
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+    {% block content %}
+
+    <head>
+        <meta charset='utf-8'>
+        <title>snulion</title>
+        {% load static %} {% load sass_tags %}
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% sass_src 'accounts/scss/congrats.css' %}"
+        />
+    </head>
+    <body>
+        <span>축하합니다!🥳</span>
+    </body>
+    {% endblock content %}
+</html>

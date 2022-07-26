@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>home</title>
+    </head>
+    <body>
+        <header>
+            {% comment %} 내 메인페이지와 친구 페이지 따로 만들어둠  {% endcomment %}
+            <div class="header-my">
+            </div>
+            <div class="header-friend">
+            </div>
+            {% comment %} 여기까지 {% endcomment %}
+        </header>
+        <main>
+            <div class="persona-container">
+                <div id="personas-container">
+                {% for persona in personas %}
+                    <p> 
+                    <img src="" id="{{ persona.id }}-photo"/>
+                    <br> {{ persona.name }} 
+                    </p>
+                {% endfor %}
+            </div>
+            </div>
+            <div class="profile-container">
+                <div class="profile-photo">
+                </div>
+                <div class="profile-description">
+                    <div class="persona-name">
+                    </div>
+                    <div class="persona-description">
+                    </div>
+                </div>
+            </div>
+            <div class="calender-contatiner">
+                <div class="calendar-selection">
+                    <span id="current-month">
+                    <script>
+                        date = new Date();
+                        year = date.getFullYear();
+                        month = date.getMonth() + 1;  
+                        document.getElementById("current_month").innerHTML = month "월"  
+                    </script>
+                    </span> 
+                    <p>weekly</p>
+                    <p>monthly</p>
+                    <a href="">
+                        <img src=""/>
+                    </a>
+                    <a href="">
+                        <img src=""/>
+                    </a>
+                </div>
+                <div class="week-day">
+                    <ul>
+                        <li>M</li>
+                        <li>T</li>
+                        <li>W</li>
+                        <li>T</li>
+                        <li>F</li>
+                        <li>S</li>
+                        <li>S</li>
+                    </ul>
+                </div>
+                <div class="week-date">
+                    <ul>
+                        {% comment %} <li></li> 주차에 따라 다른 요일을 어떻게 적지  {% endcomment %}
+                    </ul>
+                </div>
+            </div>
+            {% comment %} 내 메인페이지/친구 페이지에 따라 뜨는 내용 달라짐  {% endcomment %}
+
+
+            {% comment %} 여기까지 {% endcomment %}
+            <div class="category-container">
+                {% for category in categories %}
+                <div class="category-name">
+                    <span>{{ category.name }}</span>
+                </div>
+                <div class="{{category.name}}-todo-list">
+                {% for todo in todos[str({{category.name}})] %}
+                <div class="category-content">
+                    {% comment %}  checkbox {% endcomment %}
+                    <span>{{ todo.name }}</span>
+                </div>
+                {%endfor%}
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+        <footer>
+            <button>home</button>
+            <button>my</button>
+        </footer>
+    </body>
+</html>
+
+<div class="waiting-list-container">
+    <span>📩 대기 중!</span>
+    {% for todorequest in todorequests %}
+    <div class="waiting-todo-container">
+        <img src=""/>
+        <div class="waiting-todo-content">
+            <span>{{todorequest.todo_name}}</span>
+            <p>{{todorequest.sender_id}}•{{todorequest.todo_end_date}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="request-container">
+    <p>{{ friend.name }}에게 투두 보내기</p>
+    <button>📨 투두 보내기</button>
+</div>
+<div class="request-modal">
+    <p>투두 보내기</p>
+    <div id = "todo-title">
+        <p>부탁할 투두에 제목을 붙여 주세요.*</p>
+        <input name="todo-title" type="text" value="" placeholder="ex. 방 청소하기">
+    </div>
+    <div id="todo-message">
+        <p>간단한 메시지도 덧붙여 보세요.</p>
+        <input name="todo-title" type="text" value="" placeholder="ex. 방 청소하기">
+    </div>
+    <div id="deadline-setting">
+        <p>정해진 데드라인이 있어요.<input type="checkbox" name="deadline-option" value=""></p>
+    </div>
+    <div class="deadline-modal"> {% comment %} 숨겨져 있는 modal, 체크 시에 아래에서 연결되어 올라옴{% endcomment %}
+        <p>
+        <input name="deadline-year" type="number" value="" placeholder="ex. 2032. 01. 01" maxlength="4">
+        <input id="deadline-month" type="number" value="" maxlength="2"> {% comment %} 숨겨져 있는 input 창 {% endcomment %}
+        <input id="deadline-date" type="number" value="" maxlength="2"> {% comment %} 숨겨져 있는 input 창 {% endcomment %}
+        까지
+        </p>
+    </div>
+</div>
