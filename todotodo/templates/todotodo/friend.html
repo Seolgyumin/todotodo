@@ -76,20 +76,17 @@
             {% comment %} 여기까지 {% endcomment %}
             <div class="category-container">
                 {% for category in categories %}
-                {% if category.persona_id = persona.id %}
                 <div class="category-name">
                     <span>{{ category.name }}</span>
-                    <button> + </button>
                 </div>
-                {%for todo in todos%}
-                {% if todo.category_id = category.id %}
+                <div class="{{category.name}}-todo-list">
+                {% for todo in todos[str({{category.name}})] %}
                 <div class="category-content">
-                    <img src=""/>
+                    {% comment %}  checkbox {% endcomment %}
                     <span>{{ todo.name }}</span>
                 </div>
-                {%endif%}
-                {%endif%}
                 {%endfor%}
+                </div>
                 {% endfor %}
             </div>
         </main>

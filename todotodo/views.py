@@ -1,39 +1,53 @@
-from re import L
+from re import I, L
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .models import Persona, TodoRequest, User, Category, Todo, Friendship, PersonaPermission
 from django.utils import timezone
-
+from datetime import date
+import calendar as cd
 import json
+
 
 # Create your views here.
 
 def index(request):
     return render(request, 'todotodo/index.html')
 
-def home(request):
+def home(request, id):
     personas = request.user.persona_set.all()
-    todorequests = TodoRequest.objects.filter(receiver=request.user)
-    persona = Persona.objects.get(id=request.user.id)
+    todorequests = TodoRequest.objects.filter(receiver_id=request.user)
+    #이거 todorequest 불러오는거 request.user를 receiver로 설정해야한느데..
+    persona = Persona.objects.get(id=id)
     categories= persona.category_set.all()
-    todos = []
+    todos = dict()
     for category in categories:
-        todos.append(list(category.todo_set.all()))
-    return render(request, 'todotodo/home.html', {'personas': personas}, {'todorequests':todorequests}, {'categories':categories}, {'todos':todos})
+        todos[str(category.name)]=category.todo_set.all()
+    today=date.today()
+    c=cd.Calendar(firstweekday=1)
+    monthcal=[]
+    weekcal=[]
+    for i in c.monthdayscalendar(today.year,today.month):
+        if today.day in i:
+            weekcal = i
+        monthcal.append(i)
+    #personaid도 같이 render
+    return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona})
 # user_id, persona_id, my persona list, 날짜 정보, todo 및 카테고리
 
 def friend(request, id, pid):
-    friend_id = User.objects.get(id=id)
-    friendship = Friendship.objects.get(friend1_id=friend_id, friend2_id=request.user.id) 
+    friend_id = User.objects.get(id=id).id
+    friendship1 = Friendship.objects.filter(friend1_id=friend_id, friend2_id=request.user.id)
+    friendship2 = Friendship.objects.filter(friend2_id=friend_id, friend1_id=request.user.id)
     #이거 역순도 고려해야함..
+    friendship = friendship2 if friendship1 else friendship1
     personapermissions = friendship.personapermission_set.all()
     personas = Persona.objects.filter(personapermissions)
     persona = Persona.objects.get(id=pid)
     categories= persona.category_set.all()
-    todos = []
+    todos = dict()
     for category in categories:
-        todos.append(list(category.todo_set.all()))
-    return render(request,'todotodo/freind.html', {'friend_id':friend_id}, {'personas': personas}, {'categories':categories}, {'todos':todos})
+        todos[str(category.name)] = category.todo_set.all()
+    return render(request,'todotodo/freind.html', {'friend_id':friend_id, 'personas': personas, 'categories':categories, 'todos':sorted(todos.items())})
 
 
 
@@ -75,8 +89,9 @@ class TodoView:
     def create(request, id):
         end_date=request.POST['end_date']
         name=request.POST['name']
-        todo = Todo.objects.create(category_id=id, start_date=timezone.now(), end_date=end_date, name=name)
-        return JsonResponse({'todoId':todo.id, 'todoCreatedAt':todo.created_at, 'todoEndDate':todo.end_date})
+        category = Category.objects.get(id=id)
+        todo = Todo.objects.create(category_id=category, start_date=timezone.now(), end_date=end_date, name=name, sender_id=request.user)
+        return JsonResponse({'todoId':todo.id, 'todoEndDate':todo.end_date})
     
     def delete(request, id):
         todo = Todo.objects.get(id=id)
