@@ -9,13 +9,13 @@ body {
     height: 840px;
     width: 500px;
     background-color: white;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
 }
 
-.inner-body-container {
+/* .inner-body-container {
     height: 50%;
     width: 100%;
     margin-top: 230px;
@@ -24,4 +24,4 @@ body {
     align-content: center;
     justify-content: center;
     align-items: center;
-}
+} */

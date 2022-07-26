@@ -167,3 +167,7 @@ SOCIALACCOUNT_LOGIN_ON_GET = False
 # color들 여기에 추가하기
 
 # request status 상태값 variables 여기에 정의하기
+
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR, 'accounts', 'static')
+] #static 파일들이 어디에 있는지를 쓰는곳
