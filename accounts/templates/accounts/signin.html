@@ -1,6 +1,7 @@
 {% extends 'todotodo/base.html' %}
 
 <!DOCTYPE html>
+{% load static %}
 <html>
     {% block content %}
 
@@ -14,28 +15,48 @@
             type="text/css"
             href="{% sass_src 'accounts/scss/signin.css' %}"
         />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     </head>
     <body>
         <div class="body-container">
-            <div class="inner-body-container">
-                <div id="div-name">
-                    <p>투두투두에서 사용하실 닉네임을 정해주세요</p>
-                    <input id="input-name"></input>
-                    <button id="next-to-persona">다음</button>
-                </div>
-                <div id="div-persona">
-                    <p>~님의 첫 페르소나를 만들어주세요</p>
-                    <input id="input-persona-name" placeholder="여행하는 ~님"></input>
-                    <button id="next-to-emoji">다음</button>
-                </div>
-                <div id="div-imozi">
-                    <p>이모지로 ~하는 ~를 표현해보세요</p>
-                    <input id="input-emoji"></input>
-                    <button id="next-to-home">다음</button>
-                </div>
+            <div class="signin-inner">
+                <header>
+                    <span onclick='goBack()' style='cursor: pointer' class="material-symbols-outlined">close</span>
+                    <h2>환영해요!</h2>
+                </header>
+                <main>
+                    <div class="div-name">
+                        <p>뭐라고 불러 드릴까요?</p>
+                        <input class="input-box" id="input-name" placeholder="닉네임을 정해 보세요." onchange="moveOnToAddPersona()"></input>
+                    </div>
+                    <div class="div-persona hidden" id="div-persona">
+                        <p id="input-username" data-text="님, 멋진 페르소나를 만들어 보세요!"></p>
+                        <div class="first-persona-container">
+                            <input class="input-box" id="input-persona-name" placeholder="ex. 여행하는" onchange="moveOnToAddEmoji()"></input>
+                            <span id="span-username" data-text="님"></span>
+                        </div>
+                    </div>
+                    <div class="div-emoji hidden" id="div-emoji">
+                        <p>이제 페르소나에게 어울리는 모습을 골라 주세요!</p>
+                        <div id="select-emoji">
+                            <img src="https://www.techm.kr/news/photo/202107/86116_89524_203.png" id="select-emoji-img"/>
+                        </div>
+                        <div id="emoji-list">
+                            
+                        </div>
+                    </div>
+                    <a href="{% url 'accounts:congrats' %}">
+                    <button id="complete">🤪 완료!</button>
+                    </a>
+                </main>
+                <script>
+                    function goBack() {
+                        window.history.go(-1);
+                    }
+                </script>
             </div>
         </div>
     </body>
-
+    <script src="{% static 'accounts/js/signin.js' %}"></script>
     {% endblock content%}
 </html>
