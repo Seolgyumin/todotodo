@@ -1,27 +1,120 @@
 {% extends 'todotodo/base.html' %}
-
-<!DOCTYPE html>
-<html>
-    {% block content %}
-    <head>
-        <meta charset='utf-8'>
-        <title>home</title>
-        {% load static %} {% load sass_tags %}
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="{% sass_src 'todotodo/scss/home.css' %}"
-        />
-    </head>
+{% load static %}
+{% block js %}
+<script src="{% static 'todotodo/js/home.js' %}"></script>
+{% endblock js %}
+{% block content %}
     <body>
-        <div class="body-container">
-            <div class="inner-body-container">
-                <header>
-                    {% comment %} 내 메인페이지와 친구 페이지 따로 만들어둠  {% endcomment %}
-                    <div class="header-my">
+        <header>
+            <title>home</title>
+            {% comment %} 내 메인페이지와 친구 페이지 따로 만들어둠  {% endcomment %}
+            <div class="header-my">
+                <svg class="alerticon" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.7115 14.5233L21.2896 20.0571C21.4372 20.2047 21.511 20.3744 21.511 20.5663C21.511 20.7581 21.4372 20.9278 21.2896 21.0754C21.142 21.2229 20.9797 21.2967 20.8026 21.2967C20.6255 21.2967 20.4632 21.2229 20.3156 21.0754L14.6932 15.4972C14.5752 15.3497 14.4866 15.2021 14.4276 15.0545C14.3686 14.907 14.3391 14.7594 14.3391 14.6118V6.5988C14.3391 6.3922 14.4055 6.22988 14.5383 6.11182C14.6711 5.99377 14.8261 5.93474 15.0031 5.93474C15.2097 5.93474 15.3794 5.99377 15.5122 6.11182C15.6451 6.22988 15.7115 6.3922 15.7115 6.5988V14.5233ZM14.6932 28.9999C11.0925 28.9999 8.00096 27.8562 5.41849 25.5689C2.83603 23.2815 1.29392 20.3818 0.792187 16.8696C0.762673 16.663 0.799565 16.486 0.902864 16.3384C1.00616 16.1908 1.16111 16.1023 1.36771 16.0728C1.54479 16.0433 1.69974 16.0875 1.83255 16.2056C1.96536 16.3236 2.04653 16.4712 2.07604 16.6483C2.63681 19.8063 4.07561 22.4256 6.39245 24.5064C8.70929 26.5871 11.4762 27.6275 14.6932 27.6275C18.2939 27.6275 21.3412 26.3731 23.8352 23.8644C26.3291 21.3558 27.5761 18.3011 27.5761 14.7004C27.5761 11.1587 26.3217 8.16304 23.813 5.71338C21.3044 3.26373 18.2644 2.0389 14.6932 2.0389C12.8929 2.0389 11.1811 2.4152 9.55782 3.16781C7.93455 3.92041 6.50313 4.94602 5.26354 6.24463H8.84949C9.05608 6.24463 9.21841 6.31104 9.33646 6.44385C9.45452 6.57666 9.51355 6.73161 9.51355 6.9087C9.51355 7.11529 9.45452 7.285 9.33646 7.41781C9.21841 7.55062 9.05608 7.61703 8.84949 7.61703H4.06823C3.71406 7.61703 3.41893 7.49898 3.18281 7.26286C2.9467 7.02675 2.82865 6.73161 2.82865 6.37745V1.55192C2.82865 1.37484 2.89505 1.21989 3.02787 1.08708C3.16068 0.954265 3.31563 0.887858 3.49271 0.887858C3.69931 0.887858 3.86901 0.954265 4.00182 1.08708C4.13464 1.21989 4.20104 1.37484 4.20104 1.55192V5.35922C5.55868 3.91303 7.14506 2.76937 8.96016 1.92822C10.7753 1.08708 12.6863 0.666504 14.6932 0.666504C16.6707 0.666504 18.5153 1.03543 20.2271 1.77328C21.9389 2.51112 23.4441 3.52198 24.7427 4.80583C26.0413 6.08969 27.0596 7.58752 27.7974 9.29932C28.5353 11.0111 28.9042 12.841 28.9042 14.7889C28.9042 16.7368 28.5353 18.5815 27.7974 20.3228C27.0596 22.0641 26.0413 23.5693 24.7427 24.8384C23.4441 26.1075 21.9389 27.1183 20.2271 27.871C18.5153 28.6236 16.6707 28.9999 14.6932 28.9999Z" fill="#282828"/>
+                </svg>
+                <svg class="alerticon" width="26" height="32" viewBox="0 0 26 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.125 26.2085C0.958333 26.2085 0.8125 26.146 0.6875 26.021C0.5625 25.896 0.5 25.7502 0.5 25.5835C0.5 25.3891 0.5625 25.2293 0.6875 25.1043C0.8125 24.9793 0.958333 24.9168 1.125 24.9168H3.91667V11.9168C3.91667 9.80572 4.60417 7.87516 5.97917 6.12516C7.35417 4.37516 9.16667 3.30572 11.4167 2.91683V1.7085C11.4167 1.26405 11.5625 0.902941 11.8542 0.625163C12.1458 0.347385 12.5278 0.208496 13 0.208496C13.4722 0.208496 13.8542 0.347385 14.1458 0.625163C14.4375 0.902941 14.5833 1.26405 14.5833 1.7085V2.91683C16.8333 3.30572 18.6528 4.37516 20.0417 6.12516C21.4306 7.87516 22.125 9.80572 22.125 11.9168V24.9168H24.875C25.0417 24.9168 25.1875 24.9793 25.3125 25.1043C25.4375 25.2293 25.5 25.3891 25.5 25.5835C25.5 25.7779 25.4375 25.9307 25.3125 26.0418C25.1875 26.1529 25.0417 26.2085 24.875 26.2085H1.125ZM13 31.0418C12.2778 31.0418 11.6458 30.7849 11.1042 30.271C10.5625 29.7571 10.2917 29.1113 10.2917 28.3335H15.7083C15.7083 29.1113 15.4514 29.7571 14.9375 30.271C14.4236 30.7849 13.7778 31.0418 13 31.0418ZM5.16667 24.9168H20.8333V11.9168C20.8333 9.75016 20.0764 7.90294 18.5625 6.37516C17.0486 4.84738 15.2083 4.0835 13.0417 4.0835C10.8472 4.0835 8.98611 4.84738 7.45833 6.37516C5.93056 7.90294 5.16667 9.75016 5.16667 11.9168V24.9168Z" fill="#333333"/>
+                </svg>
+                        
+                    
+            </div>
+            {% comment %} 여기까지 {% endcomment %}
+        </header>
+        <main>
+            <div class="persona-container">
+                <div id="persona-list">
+                {% for persona in personas %}
+                    <p> 
+                    <img src="" id="{{ persona.id }}-photo"/>
+                    <br> {{ persona.name }}
+                    </p>
+                {% comment %} {% if {{persona}} = persona %} {% endcomment %}
+                {% endfor %}
+                <button id='persona-create-button' onclick='addPersona()'> + </button>
+                <div id='persona-create-modal' class='persona-create-modal'>
+                    {% comment %} 아무튼 페르소나 생성 모달 내용 {% endcomment %}
+                    <button id='persona-complete' onclick='hideModal()'>완료</button>
+                </div>
+                </div>
+            </div>
+            <div class="profile-container">
+                <div class="profile-photo">
+                </div>
+                <div class="profile-description">
+                    <div class="persona-name">
+                        <h1>{{ user.get_username }}님</h1>
+                        <h2>{{user.message}}</h2> {%comment%} model에서 user message 정의 필요{%endcomment%}
                     </div>
                     <div class="header-friend">
                     </div>
+                </div>
+            </div>
+            <div class="calender-contatiner">
+                <div class="calendar-selection">
+                    <span id="current-month">
+                    <script>
+                        date = new Date();
+                        year = date.getFullYear();
+                        month = date.getMonth() + 1;  
+                        document.getElementById("current-month").innerHTML=`${month}월`;
+                    </script>
+                    </span> 
+                    <span>weekly</span>
+                    <span>monthly</span>
+                    <a href="">
+                        <img src=""/>
+                    </a>
+                    <a href="">
+                        <img src=""/>
+                    </a>
+                </div>
+                <div class="week-day">
+                        <span>S</span>
+                        <span>M</span>
+                        <span>T</span>
+                        <span>W</span>
+                        <span>T</span>
+                        <span>F</span>
+                        <span>S</span>
+                </div>
+                <div class="week-date">
+
+                </div>
+            </div>
+            {% comment %} 내 메인페이지/친구 페이지에 따라 뜨는 내용 달라짐  {% endcomment %}
+
+
+            {% comment %} 여기까지 {% endcomment %}
+            <div class="category-container">
+                {% for category in categories %}
+                <div class="category-name">
+                    <span>{{ category.name }}</span>
+                    <button class="todo-create-button" onclick="showTodoInput('{{category.name}}', {{category.id}}, {{persona.id}})"> + </button>
+                </div>
+                <div id="{{category.name}}-todo-list">
+                {% comment %} <script type="text/javascript">
+                    function() {
+                        for (var todo in todos.items[`${category.name}}`]) {
+                            document.write('<input type="checkbox" /> <p>{{todo.name}}</p>');
+                        }
+                    }
+                </script> {% endcomment %}
+                <div id="{{category.name}}-input-container">
+                    <input class="todo-input" id="{{category.name}}-todo-input" type="text" />
+                    {% csrf_token %}
+                </div>
+                {% for key, value in todos %}
+                {% if key == category.name %}
+                {% for todo in value %}
+                <div class="{{todo.name}}-container">
+                    <img src=""/>
+                    <span>{{ todo.name }}</span>
+                </div>
+                {%endfor%}
+                {%endif%}
+                {%endfor%}
+                </div>
+                {% endfor %}
                     {% comment %} 여기까지 {% endcomment %}
                 </header>
                 <main>
@@ -124,4 +217,3 @@
         </div>
     </body>
     {% endblock content %}
-</html>
