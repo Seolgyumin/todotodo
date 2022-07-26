@@ -1,2 +1,4 @@
-def index():
-    return
+from django.shortcuts import render
+
+def index(request):
+    return render(request, 'alertcenter/index.html')

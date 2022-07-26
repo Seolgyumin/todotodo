@@ -1,42 +1,45 @@
+{% extends 'todotodo/base.html' %}
+
 <!DOCTYPE html>
 
 {% load static %}
 
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Page</title>
-    {% load static %} {% load sass_tags %} {% load socialaccount %}
-    {% providers_media_js %}
-    <link
-        rel="stylesheet"
-        type="text/css"
-        href="{% sass_src 'mypage/scss/index.css' %}"
-    />
-</head>
-<body>
-    <div id="mypage">
-        <h1>{{ user.get_username }}님,
-        <br> 안녕하세요 </h1>
-        
-        <div id="friends-container">
-            <div id="friends-container-title">
-                <span class="container-title">친구 {{ friend.set.count }}00명</span>
-                <a href="/todo/mypage/friends_list">
-                    <img src="https://cdn1.vectorstock.com/i/1000x1000/88/85/right-arrow-icon-vector-21638885.jpg" height="20px" width="20px"/>
-                </a>
-            </div>
-            <div id="friend-list">
-                {% for friend in friends %}
-                    <div id="each-friend">
-                        <a href="/todo/home/">
-                            <img src="https://cdn1.vectorstock.com/i/1000x1000/88/85/right-arrow-icon-vector-21638885.jpg" id="{{ friend.id }}-photo" height="20px" width="20px"/>
-                        </a>
-                        <br> {{ friend.name }}
-                    </div>
-                {% endfor %}
+    {% block content %}
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Page</title>
+        {% load static %} {% load sass_tags %} {% load socialaccount %}
+        {% providers_media_js %}
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% sass_src 'mypage/scss/index.css' %}"
+        />
+    </head>
+    <body>
+        <div id="mypage">
+            <h1>{{ user.get_username }}님,
+            <br> 안녕하세요 </h1>
+            
+            <div id="friends-container">
+                <div id="friends-container-title">
+                    <span class="container-title">친구 {{ friend.set.count }}00명</span>
+                    <a href="/todo/mypage/friends_list">
+                        <img src="https://cdn1.vectorstock.com/i/1000x1000/88/85/right-arrow-icon-vector-21638885.jpg" height="20px" width="20px"/>
+                    </a>
+                </div>
+                <div id="friend-list">
+                    {% for friend in friends %}
+                        <div id="each-friend">
+                            <a href="/todo/home/">
+                                <img src="https://cdn1.vectorstock.com/i/1000x1000/88/85/right-arrow-icon-vector-21638885.jpg" id="{{ friend.id }}-photo" height="20px" width="20px"/>
+                            </a>
+                            <br> {{ friend.name }}
+                        </div>
+                    {% endfor %}
                 <div id="each-friend-example">
                     <div id="friend-img-example"></div>
                     <span id="friend-name">어쩌구</span>
@@ -61,7 +64,6 @@
                 <div id="add-persona-button" onclick=""> + </div>
             </div>
         </div>
-
         <div id="categories-container">
             <div id="category-title">
                 <span class="container-title">내 투두카테고리</span>
@@ -82,5 +84,6 @@
     <div id="modal-add-todo">
     </div>
     <script src="{% static 'mypage/js/mypage.js' %}"></script>
+    {% endblock content%}
 </body>
 </html> 
