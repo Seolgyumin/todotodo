@@ -1,0 +1,70 @@
+{% extends 'todotodo/base.html' %}
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+    {% block content %}
+
+    <head>
+        <meta charset='utf-8'>
+        <title>snulion</title>
+        {% load static %} {% load sass_tags %} {% load socialaccount %}
+        {% providers_media_js %}
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% sass_src 'accounts/scss/onboarding.css' %}"
+        />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    </head>
+    <body>
+        <div class="body-container">
+            <div class="signin-inner">
+                <header>
+                    <span onclick='goBack()' style='cursor: pointer' class="material-symbols-outlined" height="15px" width="15px">close</span>
+                    <h2>환영해요!</h2>
+                </header>
+                <main>
+                    <div class="div-name">
+                        <p>뭐라고 불러 드릴까요?</p>
+                        <input class="input-box" id="input-name" placeholder="닉네임을 정해 보세요." onchange="moveOnToAddPersona()" autofocus></input>
+                    </div>
+                    <div class="div-persona hidden" id="div-persona">
+                        <p id="input-username" data-text="님, 멋진 페르소나를 만들어 보세요!"></p>
+                        <div class="first-persona-container">
+                            <input class="input-box" id="input-persona-name" placeholder="ex. 여행하는" onchange="moveOnToAddEmoji()"></input>
+                            <span id="span-username" data-text="님"></span>
+                        </div>
+                    </div>
+                    <div class="div-emoji hidden" id="div-emoji">
+                        <p id="pick-emoji-name">이제 페르소나에게 어울리는 모습을 골라 주세요!</p>
+                        <div id="div-selected-emoji">
+                            <img id="select-emoji-img" src="https://i.ibb.co/pQDTGr7/7294743.png"/>
+                        </div>
+                        <div id="emoji-list">
+                            <img class="emoji-img clicked" src="https://i.ibb.co/pQDTGr7/7294743.png" alt="7294743" border="0" height="56.86px" width="56.86px" ></a>
+                            <img class="emoji-img" src="https://i.ibb.co/fGy6VjD/7309671.png" alt="7309671" border="0" height="56.86px" width="56.86px"></a>
+                            <img class="emoji-img" src="https://i.ibb.co/C8VdcKx/7309674.png" alt="7309674" border="0" height="56.86px" width="56.86px"></a>
+                            <img class="emoji-img" src="https://i.ibb.co/wgTTTDY/7309682.png" alt="7309682" border="0" height="56.86px" width="56.86px"></a>
+                            <img class="emoji-img" src="https://i.ibb.co/QCnLMKQ/7309684.png" alt="7309684" border="0" height="56.86px" width="56.86px"></a>
+                            <img class="emoji-img" src="https://i.ibb.co/dMTPRnK/7309676.png" alt="7309676" border="0" height="56.86px" width="56.86px"></a>
+                            <img class="emoji-img" src="https://i.ibb.co/1G9wDPP/7309697.png" alt="7309697" border="0" height="56.86px" width="56.86px"></a>
+                        </div>
+                    </div>
+                    <div id="div-complete">
+                        <a href="{% url 'accounts:congrats' %}">
+                        <button id="complete" class="hidden">🤪 완료!</button>
+                        </a>
+                    </div>
+                </main>
+                <script>
+                    function goBack() {
+                        window.history.go(-1);
+                    }
+                </script>
+            </div>
+        </div>
+    </body>
+    <script src="{% static 'accounts/js/onboarding.js' %}"></script>
+    {% endblock content%}
+</html>

@@ -28,13 +28,13 @@ def kakao_callback(request):
     access_token = token_response.json().get('access_token')
     user_info_response = requests.get('https://kapi.kakao.com/v2/user/me', headers={"Authorization": f'Bearer ${access_token}'})
 
-    return redirect('/accounts/signin')
+    return redirect('/accounts/onboarding.html')
 
-def signin(request):
+def onboarding(request):
     if request.user.is_authenticated:
-        return render(request, 'accounts/signin.html')
+        return render(request, 'accounts/onboarding.html')
     else:
-        return render(request, 'accounts/signin.html')
+        return render(request, 'accounts/onboarding.html')
 
 def congrats(request):
     return render(request, 'accounts/congrats.html')
