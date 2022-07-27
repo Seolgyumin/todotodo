@@ -5,7 +5,13 @@ from todotodo.models import Friendship
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-# Create your models here.
+
+class KakaoUser(models.Model):
+    name = models.CharField(max_length=256, default='', verbose_name='사용자명')
+    email = models.EmailField(max_length=256, verbose_name='사용자이메일', blank=True, null=True)
+    thumbnail_image_url = models.TextField(verbose_name='썸네일 이미지 URL', blank=True, null=True)
+    profile_image_url = models.TextField(verbose_name='썸네일 이미지 URL', blank=True, null=True)
+    connected_at = models.DateTimeField(default=timezone.now)
 class Profile(models.Model):
     name = models.CharField(max_length=256, default='')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
