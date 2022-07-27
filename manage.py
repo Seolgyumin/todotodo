@@ -2,6 +2,11 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+# from django.core.management.base import BaseCommand
+# from django.contrib.auth.models import User
+# from todotodo.models import Friendship, FriendshipRequest, Persona, Category, PersonaPermission, Todo, TodoRequest
+# from django_seed import Seed
+
 
 
 def main():
@@ -20,3 +25,18 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# class Command(BaseCommand):
+#     def add_arguments(self, parser):
+#         parser.add_argument(
+#             '--number', default=2, type=int, help='this is test'
+#         )
+#     def handle(self, *args, **options):
+#         number = options.get('number')
+#         seeder = Seed.seeder()
+#         seeder.add_entity(User, number, {
+#             'is_staff': False,
+#             'is_superuser': False,
+#         })
+#         seeder.execute()
+#         self.stdout.write(self.style.SUCCESS(f'{number} users created'))

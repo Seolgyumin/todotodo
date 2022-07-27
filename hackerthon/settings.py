@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'sass_processor',
+    'django_seed',
     'todotodo',
     'tutorial',
     'mypage',
