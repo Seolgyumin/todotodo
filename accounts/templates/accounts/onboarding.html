@@ -26,11 +26,11 @@
                 </header>
                 <main>
                     <div class="user-photo">
-                        <img src=""/>
+                        <img id="profile-img" src={{user.thumbnail_image_url}}>
                     </div>
                     <div class="div-name">
                         <p>뭐라고 불러 드릴까요?</p>
-                        <input class="input-box" id="input-name" placeholder="닉네임을 정해 보세요." onchange="moveOnToAddPersona()" autofocus></input>
+                        <input class="input-box" id="input-name" value={{user.name}} onchange="moveOnToAddPersona()"></input>
                     </div>
                     <div class="div-persona hidden" id="div-persona">
                         <p id="input-username" data-text="님, 멋진 페르소나를 만들어 보세요!"></p>

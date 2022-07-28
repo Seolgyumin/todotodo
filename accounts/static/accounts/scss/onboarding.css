@@ -1,7 +1,9 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
-* { 
-font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+* {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", sans-serif;
 }
 
 .body-container {
@@ -16,18 +18,18 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
 }
 
 h2 {
-    margin-top: 17px;
-    margin-bottom: 0px;
-    font-weight: 600;
-    font-size: 24px;
+  margin-top: 17px;
+  margin-bottom: 0px;
+  font-weight: 600;
+  font-size: 24px;
 }
 
 p {
-    font-size: 16px;
-    font-weight: 400;
-    color: #AEAEB4;
-    margin-top: 36px;
-    margin-bottom: 0px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #aeaeb4;
+  margin-top: 36px;
+  margin-bottom: 0px;
 }
 
 span {
@@ -39,8 +41,8 @@ span {
 }
 
 .header {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .signin-inner {
@@ -53,96 +55,108 @@ span {
     width: 444px;
 }
 
+.div-profile-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+#profile-img {
+  border-radius: 100%;
+}
+
 .input-box {
-    border: transparent;
-    height: 30px;
-    width: 300px;
-    font-size: 24px;
-    font-weight: 500;
-    color: #626262;
-    margin-block: 14px;
-    padding: 0px;
-    background-color: transparent;
+  border: transparent;
+  height: 30px;
+  width: 300px;
+  font-size: 24px;
+  font-weight: 500;
+  color: #626262;
+  margin-block: 14px;
+  padding: 0px;
+  background-color: transparent;
 }
 
 .input-box::placeholder {
-    color: #D9D9D9;
+  color: #d9d9d9;
 }
 
 .input-box:focus {
-    outline:none;
+  outline: none;
 }
 
-p, #input-username {
-    margin-top: 26px;
+p,
+#input-username {
+  margin-top: 26px;
 }
 
 .first-persona-container {
-    display: flex;
-    background-color: #f3f3f3;
-    justify-content: space-between;
-    align-items: center;
-    margin-block: 14px;
-    height: 72px;
-    width: 436px;
-    border-radius: 20px;
+  display: flex;
+  background-color: #f3f3f3;
+  justify-content: space-between;
+  align-items: center;
+  margin-block: 14px;
+  height: 72px;
+  width: 436px;
+  border-radius: 20px;
 }
 
 #input-persona-name {
-    margin-left: 26px;
-    font-size: 20px;
-    color: #282828;
-    font-weight: 400;
+  margin-left: 26px;
+  font-size: 20px;
+  color: #282828;
+  font-weight: 400;
 }
 
 #span-username {
-    margin-right: 32px;
-    font-size: 20px;
-    font-weight: 600;
-    color: #626262;
+  margin-right: 32px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #626262;
 }
 
 #pick-emoji-name {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 #div-selected-emoji {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #select-emoji {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 #select-emoji-img {
-    border-radius: 50%;
-    width: 130px;
-    height: 130px;
-    background-color: #f5f5f5;
-    margin-top: 24px;
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  background-color: #f5f5f5;
+  margin-top: 24px;
 }
 
 #emoji-list {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 24px;
 }
 
 .emoji-img {
-    opacity: 40%;
-    position: relative;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background-color: #f5f5f5;
-    overflow: hidden;
+  opacity: 40%;
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  overflow: hidden;
 }
 /* 
 .emoji-img img {
@@ -155,7 +169,7 @@ p, #input-username {
 } */
 
 .clicked {
-    opacity: 100%;
+  opacity: 100%;
 }
 
 #complete {
