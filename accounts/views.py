@@ -33,6 +33,8 @@ def kakao_callback(request):
     access_token = token_response.json().get('access_token')
     user_info = requests.get('https://kapi.kakao.com/v2/user/me', headers={"Authorization": f'Bearer ${access_token}'}).json()
 
+    print(user_info)
+
     if KakaoUser.objects.filter(id=user_info['id']).exists():  # 기존에 소셜로그인을 했었는지 확인
         user = KakaoUser.objects.get(id=user_info['id'])
         encoded_jwt = jwt.encode({'id': user.id}, os.environ.get('DJANGO_KEY'), algorithm='HS256')  # jwt토큰 발행
@@ -40,11 +42,12 @@ def kakao_callback(request):
         user = KakaoUser(
             id=user_info['id'],
             name=user_info['properties']['nickname'],
-            email=user_info['properties'].get('email', None)
+            email=user_info['kakao_account']['email'],
+            thumbnail_image_url=user_info['properties']['thumbnail_image']
         )
         user.save()
         encoded_jwt = jwt.encode({'id': user.id}, os.environ.get('DJANGO_KEY'), algorithm='HS256')  # jwt토큰 발행
-    return render(request, 'accounts/signin.html', {'user': user, 'jwt_token': encoded_jwt})
+    return render(request, 'accounts/onboarding.html', {'user': user, 'jwt_token': encoded_jwt})
 
 def onboarding(request):
     if request.user.is_authenticated:
