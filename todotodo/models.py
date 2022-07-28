@@ -44,7 +44,7 @@ class Todo(models.Model):
 
 class TodoRequest(models.Model):
     sender_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todo_sender', default=dict)
-    reciever_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todo_receiver', default=dict)
+    receiver_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todo_receiver', default=dict)
     todo_name = models.CharField(max_length=256)
     todo_start_date = models.DateField(default=timezone.now)
     todo_end_date = models.DateField(null=True, blank=True)
