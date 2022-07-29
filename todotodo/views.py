@@ -5,6 +5,7 @@ from .models import Persona, TodoRequest, Category, Todo, Friendship, PersonaPer
 from django.utils import timezone
 from datetime import date
 import calendar as cd
+from accounts.models import User
 import json
 
 # Create your views here.
@@ -19,7 +20,6 @@ def home(request, id):
         persona = personas.first()
         #persona = Persona.objects.get(id=id)
         todorequests = TodoRequest.objects.filter(receiver_persona=persona)
-        #이거 todorequest 불러오는거 request.user를 receiver로 설정해야한느데..
         categories= persona.category_set.all()
         todos = dict()
         for category in categories:
@@ -33,7 +33,7 @@ def home(request, id):
                 weekcal = i
             monthcal.append(i)
         #personaid도 같이 render
-        return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona})
+        return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona, 'todaydate':today.day, 'todaymonth':today.month, 'todayyear':today.year})
     else:
         return render(request, 'accounts/login_required.html')
 # user_id, persona_id, my persona list, 날짜 정보, todo 및 카테고리
