@@ -93,6 +93,15 @@ const completeTodo = async (todoname, todoid) => {
   response;
 };
 
+const editTodo = async (todoid) => {
+  const commentInputElement = document.getElementById("");
+  if (commentInputElement.value) {
+    const data = new FormData();
+    data.append("content", commentInputElement.value);
+    const response = await axios.post(`/todo/edittodo/${todoid}/`);
+  }
+};
+
 const showWeekDate = (personaid) => {
   const weekdateElement = document.getElementById("week-date");
   weekdateElement.classList.remove("hide");
