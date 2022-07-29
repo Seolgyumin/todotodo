@@ -37,28 +37,37 @@ const init = () => {
 init();
 
 const selectedEmoji = (e) => {
-  const divSelectedEmoji = document.getElementById("div-selected-emoji");
+  const selectedEmojiDiv = document.getElementById("div-selected-emoji");
+  const emojiUrlInput = document.getElementById("select-emoji-url");
   const oldImg = document.getElementById("select-emoji-img");
   if (oldImg) {
-    divSelectedEmoji.removeChild(oldImg);
+    selectedEmojiDiv.removeChild(oldImg);
   }
   const newImg = document.createElement("img");
-  divSelectedEmoji.appendChild(newImg);
+  selectedEmojiDiv.appendChild(newImg);
   newImg.setAttribute("src", e.target.src);
   newImg.setAttribute("id", "select-emoji-img");
+  emojiUrlInput.value = e.target.src;
 };
 
-// const images = ["7294743.svg", "7309671.svg", "7309674.svg", "7309767.svg", "7309682.svg", "7309684.svg", "7300697.svg", "7309702.svg", "7309706.svg", "7309711.svg"]
-// // const chosenImage = images{}
+const goCongratsPage = async (e) => {
+  const nameInputValue = document.getElementById("input-name").value;
+  const personaNameInputValue =
+    document.getElementById("input-persona-name").value;
+  const selectedEmojiUrl = document.getElementById("select-emoji-img").src;
+  if (nameInputValue && personaNameInputValue && selectedEmojiUrl) {
+    const data = new FormData();
+    data.append("username", nameInputValue);
+    data.append("emoji", selectedEmojiUrl);
+    data.append("persona_name", personaNameInputValue);
 
-// const windowOnload = () => {
-//     const emojiList = document.getElementById("emoji-list");
-
-//     images.forEach(image => {
-//         const bgImage = document.createElement("img");
-//         bgImage.src = `http://localhost:8000/accounts/static/accounts/img/${image}`;
-//         emojiList.appendChild(bgImage);
-//     });
-// }
-
-// // window.onload = windowOnload;
+    try {
+      const response = await axios.post(`/accounts/onboarding/`, data);
+      if (response.data.success) {
+        location.href = "/accounts/congrats/";
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+};
