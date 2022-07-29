@@ -177,3 +177,5 @@ STATICFILES_DIRS=[
 ] #static 파일들이 어디에 있는지를 쓰는곳
 
 AUTH_USER_MODEL = 'accounts.User'
+
+LOGOUT_REDIRECT_URL = '/todotodo/index.html'

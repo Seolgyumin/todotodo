@@ -144,3 +144,7 @@ const hideModal = () => {
   const personacreateModal = document.getElementById("persona-create-modal");
   personacreateModal.classList.remove("show");
 };
+
+const goMyPage = () => {
+  location.href = "/todo/mypage";
+};
