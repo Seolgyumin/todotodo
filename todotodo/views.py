@@ -11,13 +11,14 @@ import json
 def index(request):
     return render(request, 'todotodo/index.html')
 
-def home(request):
+def home(request, id):
     user = request.user
     print(user)
     if user.is_authenticated:
         personas = user.persona_set.all()
         persona = personas.first()
-        todorequests = TodoRequest.objects.filter(receiver_id=request.user)
+        #persona = Persona.objects.get(id=id)
+        todorequests = TodoRequest.objects.filter(receiver_persona=persona)
         #이거 todorequest 불러오는거 request.user를 receiver로 설정해야한느데..
         categories= persona.category_set.all()
         todos = dict()
@@ -38,9 +39,9 @@ def home(request):
 # user_id, persona_id, my persona list, 날짜 정보, todo 및 카테고리
 
 def friend(request, id, pid):
-    friend_id = User.objects.get(id=id).id
-    friendship1 = Friendship.objects.filter(friend1_id=friend_id, friend2_id=request.user.id)
-    friendship2 = Friendship.objects.filter(friend2_id=friend_id, friend1_id=request.user.id)
+    friend = User.objects.get(id=id)
+    friendship1 = Friendship.objects.filter(friend1=friend, friend2=request.user)
+    friendship2 = Friendship.objects.filter(friend2=friend, friend1=request.user)
     #이거 역순도 고려해야함..
     friendship = friendship2 if friendship1 else friendship1
     personapermissions = friendship.personapermission_set.all()
@@ -50,7 +51,7 @@ def friend(request, id, pid):
     todos = dict()
     for category in categories:
         todos[str(category.name)] = category.todo_set.all()
-    return render(request,'todotodo/freind.html', {'friend_id':friend_id, 'personas': personas, 'categories':categories, 'todos':sorted(todos.items())})
+    return render(request,'todotodo/freind.html', {'friend':friend, 'personas': personas, 'categories':categories, 'todos':sorted(todos.items())})
 
 
 
@@ -58,7 +59,7 @@ class PersonaView:
     def create(request):
         name=request.POST['name']
         message=request.POST['message']
-        persona = Persona.objects.create(name=name, message=message, user_id=request.user)
+        persona = Persona.objects.create(name=name, message=message, user=request.user)
         return JsonResponse({'personaId': persona.id, 'personaCreatedAt':persona.created_at})
 
     def delete(request, id):
@@ -70,12 +71,15 @@ class PersonaView:
         persona = Persona.objects.get(id=id)
         persona.update(name=request.POST['name'])
         return JsonResponse({'updatePersonaName':persona.name})
+    
+
 
 
 class CategoryView:
     def create(request, id):
         name=request.POST['name']
-        category = Category.objects.create(persona_id=id, name=name)
+        persona=Persona.objects.get(id=id)
+        category = Category.objects.create(persona=persona, name=name)
         return JsonResponse({'categoryId':category.id, 'categoryCreatedAt':category.created_at})
 
     def delete(request, id):
@@ -93,7 +97,7 @@ class TodoView:
         end_date=request.POST['end_date']
         name=request.POST['name']
         category = Category.objects.get(id=id)
-        todo = Todo.objects.create(category_id=category, start_date=timezone.now(), end_date=end_date, name=name, sender_id=request.user)
+        todo = Todo.objects.create(category=category, start_date=timezone.now(), end_date=end_date, name=name, sender=request.user)
         return JsonResponse({'todoId':todo.id, 'todoEndDate':todo.end_date})
     
     def delete(request, id):
@@ -105,3 +109,9 @@ class TodoView:
         todo = Todo.objects.get(id=id)
         todo.update(name=request.POST['name'], end_date=request.POST['end_date'])
         return JsonResponse({'updateTodoName':todo.name, 'updateTodoEndDate':todo.end_date})
+
+    def complete(request, id):
+        todo = Todo.objects.get(id=id)
+        todo.completed = True
+        todo.save()
+        return JsonResponse({})
