@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'sass_processor',
     'django_seed',
     'todotodo',
-    'tutorial',
     'mypage',
     'history',
     'alertcenter',
@@ -176,3 +175,5 @@ SOCIALACCOUNT_LOGIN_ON_GET = False
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR, 'accounts', 'static')
 ] #static 파일들이 어디에 있는지를 쓰는곳
+
+AUTH_USER_MODEL = 'accounts.User'

@@ -5,7 +5,7 @@ from todotodo import views
 app_name = "todo"
 urlpatterns = [
     path('', views.index, name='index'),
-    path('home/<int:id>/', views.home, name='home'),
+    path('home/', views.home, name='home'),
     path('<int:id>/friend/<int:pid>/', views.friend, name='friend'),
     path('createpersona/', views.PersonaView.create, name='persona-create'),
     path('deletepersona/<int:id>/', views.PersonaView.delete, name='persona-delete'),
@@ -20,4 +20,5 @@ urlpatterns = [
     path('mypage/', include('mypage.urls')),
     path('alertcenter/', include('alertcenter.urls')),
     path('history/', include('history.urls')),
+    path('completetodo/<int:id>/', views.TodoView.complete, name='todo_complete'),
 ]
