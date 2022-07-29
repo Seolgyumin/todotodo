@@ -1,12 +1,12 @@
 import os
-import jwt
 import requests
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.utils.decorators import method_decorator
+from accounts.models import User
+from todotodo.models import Persona
+from django.contrib.auth import login, logout
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from accounts.models import KakaoUser
 
 # Create your views here.
 def index():
@@ -20,8 +20,8 @@ def kakao_login(request):
     return redirect(f'{kakao_auth_api}client_id={client_id}&redirect_uri={redirect_uri}&response_type=code')
 
 def kakao_callback(request):
-    encoded_jwt = request.COOKIES.get('jwt_token')
-    if not encoded_jwt:
+    user = request.user
+    if not user.is_authenticated:
         auth_code = request.GET.get('code')
         kakao_token_api = 'https://kauth.kakao.com/oauth/token'
         data = {
@@ -30,33 +30,46 @@ def kakao_callback(request):
             'redirection_uri': 'http://localhost:8000/accounts/signin/kakao/callback',
             'code': auth_code
         }
-
         token_response = requests.post(kakao_token_api, data=data)
         access_token = token_response.json().get('access_token')
         user_info = requests.get('https://kapi.kakao.com/v2/user/me', headers={"Authorization": f'Bearer ${access_token}'}).json()
-
-        if KakaoUser.objects.filter(id=user_info['id']).exists():  # 기존에 소셜로그인을 했었는지 확인
-            user = KakaoUser.objects.get(id=user_info['id'])
-            encoded_jwt = jwt.encode({'id': user.id}, os.environ.get('DJANGO_KEY'), algorithm='HS256')  # jwt토큰 발행
+        print(user_info)
+        user_queryset = User.objects.filter(kakao_id=user_info['id'])
+        if user_queryset.exists():  # 기존에 소셜로그인을 했었는지 확인
+            user = user_queryset.first()
         else:
-            user = KakaoUser(
-                id=user_info['id'],
-                name=user_info['properties']['nickname'],
+            user = User(
+                username=user_info['properties']['nickname'],
                 email=user_info['kakao_account']['email'],
-                thumbnail_image_url=user_info['properties']['thumbnail_image']
+                kakao_id=user_info['id'],
+                thumbnail_img=user_info['properties']['thumbnail_image']
             )
             user.save()
-            encoded_jwt = jwt.encode({'id': user.id}, os.environ.get('DJANGO_KEY'), algorithm='HS256')  # jwt토큰 발행
-    else:
-        user_id = jwt.decode(request.COOKIES.get('jwt_token'), os.environ.get('DJANGO_KEY'), algorithms=['HS256'])['id']
-        user = KakaoUser.objects.get(id=user_id)
-    return render(request, 'accounts/onboarding.html', {'user': user, 'jwt_token': encoded_jwt})
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        login(request, user)
+    return redirect('accounts:onboarding')
 
+@csrf_exempt
 def onboarding(request):
-    if request.user.is_authenticated:
-        return render(request, 'accounts/onboarding.html')
-    else:
-        return render(request, 'accounts/onboarding.html')
+    if request.method == 'GET':
+        user = request.user
+        if not user.onboarding_done:
+            return render(request, 'accounts/onboarding.html', {'user': user})
+        else: 
+            return redirect('todotodo:home')
+    elif request.method == 'POST':
+        user = request.user
+        user.username=request.POST['username']
+        user.save()
+        persona = Persona(
+            user_id=user,
+            emoji=request.POST['emoji'],
+            name=request.POST['persona_name'],
+        )
+        persona.save()
+        return JsonResponse({
+            'success': True
+        })
 
 def congrats(request):
-    return render(request, 'accounts/congrats')
+    return render(request, 'accounts/congrats.html')

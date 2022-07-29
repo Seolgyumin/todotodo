@@ -1,28 +1,22 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-
-class KakaoUser(models.Model):
-    name = models.CharField(max_length=256, default='', verbose_name='사용자명')
-    email = models.EmailField(max_length=256, verbose_name='사용자이메일', blank=True, null=True)
-    thumbnail_image_url = models.TextField(verbose_name='썸네일 이미지 URL', blank=True, null=True)
-    profile_image_url = models.TextField(verbose_name='썸네일 이미지 URL', blank=True, null=True)
+class User(AbstractUser):
+    kakao_id = models.IntegerField(blank=True, null=True)
+    thumbnail_img = models.TextField(verbose_name='썸네일 이미지 URL', blank=True, null=True)
+    onboarding_done = models.BooleanField(default=False)
     connected_at = models.DateTimeField(default=timezone.now)
 
-class Profile(models.Model):
-    name = models.CharField(max_length=256, default='')
-    user = models.OneToOneField(KakaoUser, on_delete=models.CASCADE)
-    friends = models.ManyToManyField("self", symmetrical=False, through="todotodo.Friendship", related_name='friendship')
+class Friendship(models.Model):
+    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_sender')
+    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_receiver')
     created_at = models.DateTimeField(default=timezone.now)
 
-    @receiver(post_save, sender=User)  
-    def create_user_profile(sender, instance, created, **kwargs):        
-        if created:          
-            Profile.objects.create(user=instance)  
-    
-    @receiver(post_save, sender=User)  
-    def save_user_profile(sender, instance, **kwargs):        
-        instance.profile.save()
+class FriendshipRequest(models.Model):
+    friend1_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_request_sender')
+    friend2_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_request_receiver')
+    persona1_ids = models.JSONField(default=dict) #sender's open persona list
+    created_at = models.DateTimeField(default=timezone.now)

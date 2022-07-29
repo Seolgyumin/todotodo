@@ -11,25 +11,30 @@ import json
 def index(request):
     return render(request, 'todotodo/index.html')
 
-def home(request, id):
-    personas = request.user.persona_set.all()
-    todorequests = TodoRequest.objects.filter(receiver_id=request.user)
-    #이거 todorequest 불러오는거 request.user를 receiver로 설정해야한느데..
-    persona = Persona.objects.get(id=id)
-    categories= persona.category_set.all()
-    todos = dict()
-    for category in categories:
-        todos[str(category.name)]=category.todo_set.all()
-    today=date.today()
-    c=cd.Calendar(firstweekday=1)
-    monthcal=[]
-    weekcal=[]
-    for i in c.monthdayscalendar(today.year,today.month):
-        if today.day in i:
-            weekcal = i
-        monthcal.append(i)
-    #personaid도 같이 render
-    return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona})
+def home(request):
+    user = request.user
+    print(user)
+    if user.is_authenticated:
+        personas = user.persona_set.all()
+        persona = personas.first()
+        todorequests = TodoRequest.objects.filter(receiver_id=request.user)
+        #이거 todorequest 불러오는거 request.user를 receiver로 설정해야한느데..
+        categories= persona.category_set.all()
+        todos = dict()
+        for category in categories:
+            todos[str(category.name)]=category.todo_set.all()
+        today=date.today()
+        c=cd.Calendar(firstweekday=1)
+        monthcal=[]
+        weekcal=[]
+        for i in c.monthdayscalendar(today.year,today.month):
+            if today.day in i:
+                weekcal = i
+            monthcal.append(i)
+        #personaid도 같이 render
+        return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona})
+    else:
+        return render(request, 'accounts/login_required.html')
 # user_id, persona_id, my persona list, 날짜 정보, todo 및 카테고리
 
 def friend(request, id, pid):

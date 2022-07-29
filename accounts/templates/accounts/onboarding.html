@@ -26,11 +26,11 @@
                 </header>
                 <main>
                     <div class="user-photo">
-                        <img id="profile-img" src={{user.thumbnail_image_url}}>
+                        <img id="profile-img" src={{user.thumbnail_img}}>
                     </div>
                     <div class="div-name">
                         <p>뭐라고 불러 드릴까요?</p>
-                        <input class="input-box" id="input-name" onchange="moveOnToAddPersona()" value="{{user.name}}"/>
+                        <input class="input-box" id="input-name" onchange="moveOnToAddPersona()" value="{{user.username}}"/>
                     </div>
                     <div class="div-persona hidden" id="div-persona">
                         <p id="input-username" data-text="님, 멋진 페르소나를 만들어 보세요!"></p>
@@ -55,9 +55,7 @@
                         </div>
                     </div>
                     <div id="div-complete">
-                        <a href="{% url 'accounts:congrats' %}">
-                        <button id="complete" class="hidden">🤪 완료!</button>
-                        </a>
+                        <button id="complete" class="hidden" onclick="goCongratsPage()">🤪 완료!</button>
                     </div>
                 </main>
                 <script>
