@@ -377,6 +377,7 @@
   position: absolute;
   margin-right: 24px;
   right: 0px;
+  cursor: pointer;
 }
 
 .weekly.bold {
@@ -455,6 +456,7 @@ input:focus {
 }
 
 .entiretodomodal {
+  display: block;
   position: fixed;
   overflow: hidden;
   height: 100%;
@@ -530,6 +532,7 @@ input:focus {
   height: 61px;
   background: #f5f5f5;
   border-radius: 16px;
+  border: none;
 }
 
 /* input[type="checkbox"] {

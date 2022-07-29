@@ -24,7 +24,7 @@ def home(request):
         categories= persona.category_set.all()
         todos = dict()
         for category in categories:
-            todos[str(category.name)]=category.todo_set.all()
+            todos[str(category.name)]=category.todo_set.all().order_by('created_at')
         today=date.today()
         c=cd.Calendar(firstweekday=1)
         monthcal=[]
@@ -108,8 +108,9 @@ class TodoView:
 
     def edit(request, id):
         todo = Todo.objects.get(id=id)
-        todo.update(name=request.POST['name'], end_date=request.POST['end_date'])
-        return JsonResponse({'updateTodoName':todo.name, 'updateTodoEndDate':todo.end_date})
+        todo.name = request.POST['name']
+        todo.save()
+        return JsonResponse({'updateTodoName':todo.name})
 
     def complete(request, id):
         todo = Todo.objects.get(id=id)
