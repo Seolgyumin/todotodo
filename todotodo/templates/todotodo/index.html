@@ -7,11 +7,13 @@
     <title>snulion</title>
     {% load static %} {% load sass_tags %} {% load socialaccount %}
     {% providers_media_js %}
+    {% block style%}
     <link
       rel="stylesheet"
       type="text/css"
       href="{% sass_src 'todotodo/scss/index.css' %}"
     />
+    {% endblock style %}
   </head>
   {% block content %}
   <body>
