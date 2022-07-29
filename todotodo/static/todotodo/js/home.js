@@ -156,8 +156,8 @@ const showWeekDate = (personaid) => {
 const showMonthDate = (personaid) => {
   const monthdateElement = document.getElementById("month-date");
   monthdateElement.classList.remove("hide");
-  const weekdateElement = document.getElementById("week-date");
-  weekdateElement.classList.add("hide");
+  const weekdateElement = document.getElementById("week-week-date");
+  weekdateElement.ClassList.add("hide");
   const weeklytextElement = document.getElementById("weekly-text");
   weeklytextElement.classList.remove("bold");
   const monthlytextElement = document.getElementById("monthly-text");
@@ -197,4 +197,8 @@ const deleteTodo = async (todoname, todoid) => {
 const hideModal = () => {
   const personacreateModal = document.getElementById("persona-create-modal");
   personacreateModal.classList.remove("show");
+};
+
+const goMyPage = () => {
+  location.href = "/todo/mypage";
 };

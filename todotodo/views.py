@@ -10,16 +10,21 @@ import json
 
 # Create your views here.
 def index(request):
-    return render(request, 'todotodo/index.html')
+    if request.user.is_authenticated:
+        return redirect('todo:home')
+    else:
+        return render(request, 'todotodo/index.html')
 
 def home(request):
     user = request.user
-    print(user)
     if user.is_authenticated:
         personas = user.persona_set.all()
-        persona = personas.first()
+        persona_id = request.GET.get('persona_id')
+        if persona_id:
+            persona = Persona.objects.get(id=persona_id)
+        else:
+            persona = personas.first()
         persona_emoji = persona.emoji
-        #persona = Persona.objects.get(id=id)
         todorequests = TodoRequest.objects.filter(receiver_persona=persona)
         categories= persona.category_set.all()
         todos = dict()
