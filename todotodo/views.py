@@ -5,6 +5,7 @@ from .models import Persona, TodoRequest, Category, Todo, Friendship, PersonaPer
 from django.utils import timezone
 from datetime import date
 import calendar as cd
+from accounts.models import User
 import json
 
 # Create your views here.
@@ -25,11 +26,10 @@ def home(request):
             persona = personas.first()
         persona_emoji = persona.emoji
         todorequests = TodoRequest.objects.filter(receiver_persona=persona)
-        #이거 todorequest 불러오는거 request.user를 receiver로 설정해야한느데..
         categories= persona.category_set.all()
         todos = dict()
         for category in categories:
-            todos[str(category.name)]=category.todo_set.all()
+            todos[str(category.name)]=category.todo_set.all().order_by('created_at')
         today=date.today()
         c=cd.Calendar(firstweekday=1)
         monthcal=[]
@@ -39,7 +39,7 @@ def home(request):
                 weekcal = i
             monthcal.append(i)
         #personaid도 같이 render
-        return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona, 'persona_emoji':persona_emoji})
+        return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona, 'todaydate':today.day, 'todaymonth':today.month, 'todayyear':today.year, 'persona_emoji':persona_emoji})
     else:
         return render(request, 'accounts/login_required.html')
 # user_id, persona_id, my persona list, 날짜 정보, todo 및 카테고리
@@ -113,8 +113,9 @@ class TodoView:
 
     def edit(request, id):
         todo = Todo.objects.get(id=id)
-        todo.update(name=request.POST['name'], end_date=request.POST['end_date'])
-        return JsonResponse({'updateTodoName':todo.name, 'updateTodoEndDate':todo.end_date})
+        todo.name = request.POST['name']
+        todo.save()
+        return JsonResponse({'updateTodoName':todo.name})
 
     def complete(request, id):
         todo = Todo.objects.get(id=id)

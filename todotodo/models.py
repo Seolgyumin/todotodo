@@ -38,7 +38,7 @@ class Todo(models.Model):
     end_date = models.DateField(null=True, blank=True)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     created_at = models.DateTimeField(default=timezone.now)
-    completed = models.BooleanField(default=False)
+    completed = models.BooleanField(default=False) 
 
 class TodoRequest(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todo_sender', default=dict)
