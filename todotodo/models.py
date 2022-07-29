@@ -13,7 +13,6 @@ class Persona(models.Model):
     message = models.TextField()
     # emozi = 
     created_at = models.DateTimeField(default=timezone.now)
- 
 
 class PersonaPermission(models.Model):
     friendship = models.ForeignKey(Friendship, on_delete=models.CASCADE)

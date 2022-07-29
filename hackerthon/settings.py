@@ -169,7 +169,67 @@ ACCOUNT_LOGOUT_ON_GET = True
 SOCIALACCOUNT_LOGIN_ON_GET = False
 
 # color들 여기에 추가하기
+MAIN_COLORS = [
+    {
+        'name' : 'black',
+        'code' : '#000000',
+    },
+    {
+        'name' : 'pink',
+        'code' : '#F7A7BB',
+    }
+]
+KEY_COLORS = [
+    {
+        'name' : 'whitish gray',
+        'modalCode' : '#F5F5F5',
+        'bgCode' : '#EAEAEA',
+        'textCode' : '#515151',
+    },
+    {
+        'name' : 'pink',
+        'modalCode' : '#E2C2C2',
+        'bgCode' : '#F8E6E6',
+        'textCode' : '#D9A1A1',
+    },
+    {
+        'name' : 'orange',
+        'modalCode' : '#FFECCE',
+        'bgCode' : '#FFECCE',
+        'textCode' : '#E99B1D',
+    },
+    {
+        'name' : 'yellow',
+        'modalCode' : '#FFF587',
+        'bgCode' : '#FFF9BC',
+        'textCode' : '#FFC700',
+    },
+    {
+        'name' : 'light lime',
+        'modalCode' : '#F1FDC1',
+        'bgCode' : '#F1FDC1',
+        'textCode' : '#A1CA00',
+    },
+    {
+        'name' : 'melon',
+        'modalCode' : '#D4FDC1',
+        'bgCode' : '#D4FDC1',
+        'textCode' : '#6DDB3A',
+    },
+    {
+        'name' : 'sky blue',
+        'modalCode' : '#E5F7FF',
+        'bgCode' : '#E5F7FF',
+        'textCode' : '#88BAEA',
+    },
+    {
+        'name' : 'dark gray',
+        'modalCode' : '#828282',
+        'bgCode' : '#828282',
+        'textCode' : '#FFFFFF',
+    },
 
+]
 # request status 상태값 variables 여기에 정의하기
 
 STATICFILES_DIRS=[

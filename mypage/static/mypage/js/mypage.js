@@ -42,7 +42,6 @@ const completeAddPersonaModal = async () => {
         // const { personaId, personaName, success} = response.data;
         const personaId = 1;
         const personaName = newNameInput.value;
-        console.log(getNewPersonaElement(personaId, personaName));
         document.getElementById('persona-list').appendChild(getNewPersonaElement(personaId, personaName));
 
         hideAddPersonaModal();
