@@ -20,4 +20,5 @@ urlpatterns = [
     path('mypage/', include('mypage.urls')),
     path('alertcenter/', include('alertcenter.urls')),
     path('history/', include('history.urls')),
+    path('completetodo/<int:id>/', views.TodoView.complete, name='todo_complete'),
 ]

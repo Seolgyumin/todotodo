@@ -1,9 +1,532 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
-* { 
-font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+* {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", sans-serif;
 }
 
-.alerticon {
-    display:flex;
+.body-container {
+  position: relative;
+  height: fit-content;
 }
+
+.container-top {
+  width: 500px;
+  height: 64px;
+}
+
+#alerticon {
+  position: absolute;
+  top: 12px;
+  left: 440px;
+  width: 40px;
+  height: 40px;
+}
+
+#historyicon {
+  position: absolute;
+  top: 12px;
+  left: 392px;
+  width: 40px;
+  height: 40px;
+}
+
+.persona-container {
+  width: 500px;
+  height: 40px;
+}
+
+.persona-list {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  left: 16px;
+}
+
+.persona-image {
+  margin-left: 8px;
+  background: #ededed;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+#persona-create-button {
+  margin-left: 8px;
+  background: #ededed;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+}
+
+.persona-create-modal {
+  display: none;
+}
+
+.persona-create-modal.show {
+  display: block;
+}
+
+.profile-container {
+  margin-left: 22px;
+  margin-top: 24px;
+  height: 84px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.profile-photo {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: 42px;
+  background: #ededed;
+}
+
+.persona-name {
+  margin-left: 16px;
+}
+
+.username {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 29px;
+  letter-spacing: -0.16500000655651093px;
+  text-align: left;
+}
+
+.persona-name-text {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;
+  letter-spacing: -0.16500000655651093px;
+  text-align: left;
+}
+
+#current-month {
+  height: 29px;
+  width: 35px;
+  margin-left: 30px;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 29px;
+  letter-spacing: -0.16500000655651093px;
+  text-align: left;
+  color: #282828;
+}
+
+#weekly-text {
+  height: 19px;
+  width: 51px;
+  margin-left: 231px;
+}
+
+.calendar-container {
+  height: fit-content;
+  margin-top: 27px;
+}
+
+.calendar-selection {
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: rgba(98, 98, 98, 0.4);
+}
+
+#leftarrow {
+  margin-left: 16px;
+}
+
+#rightarrow {
+  margin-left: 2px;
+}
+
+#monthly-text {
+  height: 19px;
+  width: 59px;
+  margin-left: 8px;
+}
+
+#weeklymonthly {
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.16500000655651093px;
+  text-align: left;
+}
+
+.day-of-weeks {
+  height: 21px;
+  margin-top: 20px;
+  margin-left: 29px;
+  width: 441.28px;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  letter-spacing: -0.2113157957792282px;
+  text-align: left;
+  color: #a7a7a7;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.day-of-week {
+  height: 21px;
+  width: 16px;
+}
+
+.calendar-selection {
+  height: fit-content;
+}
+
+.calendar-date {
+  margin-top: 30.23px;
+  margin-left: 17px;
+  margin-right: 17px;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: -0.2113157957792282px;
+  text-align: center;
+}
+
+#week-week-date {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 11.23px;
+}
+
+#month-week-date {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 11.23px;
+}
+.date-ind {
+  display: flex;
+  flex-direction: column;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+}
+
+.today {
+  color: white;
+  background-color: #4b4b4b;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.waiting-list-container {
+  width: 500px;
+  height: 133px;
+  margin-bottom: 29px;
+  background-color: #f9f9f9;
+}
+
+#waiting-text {
+  height: 24px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  color: #282828;
+  letter-spacing: -0.165px;
+  margin-left: 20px;
+  padding-top: 18px;
+  margin-bottom: 8px;
+}
+
+.waiting-todo-content {
+  height: 43px;
+  margin-top: 12px;
+  vertical-align: middle;
+}
+
+.request-chexkbox {
+  width: 40px;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.todorequest-text-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-left: 12px;
+  display: flex;
+}
+
+.requesttodo-name {
+  height: 21px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: -0.165px;
+  color: rgba(51, 51, 51, 0.8);
+}
+
+.requsettodo-deadline {
+  margin-top: 5px;
+  height: 17px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -0.165px;
+  color: #a7a7a7;
+}
+
+.requsettodo-detail {
+  margin-right: 27px;
+  float: right;
+}
+
+.category-container {
+  margin-left: 20px;
+}
+
+.category-name {
+  padding-top: 20px;
+  height: 40px;
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.165px;
+  color: #515151;
+  display: flex;
+  align-items: middle;
+  margin-bottom: 16px;
+}
+
+.category-name-container {
+  padding-left: 8px;
+  padding-top: 12px;
+  padding-right: 8px;
+  padding-bottom: 12px;
+  background: #eaeaea;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-create-button {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.todo-container {
+  margin-bottom: 12px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.todo-checkbox {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  outline: none;
+}
+
+.todoname-text {
+  margin-left: 16px;
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: -0.165px;
+  color: #333333;
+}
+
+.todo-detail {
+  position: absolute;
+  margin-right: 24px;
+  right: 0px;
+}
+
+.weekly.bold {
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.165px;
+  color: #626262;
+}
+
+.monthly.bold {
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.165px;
+  color: #626262;
+}
+
+.week-date {
+  display: block;
+}
+
+.week-date.hide {
+  display: none;
+}
+
+.month-date.hide {
+  display: none;
+}
+
+.month-date {
+  display: block;
+}
+
+.footer {
+  position: sticky;
+  background-color: #ffffff;
+  bottom: 0px;
+  width: 100%;
+  height: 100px;
+}
+
+.movetodo {
+  margin-top: 26px;
+  margin-left: 132px;
+}
+
+.movemypage {
+  margin-top: 26px;
+  margin-left: 140px;
+}
+
+.todo-input-container {
+  display: flex;
+  align-items: center;
+  outline: none;
+}
+
+input:focus {
+  outline: none;
+  border: none;
+}
+
+.complete {
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.165px;
+  text-decoration-line: line-through;
+  color: rgba(247, 167, 187, 0.6);
+}
+
+.entiretodomodal {
+  position: fixed;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  z-index: 4;
+}
+
+.entiretodomodal.hide {
+  display: none;
+}
+
+.tododeleteModal {
+  position: fixed;
+  width: 500px;
+  height: 259px;
+  bottom: 0px;
+  background: #ffffff;
+  border-radius: 28px 28px 0px 0px;
+  z-index: 5;
+  left: 33.55%;
+}
+
+.todomodalbackground {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 20%;
+}
+
+.delete-category-name-container {
+  padding: 8px 12px;
+  width: 94px;
+  height: 40px;
+  background: #eaeaea;
+  border-radius: 10px;
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.165px;
+  margin-top: 38px;
+  margin-left: 32px;
+  color: #515151;
+}
+
+.delete-todo-name-container {
+  margin-top: 16px;
+  margin-left: 32px;
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  letter-spacing: -0.165px;
+  color: #282828;
+}
+
+.delete-todo-button {
+  margin-top: 32px;
+  margin-left: 308px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 24px;
+  width: 160px;
+  height: 61px;
+  background: #f5f5f5;
+  border-radius: 16px;
+}
+
+/* input[type="checkbox"] {
+  display: none;
+}
+
+input[class="todo-checkbox"] + label {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: #f5f5f5;
+  border-radius: 12px;
+  border-style: none;
+  cursor: pointer;
+}
+
+input[class="todo-checkbox"]:checked + label {
+  background-image: url("/todotodo/static/todotodo/img/todocheckbox-on.png");
+} */
