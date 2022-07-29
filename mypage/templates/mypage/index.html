@@ -57,35 +57,39 @@
                         </div>
                     </div>
                     <div id="persona-list">
-                        <div class="each-persona" id="each-persona-example" onclick="showUpdatePersonaModal()">
-                            <div id="persona-img-example"></div>
-                            <span id="persona-name">어쩌구</span>
-                            <img src="{% static 'mypage/img/arrow_back_persona_details.svg'%}" />
-                        </div>
-                        <div id="category-list">
-                            <div class="each-category">
-                                <span class="category-name">Routine</span>
+                        <div class="each-persona-container" id="each-persona-example">
+                            <div class="each-persona" onclick="showEditPersonaModal(1)">
+                                <div id="persona-img-example"></div>
+                                <span id="persona-name">어쩌구</span>
+                                <img src="{% static 'mypage/img/arrow_back_persona_details.svg' %}" />
                             </div>
-                            <div class="each-category" id="add-category-button" onclick="showAddCategoryModal()"> + </div>
-                        </div>
-                    {% for persona in personas %}
-                        <div class="each-persona" id="each-persona-{{ persona.id }}" onclick="showUpdatePersonaModal()">
-                            <img src="" id="{{ persona.id }}-photo"/>
-                            <div>
-                                <span id="persona-{{ persona.id }}-name">{{ persona.name }}</span>
-                                <img src="{% static 'mypage/img/arrow_back_persona_details.svg'%}" />
-                            </div>
-                            <div id="category-list">
-                                {% for category in categories %}
-                                    <div class="each-category">{{ category.name }}</div>
-                                {% endfor %}
+                            <div id="0-category-list" class="category-list">
                                 <div class="each-category">
                                     <span class="category-name">Routine</span>
                                 </div>
                                 <div class="each-category" id="add-category-button" onclick="showAddCategoryModal()"> + </div>
                             </div>
                         </div>
-                    {% endfor %}
+                        {% for persona in personas %}
+                        <div class="each-persona-container" id="each-persona-{{ persona.id }}">
+                            <div class="each-persona" onclick="showEditPersonaModal({{ persona.id }})">
+                                <img src="" id="{{ persona.id }}-photo"/>
+                                <span id="persona-name-{{ persona.id }}">{{ persona.name }}</span>
+                                <img src="{% static 'mypage/img/arrow_back_persona_details.svg'%}" />
+                            </div>
+                            <div id="{{ persona.id }}-category-list" class="category-list">
+                                {% for category in categories %}
+                                <div class="each-category">
+                                    <span class="category-name">{{ category.name }}</span>
+                                </div>
+                                {% endfor %}
+                                <div class="each-category">
+                                    <span class="category-name">Routine</span>
+                                </div>
+                                <div class="each-category" id="add-category-button-{{ persona.id }}" onclick="showAddCategoryModal({{ persona.id }})"> + </div>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -94,21 +98,47 @@
                 <div id="inner-add-persona-modal">
                     <div class="modal-top">
                         <span>새 페르소나</span>
-                        <div class="modal-complete">
-                            <img src="{% static 'mypage/img/complete_check.svg'%}" />
+                        <div class="modal-complete" onclick="completeAddPersonaModal()">
+                            <object type="image/svg+xml" data="{% static 'mypage/img/complete_check.svg'%}"></object>
                             <span>완료</span>
+                        </div>
+                    </div>
+                    <div id="new-persona-imoji-div">
+                        <img id="new-persona-imoji"/>
+                    </div>
+                    <div id="new-persona-name">
+                        <span>새로운 페르소나에 이름을 붙여주세요.</span>
+                        <div class="name-input-field">
+                            <input id="new-persona-name-input" class="name-input" type="text" placeholder="ex. 열심히 일하는" oninput="handleResetAndCompleteButton(this)" />
+                            <img class="name-input-reset-button hide" src="{% static 'mypage/img/reset_input_x.svg' %}" onclick="resetInput(this)" />
+                            <span>{{user.get_username}}님</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="mypage-modal hide" id="update-persona-modal">
-                <div class="background-space" onclick="hideUpdatePersonaModal()"></div>
-                <div id="inner-update-persona-modal">
+            <div class="mypage-modal hide" id="edit-persona-modal">
+                <div class="background-space" onclick="hideEditPersonaModal()"></div>
+                <div id="inner-edit-persona-modal">
                     <div class="modal-top">
-                        <span>수정할 이름</span>
-                        <div class="modal-complete">
-                            <img src="{% static 'mypage/img/complete_check.svg'%}" />
+                        <span>내 페르소나</span>
+                        <div class="modal-complete" onclick="completeEditPersonaModal()">
+                            <object type="image/svg+xml" data="{% static 'mypage/img/complete_check.svg'%}"></object>
                             <span>완료</span>
+                        </div>
+                    </div>
+                    <div id="edit-persona-imoji-div">
+                        <img id="edit-persona-imoji"/>
+                    </div>
+                    <div id="edit-persona-name">
+                        <div class="name-input-field">
+                            <input class="name-input" type="text" oninput="handleResetAndCompleteButton(this)" />
+                            <img class="name-input-reset-button hide" src="{% static 'mypage/img/reset_input_x.svg' %}" onclick="resetInput(this)" />
+                            <span>{{user.get_username}}님</span>
+                        </div>
+                    </div>
+                    <div id="edit-persona-delete">
+                        <div id="persona-delete-button" onclick="deletePersona()">
+                            <span>❌ 삭제하기</span>
                         </div>
                     </div>
                 </div>
@@ -118,9 +148,23 @@
                 <div id="inner-add-category-modal">
                     <div class="modal-top">
                         <span>새 카테고리</span>
-                        <div class="modal-complete">
-                            <img src="{% static 'mypage/img/complete_check.svg'%}" />
+                        <div class="modal-complete" onclick="completeAddCategoryModal()">
+                            <object type="image/svg+xml" data="{% static 'mypage/img/complete_check.svg'%}"></object>
                             <span>완료</span>
+                        </div>
+                    </div>
+                    <div id="new-category-name">
+                        <span>새로운 투두 카테고리를 만들어 보세요.</span>
+                        <div class="name-input-field">
+                            <input id="new-category-name-input" class="name-input" type="text" placeholder="ex. Daily" oninput="handleResetAndCompleteButton(this)" />
+                            <img class="name-input-reset-button hide" src="{% static 'mypage/img/reset_input_x.svg' %}" onclick="resetInput(this)" />
+                        </div>
+                    </div>
+                    <div id="new-category-color">
+                        <span>어울리는 컬러를 골라주세요.</span>
+                        <div id="category-color-list">
+                            <div class="color-item gray"></div>
+                            <div class="color-item pink"></div>
                         </div>
                     </div>
                 </div>

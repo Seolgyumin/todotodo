@@ -52,26 +52,35 @@ def friend(request, id, pid):
 class PersonaView:
     def create(request):
         name=request.POST['name']
-        message=request.POST['message']
-        persona = Persona.objects.create(name=name, message=message, user_id=request.user)
-        return JsonResponse({'personaId': persona.id, 'personaCreatedAt':persona.created_at})
+        persona = Persona.objects.create(name=name, user_id=request.user)
+        return JsonResponse({
+            'personaId': persona.id,
+            'personaName': name,
+            'personaCreatedAt':persona.created_at,
+            'success': True
+            })
 
     def delete(request, id):
         persona = Persona.objects.get(id=id)
         persona.delete()
-        return JsonResponse({})
+        return JsonResponse({
+            'success': True,
+        })
 
     def edit(request, id):
         persona = Persona.objects.get(id=id)
         persona.update(name=request.POST['name'])
-        return JsonResponse({'updatePersonaName':persona.name})
+        return JsonResponse({
+            'updatePersonaName': persona.name,
+            'success': True
+            })
 
 
 class CategoryView:
     def create(request, id):
         name=request.POST['name']
         category = Category.objects.create(persona_id=id, name=name)
-        return JsonResponse({'categoryId':category.id, 'categoryCreatedAt':category.created_at})
+        return JsonResponse({'personaId': id, 'categoryId':category.id, 'categoryCreatedAt':category.created_at})
 
     def delete(request, id):
         category = Category.objects.get(id=id)
