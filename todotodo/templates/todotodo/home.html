@@ -83,40 +83,38 @@ href="{% sass_src 'todotodo/scss/home.css' %}"
                     </svg>
                 </div>
                 <div class="day-of-weeks">
-                    <span class="day-of-week">S</span>
-                    <span class="day-of-week">M</span>
-                    <span class="day-of-week">T</span>
-                    <span class="day-of-week">W</span>
-                    <span class="day-of-week">T</span>
-                    <span class="day-of-week">F</span>
-                    <span class="day-of-week">S</span>
+                    <div class="day-of-week">S</div>
+                    <div class="day-of-week">M</div>
+                    <div class="day-of-week">T</div>
+                    <div class="day-of-week">W</div>
+                    <div class="day-of-week">T</div>
+                    <div class="day-of-week">F</div>
+                    <div class="day-of-week">S</div>
                 </div>
                 {% comment %} {% if %} {% endcomment %}
-                <div class="calendar-date" id="calendar-date">
-                    <div class="week-date" id="week-date">
-                        <div id="week-week-date">
+                {% comment %} <div class="calendar-date" id="calendar-date"> {% endcomment %}
+                    <div id="week-week-date">
                         {% for date in weekcal %}
                         {% if date == 0 %}
-                        <div class="date-ind">
+                        <div class="date-int">
                         <span>&nbsp</span>
                         </div>
                         {% endif %}
                         {% if date != 0 %}
                         {% if date == todaydate %}
-                        <div class="date-ind">
+                        <div class="date-int">
                             <div class="today"> 
                                 {{date}} 
                             </div>                        
                         </div>
                         {% endif %}
                         {% if date != todaydate %}
-                        <div class="date-ind">
+                        <div class="date-int">
                             <span > {{date}} </span>
                         </div>
                         {% endif %}
                         {% endif %}
                         {% endfor %}
-                        </div>
                     </div>                
                     {% comment %} {% endif %} {% endcomment %}
                     {% comment %} {% if %} {% endcomment %}
@@ -125,20 +123,20 @@ href="{% sass_src 'todotodo/scss/home.css' %}"
                         <div class="week-date" id="month-week-date">
                             {% for date in week %}
                             {% if date == 0 %}
-                            <div class="date-ind">
+                            <div class="date-int">
                                 <span>&nbsp</span>
                             </div>
                             {% endif %}
                             {% if date != 0 %}
                             {% if date == todaydate %}
-                            <div class="date-ind">
+                            <div class="date-int">
                                 <div class="today"> 
                                     {{date}} 
                                 </div>
                             </div>                        
                             {% endif %}
                             {% if date != todaydate %}
-                            <div class="date-ind">
+                            <div class="date-int">
                                 <span > {{date}} </span>
                             </div>
                             {% endif %}
@@ -147,7 +145,7 @@ href="{% sass_src 'todotodo/scss/home.css' %}"
                         </div>
                         {%endfor%}
                     </div>
-                </div>
+                {% comment %} </div> {% endcomment %}
             </div>
             {% if todoreqeusts %}
             <div class="waiting-list-container">
