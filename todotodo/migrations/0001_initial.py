@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('accounts', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -27,6 +28,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+<<<<<<< Updated upstream
             name='Friendship',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -36,10 +38,13 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+=======
+>>>>>>> Stashed changes
             name='Persona',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(default='', max_length=256)),
+                ('emoji', models.TextField(default='', max_length=256)),
                 ('message', models.TextField()),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
                 ('user', models.ForeignKey(default=dict, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
@@ -67,9 +72,15 @@ class Migration(migrations.Migration):
                 ('status', models.IntegerField(validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(2)])),
                 ('message', models.TextField(null=True)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
+<<<<<<< Updated upstream
                 ('receiver', models.ForeignKey(default=dict, on_delete=django.db.models.deletion.CASCADE, related_name='todo_receiver', to=settings.AUTH_USER_MODEL)),
                 ('sender', models.ForeignKey(default=dict, on_delete=django.db.models.deletion.CASCADE, related_name='todo_sender', to=settings.AUTH_USER_MODEL)),
                 ('todo', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='todotodo.todo')),
+=======
+                ('receiver_id', models.ForeignKey(default=dict, on_delete=django.db.models.deletion.CASCADE, related_name='todo_receiver', to=settings.AUTH_USER_MODEL)),
+                ('sender_id', models.ForeignKey(default=dict, on_delete=django.db.models.deletion.CASCADE, related_name='todo_sender', to=settings.AUTH_USER_MODEL)),
+                ('todo_id', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='todotodo.todo')),
+>>>>>>> Stashed changes
             ],
         ),
         migrations.CreateModel(
@@ -77,6 +88,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
+<<<<<<< Updated upstream
                 ('friendship', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='todotodo.friendship')),
                 ('persona', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='todotodo.persona')),
             ],
@@ -91,6 +103,12 @@ class Migration(migrations.Migration):
                 ('friend2', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='friendship_request_receiver', to=settings.AUTH_USER_MODEL)),
             ],
         ),
+=======
+                ('friendship_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='accounts.friendship')),
+                ('persona_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='todotodo.persona')),
+            ],
+        ),
+>>>>>>> Stashed changes
         migrations.AddField(
             model_name='category',
             name='persona',

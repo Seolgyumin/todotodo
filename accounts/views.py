@@ -72,4 +72,6 @@ def onboarding(request):
         })
 
 def congrats(request):
-    return render(request, 'accounts/congrats.html')
+    user = request.user
+    thumbnail_img = user.thumbnail_img
+    return render(request, 'accounts/congrats.html', {'user': user, 'thumbnail_img': thumbnail_img})
