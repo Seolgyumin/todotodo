@@ -76,7 +76,7 @@ const addTodo = async (categoryname, categoryid) => {
       todoInputElement.value,
       response.data.todoId
     );
-    document.getElementById(`${categoryname}-todo-list`).prepend(todoElement);
+    document.getElementById(`${categoryname}-todo-list`).append(todoElement);
     todoInputElement.value = "";
   }
   () => {
