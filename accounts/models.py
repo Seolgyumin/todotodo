@@ -15,7 +15,6 @@ class Friendship(models.Model):
     friend2_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_receiver')
     created_at = models.DateTimeField(default=timezone.now)
 
-
 class FriendshipRequest(models.Model):
     friend1_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_request_sender')
     friend2_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_request_receiver')
