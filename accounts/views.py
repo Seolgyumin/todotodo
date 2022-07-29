@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from accounts.models import User
 from todotodo.models import Persona
-from django.contrib.auth import login, logout
+from django.contrib.auth import login as django_login, logout as django_logout
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
@@ -37,6 +37,9 @@ def kakao_callback(request):
         user_queryset = User.objects.filter(kakao_id=user_info['id'])
         if user_queryset.exists():  # 기존에 소셜로그인을 했었는지 확인
             user = user_queryset.first()
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            django_login(request, user)
+            return redirect('todo:home')
         else:
             user = User(
                 username=user_info['properties']['nickname'],
@@ -45,9 +48,9 @@ def kakao_callback(request):
                 thumbnail_img=user_info['properties']['thumbnail_image']
             )
             user.save()
-        user.backend = 'django.contrib.auth.backends.ModelBackend'
-        login(request, user)
-    return redirect('accounts:onboarding')
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            django_login(request, user)
+            return redirect('accounts:onboarding')
 
 @csrf_exempt
 def onboarding(request):
@@ -77,5 +80,5 @@ def congrats(request):
     return render(request, 'accounts/congrats.html', {'user': user, 'thumbnail_img': thumbnail_img })
 
 def logout(request):
-    logout(request)
-    return redirect('/todotodo/index.html')
+    django_logout(request)
+    return redirect('/')

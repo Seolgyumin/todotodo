@@ -27,9 +27,9 @@ class Category(models.Model):
     updated_at = models.DateTimeField(blank=True, null=True)
 
     @receiver(post_save, sender=Persona)  
-    def create_user_profile(sender, instance, created, **kwargs):        
+    def create_default_category(sender, instance, created, **kwargs):        
         if created:          
-            Category.objects.create(persona=instance, )  
+            Category.objects.create(persona=instance, name="Routine")  
     
 class Todo(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
