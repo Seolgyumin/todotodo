@@ -13,6 +13,10 @@ class Persona(models.Model):
     emoji = models.TextField(max_length=256, default='')
     message = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
+<<<<<<< HEAD
+=======
+
+>>>>>>> dfbcce2a3b4d775a12ea15b8f70cb601ed4f0111
 
 class PersonaPermission(models.Model):
     friendship = models.ForeignKey(Friendship, on_delete=models.CASCADE)

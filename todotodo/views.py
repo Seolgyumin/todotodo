@@ -38,7 +38,7 @@ def home(request):
                 weekcal = i
             monthcal.append(i)
         #personaid도 같이 render
-        return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona})
+        return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona, 'persona_emoji':persona_emoji})
     else:
         return render(request, 'accounts/login_required.html')
 # user_id, persona_id, my persona list, 날짜 정보, todo 및 카테고리

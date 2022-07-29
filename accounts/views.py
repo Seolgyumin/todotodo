@@ -62,7 +62,7 @@ def onboarding(request):
         user.username=request.POST['username']
         user.save()
         persona = Persona(
-            user_id=user,
+            user_id=user.id,
             emoji=request.POST['emoji'],
             name=request.POST['persona_name'],
         )
@@ -72,7 +72,9 @@ def onboarding(request):
         })
 
 def congrats(request):
-    return render(request, 'accounts/congrats.html')
+    user = request.user
+    thumbnail_img = user.thumbnail_img
+    return render(request, 'accounts/congrats.html', {'user': user, 'thumbnail_img': thumbnail_img })
 
 def logout(request):
     logout(request)
