@@ -111,9 +111,7 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
 #personas-container {
     height: 128px;
     width: 100%;
-    margin-top: 24px;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin: 24px 20px 0px 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -124,13 +122,19 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
     display: flex;
     flex-direction: column;
 }
+.each-persona-container {
+    height: fit-content;
+    width: fit-content;
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
 .each-persona {
-    margin-bottom: 12.26px;
+    margin-bottom: 12px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
-    cursor: pointer;
 }
 
 /* #each-persona-example {
@@ -180,7 +184,7 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
     justify-content: space-between;
 }
 
-#category-list {
+.category-list {
     height: 35px;
     width: fit-content;
     display: flex;
@@ -238,17 +242,125 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
     width: 500px;
     background-color: #FFFFFF;
     border-radius: 28px 28px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#update-persona-modal {
+#new-persona-imoji-div {
+    height: 154px;
+    width: 154px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+#new-persona-imoji {
+    height: 130px;
+    width: 130px;
+    background-color: rgba(40, 40, 40, 0.2);
+    border-radius: 100%;
+}
+#new-persona-name {
+    height:106px;
+    width: 436px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#new-persona-name span {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: #919191;
+    margin-left: 4px;
+}
+.name-input-field {
+    height: 72px;
+    width: 100%;
+    background-color: #F3F3F3;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.name-input-reset-button {
+    cursor: pointer;
+}
+.name-input-reset-button.hide {
+    display: none;
+}
+#edit-persona-modal {
     z-index: 3;
 }
 
-#inner-update-persona-modal {
-    height: 398px;
+#inner-edit-persona-modal {
+    height: 449px;
     width: 500px;
     background-color: #FFFFFF;
     border-radius: 28px 28px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#edit-persona-imoji-div {
+    height: 151px;
+    width: 151px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 11px;
+}
+#edit-persona-imoji {
+    height: 130px;
+    width: 130px;
+    background-color: rgba(40, 40, 40, 0.2);
+    border-radius: 100%;
+}
+#edit-persona-name {
+    height:72px;
+    width: 436px;
+    margin-bottom: 16px;
+}
+
+#edit-persona-delete {
+    height: 61px;
+    width: 436px;
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+#persona-delete-button {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 24px;
+    background: #F5F5F5;
+    border-radius: 16px;
+    cursor: pointer;
+}
+#persona-delete-button span{
+    width: 112px;
+    height: 29px;
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    color: #626262;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.226875px;
+    white-space: nowrap;
 }
 
 #add-category-modal {
@@ -256,15 +368,69 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
 }
 
 #inner-add-category-modal {
-    height: 398px;
+    height: 360px;
     width: 500px;
     background-color: #FFFFFF;
     border-radius: 28px 28px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#new-category-name {
+    height: 106px;
+    width: 436px;
+    margin-top: 24px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#new-category-name span {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: -0.165px;
+    color: #919191;
+}
+
+#new-category-color {
+    height: 76px;
+    width: 432px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#new-category-color span {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: -0.165px;
+    color: #919191;
+}
+#category-color-list {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+.color-item {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+}
+.color-item.gray {
+    background-color: #F5F5F5;
+}
+.color-item.pink {
+    background-color: #E2C2C2;
 }
 
 .background-space {
-    height: 442px;
-    width: 500px;
+    flex: 1;
 }
 
 .modal-top {
@@ -294,6 +460,10 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
     align-items: flex-start;
     padding: 0px;
     gap: 4px;
+    cursor: pointer;
+}
+.check-svg-checked {
+    fill: rgba(247, 167, 187, 1);
 }
 .modal-complete span {
     font-family: 'Pretendard';
@@ -301,15 +471,5 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
     font-weight: 600;
     font-size: 20px;
     line-height: 24px;
-    color: rgba(233, 127, 29, 0.4);
-}
-
-.footer {
-    position: sticky;
-    background-color: #ffffff;
-    bottom: 0px;
-    width: 100%;
-    height: 100px;
-    display: flex;
-    flex-direction: row;
+    color: rgba(247, 167, 187, 0.4);
 }
