@@ -3,8 +3,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-    {% block content %}
-
+  {% block content %}
     <head>
         <meta charset='utf-8'>
         <title>snulion</title>
@@ -16,7 +15,27 @@
         />
     </head>
     <body>
-        <span>축하합니다!🥳</span>
-    </body>
-    {% endblock content %}
+        <div class="body-container">
+            <div id="content">
+                <div id="user-photo">
+                    <img src={{user.thumbnail_image_url}}/>
+                </div>
+                <span id="username" data-text="님,">test</span>
+                <span id="welcome">투두투두에 오신 것을 환영해요!</span>
+                <p>이제 더 야무지게 할 일을 관리해보아요<br>갓생살자 (๑•̀ㅂ•́)و</p>
+                <a href="{% url 'todo:home' id=1 %}">
+                    <button>바로 시작하기 →</button>
+                </a>
+            </div>
+        </div>
+        <span id="username" data-text="님,">test</span>
+        <span id="welcome">투두투두에 오신 것을 환영해요!</span>
+        <p>이제 더 야무지게 할 일을 관리해보아요<br />갓생살자 (๑•̀ㅂ•́)و</p>
+        <a href="{% url 'todo:home' %}">
+          <button>바로 시작하기 →</button>
+        </a>
+      </div>
+    </div>
+  </body>
+  {% endblock content %}
 </html>

@@ -1,26 +1,19 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from accounts.models import User, Friendship
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
-class Friendship(models.Model):
-    friend1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_sender')
-    friend2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_receiver')
-    created_at = models.DateTimeField(default=timezone.now)
+
 
 class Persona(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=dict)
     name = models.CharField(max_length=256, default='')
+    emoji = models.TextField(max_length=256, default='')
     message = models.TextField()
     # emozi = 
     created_at = models.DateTimeField(default=timezone.now)
-
-class FriendshipRequest(models.Model):
-    friend1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_request_sender')
-    friend2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_request_receiver')
-    persona1 = models.JSONField(default=dict) #sender's open persona list
-    created_at = models.DateTimeField(default=timezone.now)
+ 
 
 class PersonaPermission(models.Model):
     friendship = models.ForeignKey(Friendship, on_delete=models.CASCADE)
