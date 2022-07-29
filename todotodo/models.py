@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from accounts.models import User, Friendship
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -24,6 +26,11 @@ class Category(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(blank=True, null=True)
 
+    @receiver(post_save, sender=Persona)  
+    def create_user_profile(sender, instance, created, **kwargs):        
+        if created:          
+            Category.objects.create(persona=instance, )  
+    
 class Todo(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=256, default='')

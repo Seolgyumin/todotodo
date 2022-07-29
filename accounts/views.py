@@ -73,3 +73,7 @@ def onboarding(request):
 
 def congrats(request):
     return render(request, 'accounts/congrats.html')
+
+def logout(request):
+    logout(request)
+    return redirect('/todotodo/index.html')
