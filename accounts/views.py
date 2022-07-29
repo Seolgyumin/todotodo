@@ -59,4 +59,13 @@ def onboarding(request):
         return render(request, 'accounts/onboarding.html')
 
 def congrats(request):
-    return render(request, 'accounts/congrats')
+    # profile = Profile(
+    #     id='id'
+    #     name='name'
+    #     email='email'
+    #     thumbnail_image_url='thumbnail_image_url'
+    # )
+    # profile.save()
+    return render(request, 'accounts/congrats.html'
+    # , {'profile': profile}
+    )

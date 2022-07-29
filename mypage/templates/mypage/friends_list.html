@@ -12,29 +12,55 @@
             type="text/css"
             href="{% sass_src 'mypage/scss/friends_list.css' %}"
         />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     </head>
     <body>
         <div class="body-container">
-            <div class="inner-body-container">
-                <header>
-                    <button onclick="goBack()"> X </button>
-                </header>
-                <main>
+            <header>
+                <span onclick='goBack()' style='cursor: pointer' class="material-symbols-outlined" height="15px" width="15px">close</span>
+                <div id="add-friend-container">
                     <h2>투두 친구들</h2>
-                    <div class="friend-container">
-                        <img src=""/>
-                        <div class="friend-profile">
-                            <span>{{ friend.name }}</span>
-                            <p>{{ friend.status }}</p>
-                        </div>
+                    <div id="add-friend-button">
+                        <img src="{% static 'mypage/img/add_friend_button.svg' %}"/>
+                        <span>추가하기</span>
                     </div>
-                </main>
-                <script>
-                    function goBack() {
-                        window.history.go(-1);
-                    }
-                </script>
-            </div>
+                </div>
+            </header>
+            <main>
+                <div id="new-friend">
+                    <span>새로 받은 친구 요청</span>
+                    {% comment %} {% for friendshiprequest in friendshiprequests %} {% endcomment %}
+                        <div id="new-friend-container">
+                            <div id="profile-img-name">
+                                <img id="new-friend-container-img" src="https://i.ibb.co/9ZPvSgb/Mask-group-5.png"/>
+                                {% comment %} {{profile.thumbnail_image_url}} 로 소스 갈아끼우기 {% endcomment %}
+                                <span>{{ friend.name }}test</span>
+                            </div>
+                            <div id="accept-friend-button">
+                                <img id="accept-friend-button-img" src="{% static 'mypage/img/accept_friend_button.svg' %}"/>
+                                <span>수락하기</span>
+                            </div>
+                        </div>
+                    {% comment %} {% endfor %} {% endcomment %}
+                </div>
+                {% comment %} {% for friend in friends %} {% endcomment %}
+                    <div id="friend-list-header">
+                        <span>내 친구들</span>
+                        <str>{{ friend_set.count }}test</str>
+                    </div>
+                    <div id="friend-list">
+                        <img src="https://i.ibb.co/9ZPvSgb/Mask-group-5.png"/>
+                        {% comment %} {{profile.thumbnail_image_url}} 로 소스 갈아끼우기 {% endcomment %}
+                        <span>{{ friend.name }}test</span>
+                    </div>
+                {% comment %} {% endfor %} {% endcomment %}
+            </main>
+            <script>
+                function goBack() {
+                    window.history.go(-1);
+                }
+            </script>
+            <script src="{% static 'mypage/js/friends_list.js' %}"></script>
         </div>
     </body>
     {% endblock content %}

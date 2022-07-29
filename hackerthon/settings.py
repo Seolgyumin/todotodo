@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'sass_processor',
     'django_seed',
     'todotodo',
-    'tutorial',
     'mypage',
     'history',
     'alertcenter',
