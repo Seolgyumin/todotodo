@@ -13,12 +13,20 @@
             type="text/css"
             href="{% sass_src 'accounts/scss/congrats.css' %}"
         />
+        <script type="text/javascript">
+            function subtractSlash() {
+                var thumbnail_img = document.getElementById('thumbnail_img');
+                thumbnail_img.src = thumbnail_img.src.slice(0, -1);
+
+            }
+            window.onload=subtractSlash;
+        </script>
     </head>
     <body>
         <div class="body-container">
             <div id="content">
                 <div id="user-photo">
-                    <img src={{ user.thumbnail_img }}/>
+                    <img id="thumbnail_img" src={{ thumbnail_img }}/>
                 </div>
                 <span id="username">{{ user.username }}님,</span>
                 <span id="welcome">투두투두에 오신 것을 환영해요!</span>

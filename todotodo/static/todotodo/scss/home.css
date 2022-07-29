@@ -14,11 +14,14 @@
 .container-top {
   width: 500px;
   height: 64px;
+  margin-block: 12px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 #alerticon {
   position: absolute;
-  top: 12px;
   left: 440px;
   width: 40px;
   height: 40px;
@@ -26,28 +29,29 @@
 
 #historyicon {
   position: absolute;
-  top: 12px;
   left: 392px;
   width: 40px;
   height: 40px;
+  margin-right: 8px;
 }
 
 .persona-container {
   width: 500px;
   height: 40px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .persona-list {
-  position: absolute;
   display: flex;
   flex-direction: row;
   align-items: center;
-  left: 16px;
+  margin-left: 16px;
 }
 
 .persona-image {
   margin-left: 8px;
-  background: #ededed;
+  background-color: #f4f4f4;
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -55,7 +59,7 @@
 
 #persona-create-button {
   margin-left: 8px;
-  background: #ededed;
+  background: #f4f4f4;
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -75,20 +79,26 @@
   margin-top: 24px;
   height: 84px;
   display: flex;
-  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
 }
 
 .profile-photo {
-  position: relative;
   width: 84px;
   height: 84px;
-  border-radius: 42px;
+  border-radius: 50%;
   background: #ededed;
 }
 
 .persona-name {
   margin-left: 16px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.profile-description {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .username {
@@ -97,9 +107,18 @@
   line-height: 29px;
   letter-spacing: -0.16500000655651093px;
   text-align: left;
+  margin-left: ;
 }
 
 .persona-name-text {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;
+  letter-spacing: -0.16500000655651093px;
+  text-align: left;
+}
+
+.user-name-text {
   font-size: 24px;
   font-weight: 500;
   line-height: 29px;
