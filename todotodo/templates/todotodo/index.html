@@ -2,20 +2,18 @@
 
 <!DOCTYPE html>
 <html>
+  {% block content %}
   <head>
     <meta charset='utf-8'>
     <title>snulion</title>
     {% load static %} {% load sass_tags %} {% load socialaccount %}
     {% providers_media_js %}
-    {% block style%}
     <link
       rel="stylesheet"
       type="text/css"
       href="{% sass_src 'todotodo/scss/index.css' %}"
     />
-    {% endblock style %}
   </head>
-  {% block content %}
   <body>
     <div class="body-container">
         {% comment %} <div id="logo">logo</div>

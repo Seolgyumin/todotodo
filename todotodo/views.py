@@ -9,21 +9,15 @@ import json
 
 # Create your views here.
 def index(request):
-    if request.user.is_authenticated:
-        return redirect('todo:home')
-    else:
-        return render(request, 'todotodo/index.html')
+    return render(request, 'todotodo/index.html')
 
-def home(request):
+def home(request, id):
     user = request.user
+    print(user)
     if user.is_authenticated:
         personas = user.persona_set.all()
-        persona_id = request.GET.get('persona_id')
-        if persona_id:
-            persona = Persona.objects.get(id=persona_id)
-        else:
-            persona = personas.first()
-        persona_emoji = persona.emoji
+        persona = personas.first()
+        #persona = Persona.objects.get(id=id)
         todorequests = TodoRequest.objects.filter(receiver_persona=persona)
         #이거 todorequest 불러오는거 request.user를 receiver로 설정해야한느데..
         categories= persona.category_set.all()
@@ -39,7 +33,7 @@ def home(request):
                 weekcal = i
             monthcal.append(i)
         #personaid도 같이 render
-        return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona, 'persona_emoji':persona_emoji})
+        return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona})
     else:
         return render(request, 'accounts/login_required.html')
 # user_id, persona_id, my persona list, 날짜 정보, todo 및 카테고리
@@ -64,21 +58,28 @@ def friend(request, id, pid):
 class PersonaView:
     def create(request):
         name=request.POST['name']
-        message=request.POST['message']
-        persona = Persona.objects.create(name=name, message=message, user=request.user)
-        return JsonResponse({'personaId': persona.id, 'personaCreatedAt':persona.created_at})
+        persona = Persona.objects.create(name=name, user_id=request.user)
+        return JsonResponse({
+            'personaId': persona.id,
+            'personaName': name,
+            'personaCreatedAt':persona.created_at,
+            'success': True
+            })
 
     def delete(request, id):
         persona = Persona.objects.get(id=id)
         persona.delete()
-        return JsonResponse({})
+        return JsonResponse({
+            'success': True,
+        })
 
     def edit(request, id):
         persona = Persona.objects.get(id=id)
         persona.update(name=request.POST['name'])
-        return JsonResponse({'updatePersonaName':persona.name})
-    
-
+        return JsonResponse({
+            'updatePersonaName': persona.name,
+            'success': True
+            })
 
 
 class CategoryView:
