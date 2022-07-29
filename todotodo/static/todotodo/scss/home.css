@@ -180,7 +180,7 @@
   text-align: left;
 }
 
-.day-of-weeks {
+/* .day-of-weeks {
   height: 21px;
   margin-top: 20px;
   margin-left: 29px;
@@ -195,18 +195,30 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+} */
+
+.day-of-weeks {
+  display: flex;
+  /* margin-inline: 29px; */
+  margin-top: 22px;
+  margin-bottom: 32px;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 700;
+  color: #a7a7a7;
 }
 
 .day-of-week {
-  height: 21px;
-  width: 16px;
+  display: flex;
+  justify-content: center;
+  width: 68px;
 }
 
 .calendar-selection {
   height: fit-content;
 }
 
-.calendar-date {
+/* .calendar-date {
   margin-top: 30.23px;
   margin-left: 17px;
   margin-right: 17px;
@@ -216,27 +228,29 @@
   line-height: 21px;
   letter-spacing: -0.2113157957792282px;
   text-align: center;
-}
+} */
 
 #week-week-date {
   display: flex;
-  flex-direction: row;
+  margin-bottom: 32px;
+  /* margin-inline: 29px; */
   justify-content: space-between;
-  margin-bottom: 11.23px;
 }
 
 #month-week-date {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 11.23px;
+  margin-bottom: 32px;
 }
-.date-ind {
+
+.date-int {
   display: flex;
-  flex-direction: column;
-  width: 40px;
-  height: 40px;
   justify-content: center;
+  width: 68px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #282828;
 }
 
 .today {
@@ -397,12 +411,8 @@
   color: #626262;
 }
 
-.week-date {
-  display: block;
-}
-
-.week-date.hide {
-  display: none;
+.hide {
+  display: none !important;
 }
 
 .month-date.hide {
