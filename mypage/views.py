@@ -1,19 +1,9 @@
 from django.shortcuts import render
-from todotodo.models import Persona, Category
+from todotodo.models import Persona
 
 def index(request):
-    user = request.user
-    personas = Persona.objects.filter(user=user)
-    persona_categories = []
-
-    for persona in personas:
-        each = {}
-        each['persona'] = persona
-        each['categories'] = Category.objects.filter(persona=persona)
-        persona_categories.append(each)
-
-    print(persona_categories)
-    return render(request, 'mypage/index.html', {'personas': persona_categories})
+    personas = Persona.objects.all()
+    return render(request, 'mypage/index.html', {'personas': personas})
 
 def friends_list(request):
     return render(request, 'mypage/friends_list.html')

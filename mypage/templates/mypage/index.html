@@ -1,24 +1,20 @@
 {% extends 'todotodo/base.html' %}
-
-<!DOCTYPE html>
-
 {% load static %}
-
-<html lang="ko">
-    {% block content %}
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My Page</title>
-        {% load static %} {% load sass_tags %} {% load socialaccount %}
-        {% providers_media_js %}
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="{% sass_src 'mypage/scss/index.css' %}"
-        />
-    </head>
+{% load static %} 
+{% load sass_tags %} 
+{% load socialaccount %}
+{% providers_media_js %}
+{% block style %}
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="{% sass_src 'mypage/scss/index.css' %}"
+    />
+{% endblock style %}
+{% block js %}
+    <script src="{% static 'mypage/js/mypage.js' %}"></script>
+{% endblock js %}
+{% block content %}
     <body>
         <div class="body-container" id="main-container">
             <h1>
@@ -57,40 +53,48 @@
                         </div>
                     </div>
                     <div id="persona-list">
-                        <div class="each-persona-container" id="each-persona-example">
-                            <div class="each-persona" onclick="showEditPersonaModal(1)">
-                                <div id="persona-img-example"></div>
-                                <span id="persona-name">어쩌구</span>
-                                <img src="{% static 'mypage/img/arrow_back_persona_details.svg' %}" />
+                        <div class="each-persona" id="each-persona-example" onclick="showUpdatePersonaModal()">
+                            <div id="persona-img-example"></div>
+                            <span id="persona-name">어쩌구</span>
+                            <img src="{% static 'mypage/img/arrow_back_persona_details.svg'%}" />
+                        </div>
+                        <div id="category-list">
+                            <div class="each-category">
+                                <span class="category-name">Routine</span>
                             </div>
-                            <div id="0-category-list" class="category-list">
+                            <div class="each-category" id="add-category-button" onclick="showAddCategoryModal()"> + </div>
+                        </div>
+                    {% for persona in personas %}
+                        <div class="each-persona" id="each-persona-{{ persona.id }}" onclick="showUpdatePersonaModal()">
+                            <img src="" id="{{ persona.id }}-photo"/>
+                            <div>
+                                <span id="persona-{{ persona.id }}-name">{{ persona.name }}</span>
+                                <img src="{% static 'mypage/img/arrow_back_persona_details.svg'%}" />
+                            </div>
+                            <div id="category-list">
+                                {% for category in categories %}
+                                    <div class="each-category">{{ category.name }}</div>
+                                {% endfor %}
                                 <div class="each-category">
                                     <span class="category-name">Routine</span>
                                 </div>
                                 <div class="each-category" id="add-category-button" onclick="showAddCategoryModal()"> + </div>
                             </div>
                         </div>
-                        {% for persona in personas %}
-                        <div class="each-persona-container" id="each-persona-{{ persona.id }}">
-                            <div class="each-persona" onclick="showEditPersonaModal({{ persona.id }})">
-                                <img src="" id="{{ persona.id }}-photo"/>
-                                <span id="persona-name-{{ persona.id }}">{{ persona.name }}</span>
-                                <img src="{% static 'mypage/img/arrow_back_persona_details.svg'%}" />
-                            </div>
-                            <div id="{{ persona.id }}-category-list" class="category-list">
-                                {% for category in categories %}
-                                <div class="each-category">
-                                    <span class="category-name">{{ category.name }}</span>
-                                </div>
-                                {% endfor %}
-                                <div class="each-category">
-                                    <span class="category-name">Routine</span>
-                                </div>
-                                <div class="each-category" id="add-category-button-{{ persona.id }}" onclick="showAddCategoryModal({{ persona.id }})"> + </div>
-                            </div>
-                        </div>
-                        {% endfor %}
+                    {% endfor %}
                     </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div onclick="goMyPage()">
+                    <svg class="movetodo" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M26.8 17.55C26.6 17.55 26.425 17.475 26.275 17.325C26.125 17.175 26.05 16.9833 26.05 16.75C26.05 16.55 26.125 16.375 26.275 16.225C26.425 16.075 26.6 16 26.8 16H41.25C41.4834 16 41.675 16.075 41.825 16.225C41.975 16.375 42.05 16.5667 42.05 16.8C42.05 17 41.975 17.175 41.825 17.325C41.675 17.475 41.4834 17.55 41.25 17.55H26.8ZM26.8 32C26.6 32 26.425 31.925 26.275 31.775C26.125 31.625 26.05 31.4333 26.05 31.2C26.05 31 26.125 30.825 26.275 30.675C26.425 30.525 26.6 30.45 26.8 30.45H41.25C41.4834 30.45 41.675 30.525 41.825 30.675C41.975 30.825 42.05 31.0167 42.05 31.25C42.05 31.45 41.975 31.625 41.825 31.775C41.675 31.925 41.4834 32 41.25 32H26.8ZM10.7 20.05L6.50004 15.85C6.36671 15.7167 6.30838 15.5417 6.32504 15.325C6.34171 15.1083 6.41671 14.9333 6.55004 14.8C6.68338 14.6667 6.85838 14.6 7.07504 14.6C7.29171 14.6 7.46671 14.6667 7.60004 14.8L11.65 18.85L19.8 10.7C19.9667 10.5667 20.1584 10.5 20.375 10.5C20.5917 10.5 20.7834 10.5667 20.95 10.7C21.0834 10.8667 21.15 11.0583 21.15 11.275C21.15 11.4917 21.0667 11.6667 20.9 11.8L12.65 20.05C12.3834 20.3167 12.0584 20.45 11.675 20.45C11.2917 20.45 10.9667 20.3167 10.7 20.05ZM10.7 34.5L6.50004 30.35C6.36671 30.1833 6.30838 30 6.32504 29.8C6.34171 29.6 6.41671 29.4167 6.55004 29.25C6.68338 29.1167 6.85838 29.05 7.07504 29.05C7.29171 29.05 7.46671 29.1167 7.60004 29.25L11.65 33.3L19.8 25.15C19.9667 25.0167 20.1584 24.95 20.375 24.95C20.5917 24.95 20.7834 25.0167 20.95 25.15C21.0834 25.3167 21.15 25.5083 21.15 25.725C21.15 25.9417 21.0667 26.1167 20.9 26.25L12.65 34.5C12.3834 34.8 12.0584 34.95 11.675 34.95C11.2917 34.95 10.9667 34.8 10.7 34.5Z" fill="#626262"/>
+                    </svg>
+                </div> 
+                <div>
+                    <svg class="movemypage" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 22.7502C22.3333 22.7502 20.9583 22.2002 19.875 21.1002C18.7917 20.0002 18.25 18.6169 18.25 16.9502C18.25 15.2835 18.7917 13.9085 19.875 12.8252C20.9583 11.7419 22.3333 11.2002 24 11.2002C25.6667 11.2002 27.0417 11.7419 28.125 12.8252C29.2083 13.9085 29.75 15.2835 29.75 16.9502C29.75 18.6169 29.2083 20.0002 28.125 21.1002C27.0417 22.2002 25.6667 22.7502 24 22.7502ZM36.4 37.2502H11.6C11.1667 37.2502 10.7917 37.0919 10.475 36.7752C10.1583 36.4585 10 36.0669 10 35.6002V34.3502C10 33.4502 10.25 32.6585 10.75 31.9752C11.25 31.2919 11.9167 30.7502 12.75 30.3502C14.7167 29.4835 16.6333 28.8252 18.5 28.3752C20.3667 27.9252 22.2 27.7002 24 27.7002C25.8 27.7002 27.6333 27.9252 29.5 28.3752C31.3667 28.8252 33.2667 29.4835 35.2 30.3502C36.0667 30.7502 36.75 31.2919 37.25 31.9752C37.75 32.6585 38 33.4502 38 34.3502V35.6002C38 36.0669 37.8417 36.4585 37.525 36.7752C37.2083 37.0919 36.8333 37.2502 36.4 37.2502ZM11.55 35.7002H36.45V34.3502C36.45 33.8502 36.2833 33.3585 35.95 32.8752C35.6167 32.3919 35.15 32.0002 34.55 31.7002C32.75 30.8335 30.9917 30.2085 29.275 29.8252C27.5583 29.4419 25.8 29.2502 24 29.2502C22.2 29.2502 20.4333 29.4419 18.7 29.8252C16.9667 30.2085 15.2167 30.8335 13.45 31.7002C12.85 32.0002 12.3833 32.3919 12.05 32.8752C11.7167 33.3585 11.55 33.8502 11.55 34.3502V35.7002ZM24 21.2002C25.2 21.2002 26.2083 20.8002 27.025 20.0002C27.8417 19.2002 28.25 18.2002 28.25 17.0002C28.25 15.8002 27.8417 14.7919 27.025 13.9752C26.2083 13.1585 25.2 12.7502 24 12.7502C22.8 12.7502 21.7917 13.1585 20.975 13.9752C20.1583 14.7919 19.75 15.8002 19.75 17.0002C19.75 18.2002 20.1583 19.2002 20.975 20.0002C21.7917 20.8002 22.8 21.2002 24 21.2002Z" fill="#626262" fill-opacity="0.3"/>
+                    </svg>
                 </div>
             </div>
             <div class="mypage-modal hide" id="add-persona-modal">
@@ -98,47 +102,21 @@
                 <div id="inner-add-persona-modal">
                     <div class="modal-top">
                         <span>새 페르소나</span>
-                        <div class="modal-complete" onclick="completeAddPersonaModal()">
-                            <object type="image/svg+xml" data="{% static 'mypage/img/complete_check.svg'%}"></object>
+                        <div class="modal-complete">
+                            <img src="{% static 'mypage/img/complete_check.svg'%}" />
                             <span>완료</span>
-                        </div>
-                    </div>
-                    <div id="new-persona-imoji-div">
-                        <img id="new-persona-imoji"/>
-                    </div>
-                    <div id="new-persona-name">
-                        <span>새로운 페르소나에 이름을 붙여주세요.</span>
-                        <div class="name-input-field">
-                            <input id="new-persona-name-input" class="name-input" type="text" placeholder="ex. 열심히 일하는" oninput="handleResetAndCompleteButton(this)" />
-                            <img class="name-input-reset-button hide" src="{% static 'mypage/img/reset_input_x.svg' %}" onclick="resetInput(this)" />
-                            <span>{{user.get_username}}님</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="mypage-modal hide" id="edit-persona-modal">
-                <div class="background-space" onclick="hideEditPersonaModal()"></div>
-                <div id="inner-edit-persona-modal">
+            <div class="mypage-modal hide" id="update-persona-modal">
+                <div class="background-space" onclick="hideUpdatePersonaModal()"></div>
+                <div id="inner-update-persona-modal">
                     <div class="modal-top">
-                        <span>내 페르소나</span>
-                        <div class="modal-complete" onclick="completeEditPersonaModal()">
-                            <object type="image/svg+xml" data="{% static 'mypage/img/complete_check.svg'%}"></object>
+                        <span>수정할 이름</span>
+                        <div class="modal-complete">
+                            <img src="{% static 'mypage/img/complete_check.svg'%}" />
                             <span>완료</span>
-                        </div>
-                    </div>
-                    <div id="edit-persona-imoji-div">
-                        <img id="edit-persona-imoji"/>
-                    </div>
-                    <div id="edit-persona-name">
-                        <div class="name-input-field">
-                            <input class="name-input" type="text" oninput="handleResetAndCompleteButton(this)" />
-                            <img class="name-input-reset-button hide" src="{% static 'mypage/img/reset_input_x.svg' %}" onclick="resetInput(this)" />
-                            <span>{{user.get_username}}님</span>
-                        </div>
-                    </div>
-                    <div id="edit-persona-delete">
-                        <div id="persona-delete-button" onclick="deletePersona()">
-                            <span>❌ 삭제하기</span>
                         </div>
                     </div>
                 </div>
@@ -148,29 +126,13 @@
                 <div id="inner-add-category-modal">
                     <div class="modal-top">
                         <span>새 카테고리</span>
-                        <div class="modal-complete" onclick="completeAddCategoryModal()">
-                            <object type="image/svg+xml" data="{% static 'mypage/img/complete_check.svg'%}"></object>
+                        <div class="modal-complete">
+                            <img src="{% static 'mypage/img/complete_check.svg'%}" />
                             <span>완료</span>
-                        </div>
-                    </div>
-                    <div id="new-category-name">
-                        <span>새로운 투두 카테고리를 만들어 보세요.</span>
-                        <div class="name-input-field">
-                            <input id="new-category-name-input" class="name-input" type="text" placeholder="ex. Daily" oninput="handleResetAndCompleteButton(this)" />
-                            <img class="name-input-reset-button hide" src="{% static 'mypage/img/reset_input_x.svg' %}" onclick="resetInput(this)" />
-                        </div>
-                    </div>
-                    <div id="new-category-color">
-                        <span>어울리는 컬러를 골라주세요.</span>
-                        <div id="category-color-list">
-                            <div class="color-item gray"></div>
-                            <div class="color-item pink"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="{% static 'mypage/js/mypage.js' %}"></script>
     </body>
 {% endblock content%}
-</html> 

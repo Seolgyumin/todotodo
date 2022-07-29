@@ -14,11 +14,14 @@
 .container-top {
   width: 500px;
   height: 64px;
+  margin-block: 12px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 #alerticon {
   position: absolute;
-  top: 12px;
   left: 440px;
   width: 40px;
   height: 40px;
@@ -26,28 +29,29 @@
 
 #historyicon {
   position: absolute;
-  top: 12px;
   left: 392px;
   width: 40px;
   height: 40px;
+  margin-right: 8px;
 }
 
 .persona-container {
   width: 500px;
   height: 40px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .persona-list {
-  position: absolute;
   display: flex;
   flex-direction: row;
   align-items: center;
-  left: 16px;
+  margin-left: 16px;
 }
 
 .persona-image {
   margin-left: 8px;
-  background: #ededed;
+  background-color: #f4f4f4;
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -55,7 +59,7 @@
 
 #persona-create-button {
   margin-left: 8px;
-  background: #ededed;
+  background: #f4f4f4;
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -75,20 +79,24 @@
   margin-top: 24px;
   height: 84px;
   display: flex;
-  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
 }
 
 .profile-photo {
-  position: relative;
   width: 84px;
   height: 84px;
-  border-radius: 42px;
-  background: #ededed;
 }
 
 .persona-name {
   margin-left: 16px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.profile-description {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .username {
@@ -100,6 +108,14 @@
 }
 
 .persona-name-text {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;
+  letter-spacing: -0.16500000655651093px;
+  text-align: left;
+}
+
+.user-name-text {
   font-size: 24px;
   font-weight: 500;
   line-height: 29px;
@@ -161,7 +177,7 @@
   text-align: left;
 }
 
-.day-of-weeks {
+/* .day-of-weeks {
   height: 21px;
   margin-top: 20px;
   margin-left: 29px;
@@ -176,18 +192,30 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+} */
+
+.day-of-weeks {
+  display: flex;
+  /* margin-inline: 29px; */
+  margin-top: 22px;
+  margin-bottom: 32px;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 700;
+  color: #a7a7a7;
 }
 
 .day-of-week {
-  height: 21px;
-  width: 16px;
+  display: flex;
+  justify-content: center;
+  width: 68px;
 }
 
 .calendar-selection {
   height: fit-content;
 }
 
-.calendar-date {
+/* .calendar-date {
   margin-top: 30.23px;
   margin-left: 17px;
   margin-right: 17px;
@@ -197,27 +225,29 @@
   line-height: 21px;
   letter-spacing: -0.2113157957792282px;
   text-align: center;
-}
+} */
 
 #week-week-date {
   display: flex;
-  flex-direction: row;
+  margin-bottom: 32px;
+  /* margin-inline: 29px; */
   justify-content: space-between;
-  margin-bottom: 11.23px;
 }
 
 #month-week-date {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 11.23px;
+  margin-bottom: 32px;
 }
-.date-ind {
+
+.date-int {
   display: flex;
-  flex-direction: column;
-  width: 40px;
-  height: 40px;
   justify-content: center;
+  width: 68px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #282828;
 }
 
 .today {
@@ -378,12 +408,8 @@
   color: #626262;
 }
 
-.week-date {
-  display: block;
-}
-
-.week-date.hide {
-  display: none;
+.hide {
+  display: none !important;
 }
 
 .month-date.hide {
@@ -400,6 +426,8 @@
   bottom: 0px;
   width: 100%;
   height: 100px;
+  display: flex;
+  flex-direction: row;
 }
 
 .movetodo {
@@ -511,6 +539,12 @@ input:focus {
   height: 61px;
   background: #f5f5f5;
   border-radius: 16px;
+}
+
+#profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 
 /* input[type="checkbox"] {

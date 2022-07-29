@@ -189,5 +189,5 @@ cython_debug/
 
 ### migration files ###
 migrations/
-**/migrations/
+
 # End of https://www.toptal.com/developers/gitignore/api/django,vscode
