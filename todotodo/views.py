@@ -11,12 +11,13 @@ import json
 def index(request):
     return render(request, 'todotodo/index.html')
 
-def home(request, id):
+def home(request):
     user = request.user
     print(user)
     if user.is_authenticated:
         personas = user.persona_set.all()
         persona = personas.first()
+        persona_emoji = persona.emoji
         #persona = Persona.objects.get(id=id)
         todorequests = TodoRequest.objects.filter(receiver_persona=persona)
         #이거 todorequest 불러오는거 request.user를 receiver로 설정해야한느데..
@@ -33,7 +34,7 @@ def home(request, id):
                 weekcal = i
             monthcal.append(i)
         #personaid도 같이 render
-        return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona})
+        return render(request, 'todotodo/home.html', {'personas': personas, 'todorequests':todorequests, 'categories':categories, 'todos':sorted(todos.items()), 'weekcal':weekcal, 'monthcal':monthcal, 'persona':persona, 'persona_emoji':persona_emoji})
     else:
         return render(request, 'accounts/login_required.html')
 # user_id, persona_id, my persona list, 날짜 정보, todo 및 카테고리

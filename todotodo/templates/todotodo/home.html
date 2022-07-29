@@ -32,12 +32,12 @@ href="{% sass_src 'todotodo/scss/home.css' %}"
             <div class="persona-container">
                 <div class="persona-list">
                     {% for persona in personas %}
-                    <div class = "persona-image">
-                        <p> 
+                    <img class = "persona-image" src="{{ persona_emoji }}">
+                        {% comment %} <p> 
                             <img src="" id="{{ persona.id }}-photo"/>
                             <br> {{ persona.name }}
-                        </p>
-                    </div>
+                        </p> {% endcomment %}
+                    </img>
                     {% comment %} {% if {{persona}} = persona %} {% endcomment %}
                     {% endfor %}
                     <button id='persona-create-button' onclick='addPersona()'> + </button>
@@ -52,9 +52,9 @@ href="{% sass_src 'todotodo/scss/home.css' %}"
                 </div>
                 <div class="profile-description">
                     <div class="persona-name">
-                        <span class="persona-name-text">{{persona.name}}</span>
+                        <span class="persona-name-text">{{ persona.name }}&nbsp;</span>
                         <span class="username">{{ user.get_username }}</span>
-                        <span class="persona-name-text">님</span>
+                        <span class="user-name-text">님</span>
                     </div>
                     <div class="header-friend">
                     </div>
