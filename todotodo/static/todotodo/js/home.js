@@ -63,7 +63,7 @@ const getTodoElement = (todoname, todoId, categoryname) => {
 </div>`;
   var sheet = document.createElement("style");
   sheet.innerHTML =
-    ".todo-container {margin-bottom: 12px;height: 50px;display: flex;align-items: center;} .todo-checkbox{width: 50px;height: 50px;cursor: pointer;} .todoname-text {margin-left: 16px;font-family:Pretendard;font-style: normal;font-weight: 400;font-size: 20px;letter-spacing: -0.165px;color: #333333;} .todo-detail {position: absolute;margin-right: 24px;right: 0px;}";
+    ".todo-container {margin-bottom: 12px;height: 50px;display: flex;align-items: center;} .todo-checkbox{width: 20px;height: 20px;cursor: pointer;} .todoname-text {margin-left: 20px;font-family:Pretendard;font-style: normal;font-weight: 400;font-size: 20px;letter-spacing: -0.165px;color: #333333;} .todo-detail {position: absolute;margin-right: 24px;right: 0px;}";
   document.body.appendChild(sheet);
   return newTodoElement;
 };
@@ -94,11 +94,14 @@ const addTodo = async (categoryname, categoryid) => {
 
 const completeTodo = async (todoname, todoid) => {
   const todoComplete = document.getElementById(`${todoname}-todoname`);
-  todoComplete.classList.add("complete");
+  if (todoComplete.classList.contains('complete')) {
+    todoComplete.classList.remove("complete");
+  } else {
+    todoComplete.classList.add("complete");
+  }
   todoComplete.innerHTML = `${todoname}`;
   const data = new FormData();
   const response = await axios.post(`/todo/completetodo/${todoid}/`, data);
-  response;
 };
 
 const editTodo = (todoid, todoname) => {

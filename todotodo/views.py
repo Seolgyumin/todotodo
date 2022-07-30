@@ -120,6 +120,11 @@ class TodoView:
 
     def complete(request, id):
         todo = Todo.objects.get(id=id)
-        todo.completed = True
+        if todo.completed:
+            todo.completed = False
+        else:
+            todo.completed = True
         todo.save()
-        return JsonResponse({})
+        return JsonResponse({
+            "is_completed": todo.completed
+        })
