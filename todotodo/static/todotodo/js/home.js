@@ -63,7 +63,7 @@ const getTodoElement = (todoname, todoId, categoryname) => {
 </div>`;
   var sheet = document.createElement("style");
   sheet.innerHTML =
-    ".todo-container {margin-bottom: 12px;height: 50px;display: flex;align-items: center;} .todo-checkbox{width: 50px;height: 50px;cursor: pointer;} .todoname-text {margin-left: 16px;font-family:Pretendard;font-style: normal;font-weight: 400;font-size: 20px;letter-spacing: -0.165px;color: #333333;} .todo-detail {position: absolute;margin-right: 24px;right: 0px;}";
+    ".todo-container {margin-bottom: 12px;height: 50px;display: flex;align-items: center;} .todo-checkbox{width: 20px;height: 20px;cursor: pointer;} .todoname-text {margin-left: 20px;font-family:Pretendard;font-style: normal;font-weight: 400;font-size: 20px;letter-spacing: -0.165px;color: #333333;} .todo-detail {position: absolute;margin-right: 24px;right: 0px;}";
   document.body.appendChild(sheet);
   return newTodoElement;
 };
@@ -84,7 +84,7 @@ const addTodo = async (categoryname, categoryid) => {
       response.data.todoId,
       categoryname
     );
-    document.getElementById(`${categoryname}-todo-list`).prepend(todoElement);
+    document.getElementById(`${categoryname}-todo-list`).append(todoElement);
     todoInputElement.value = "";
   }
   () => {
@@ -94,11 +94,14 @@ const addTodo = async (categoryname, categoryid) => {
 
 const completeTodo = async (todoname, todoid) => {
   const todoComplete = document.getElementById(`${todoname}-todoname`);
-  todoComplete.classList.add("complete");
+  if (todoComplete.classList.contains('complete')) {
+    todoComplete.classList.remove("complete");
+  } else {
+    todoComplete.classList.add("complete");
+  }
   todoComplete.innerHTML = `${todoname}`;
   const data = new FormData();
   const response = await axios.post(`/todo/completetodo/${todoid}/`, data);
-  response;
 };
 
 const editTodo = (todoid, todoname) => {
@@ -136,7 +139,7 @@ const updateTodo = async (todoid, todoInput, parentDiv) => {
 };
 
 const showWeekDate = (personaid) => {
-  const weekdateElement = document.getElementById("week-date");
+  const weekdateElement = document.getElementById("week-week-date");
   weekdateElement.classList.remove("hide");
   const monthdateElement = document.getElementById("month-date");
   monthdateElement.classList.add("hide");
@@ -157,7 +160,7 @@ const showMonthDate = (personaid) => {
   const monthdateElement = document.getElementById("month-date");
   monthdateElement.classList.remove("hide");
   const weekdateElement = document.getElementById("week-week-date");
-  weekdateElement.ClassList.add("hide");
+  weekdateElement.classList.add("hide");
   const weeklytextElement = document.getElementById("weekly-text");
   weeklytextElement.classList.remove("bold");
   const monthlytextElement = document.getElementById("monthly-text");
@@ -201,4 +204,118 @@ const hideModal = () => {
 
 const goMyPage = () => {
   location.href = "/todo/mypage";
+};
+
+const addPersonaModal = document.getElementById("add-persona-modal");
+
+const showAddPersonaModal = () => {
+  const addPersonaModal = document.getElementById("add-persona-modal");
+  addPersonaModal.classList.remove("hide");
+};
+
+const hideAddPersonaModal = () => {
+  document
+    .querySelector(
+      "div#add-persona-modal div#inner-add-persona-modal div.modal-complete object"
+    )
+    .contentDocument.getElementById("check-svg")
+    .setAttribute("fill-opacity", "0.4");
+  document.querySelector(
+    "div#add-persona-modal div#inner-add-persona-modal div.modal-complete span"
+  ).style = "color: rgba(247, 167, 187, 0.4)";
+  document.getElementById("new-persona-name-input").value = "";
+  const addPersonaModal = document.getElementById("add-persona-modal");
+  addPersonaModal.classList.add("hide");
+};
+
+const handleResetAndCompleteButton = (obj) => {
+  if (obj.value.length === 0) {
+    obj.parentNode.parentNode.parentNode
+      .querySelector("div.modal-complete object")
+      .contentDocument.getElementById("check-svg")
+      .setAttribute("fill-opacity", "0.4");
+    obj.parentNode.parentNode.parentNode.querySelector(
+      "div.modal-complete span"
+    ).style = "color: rgba(247, 167, 187, 0.4)";
+    obj.parentNode
+      .querySelector(".name-input-reset-button")
+      .classList.add("hide");
+  } else if (obj.value.length >= 1) {
+    obj.parentNode.parentNode.parentNode
+      .querySelector("div.modal-complete object")
+      .contentDocument.getElementById("check-svg")
+      .setAttribute("fill-opacity", "1");
+    obj.parentNode.parentNode.parentNode.querySelector(
+      "div.modal-complete span"
+    ).style = "color: rgba(247, 167, 187, 1)";
+    obj.parentNode
+      .querySelector(".name-input-reset-button")
+      .classList.remove("hide");
+  }
+};
+
+const resetInput = (obj) => {
+  obj.parentNode.parentNode.parentNode
+    .querySelector("div.modal-complete object")
+    .contentDocument.getElementById("check-svg")
+    .setAttribute("fill-opacity", "0.4");
+  obj.parentNode.parentNode.parentNode.querySelector(
+    "div.modal-complete span"
+  ).style = "color: rgba(247, 167, 187, 0.4)";
+  obj.parentNode.querySelector("input").value = "";
+  obj.classList.add("hide");
+};
+
+const completeAddPersonaModal = async () => {
+  const newNameInput = document.getElementById("new-persona-name-input");
+  if (newNameInput.value) {
+    const data = new FormData();
+    data.append("name", newNameInput.value);
+    // const response = await axios.post('createpersona/', data);
+
+    // const { personaId, personaName, success} = response.data;
+    const personaId = 1;
+    const personaName = newNameInput.value;
+    document
+      .getElementById("persona-list")
+      .appendChild(getNewPersonaElement(personaId, personaName));
+    hideAddPersonaModal();
+  }
+};
+const getNewPersonaElement = (personaId, personaName) => {
+  const newPersona = document.createElement("div");
+  newPersona.setAttribute("class", "each-persona-container");
+  newPersona.setAttribute("id", `each-persona-example-${personaId}`);
+
+  const eachPersona = document.createElement("div");
+  eachPersona.setAttribute("class", "each-persona");
+  eachPersona.setAttribute("onclick", `showEditPersonaModal(${personaId})`);
+  const personaImg = document.createElement("img");
+  const personaNameSpan = document.createElement("span");
+  personaNameSpan.textContent = personaName;
+  const arrowImg = document.createElement("img");
+  arrowImg.src = document.querySelector("div.each-persona img").src;
+  eachPersona.appendChild(personaImg);
+  eachPersona.appendChild(personaNameSpan);
+  eachPersona.appendChild(arrowImg);
+
+  const categoryList = document.createElement("div");
+  categoryList.setAttribute("class", "category-list");
+  const accCategoryButton = document.createElement("div");
+  accCategoryButton.setAttribute("class", "each-category");
+  accCategoryButton.setAttribute(
+    "id",
+    `add-category-button-example-${personaId}`
+  );
+  accCategoryButton.setAttribute(
+    "onclick",
+    `showAddCategoryModal(${personaId})`
+  );
+  accCategoryButton.innerHTML = "+";
+  categoryList.appendChild(accCategoryButton);
+
+  newPersona.appendChild(eachPersona);
+  newPersona.appendChild(categoryList);
+
+  return newPersona;
 };

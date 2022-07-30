@@ -8,7 +8,7 @@
 
 .body-container {
   position: relative;
-  height: fit-content;
+  height: 840px;
 }
 
 .container-top {
@@ -53,7 +53,7 @@
   margin-left: 8px;
   background-color: #f4f4f4;
   width: 40px;
-  height: 40px;
+  height: 40px;p
   border-radius: 20px;
 }
 
@@ -231,7 +231,7 @@
   display: flex;
   margin-bottom: 32px;
   /* margin-inline: 29px; */
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 #month-week-date {
@@ -244,6 +244,7 @@
 .date-int {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 68px;
   font-size: 18px;
   font-weight: 400;
@@ -327,6 +328,8 @@
 
 .category-container {
   margin-left: 20px;
+  overflow-y: scroll; 
+  height: 400px;
 }
 
 .category-name {
@@ -368,8 +371,8 @@
 }
 
 .todo-checkbox {
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
   outline: none;
 }
@@ -385,10 +388,8 @@
 }
 
 .todo-detail {
-  position: absolute;
   margin-right: 24px;
   right: 0px;
-  cursor: pointer;
 }
 
 .weekly.bold {
@@ -422,7 +423,7 @@
 }
 
 .footer {
-  position: sticky;
+  position: absolute;
   background-color: #ffffff;
   bottom: 0px;
   width: 100%;
@@ -465,7 +466,6 @@ input:focus {
 }
 
 .entiretodomodal {
-  display: block;
   position: fixed;
   overflow: hidden;
   height: 100%;
@@ -541,13 +541,134 @@ input:focus {
   height: 61px;
   background: #f5f5f5;
   border-radius: 16px;
-  border: none;
 }
 
 #profile-img {
   width: 100%;
   height: 100%;
   object-fit: fill;
+}
+
+.mypage-modal {
+  height: 840px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  bottom:0px;
+  left: 33.55%;
+}
+
+.mypage-modal.hide {
+  display: none;
+}
+
+#add-persona-modal {
+  z-index: 2;
+}
+
+#inner-add-persona-modal {
+  height: 398px;
+  width: 500px;
+  background-color: #ffffff;
+  border-radius: 28px 28px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#new-persona-imoji-div {
+  height: 154px;
+  width: 154px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+#new-persona-imoji {
+  height: 130px;
+  width: 130px;
+  background-color: rgba(40, 40, 40, 0.2);
+  border-radius: 100%;
+}
+#new-persona-name {
+  height: 106px;
+  width: 436px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#new-persona-name span {
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #919191;
+  margin-left: 4px;
+}
+.name-input-field {
+  height: 72px;
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.name-input-reset-button {
+  cursor: pointer;
+}
+.name-input-reset-button.hide {
+  display: none;
+}
+
+
+.background-space {
+  flex: 1;
+}
+
+.modal-top {
+  height: 39px;
+  width: 436px;
+  margin-inline: 32px;
+  margin-top: 38px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-top span {
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 150%;
+  color: #282828;
+}
+
+.modal-complete {
+  height: 24px;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 4px;
+  cursor: pointer;
+}
+.check-svg-checked {
+  fill: rgba(247, 167, 187, 1);
+}
+.modal-complete span {
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  color: rgba(247, 167, 187, 0.4);
 }
 
 /* input[type="checkbox"] {
