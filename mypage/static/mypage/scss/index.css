@@ -4,14 +4,51 @@
 * { 
 font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
 }
+.body-container{
+    -ms-overflow-style: none;
+    overflow-x: unset;
+    overflow-y: scroll;
 
+    scrollbar-width: none; 
+}
 #main-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+}
+.main-view-container {
     position: relative;
     z-index: 1;
+}
+.main-view-container h1 {
+    margin-left: 20px;
+}
+.container-top {
+    height: 64px;
+    width: 500px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+#settings-button {
+    margin-right: 20px;
+}
+.bottom-navigation-bar {
+    height: 100px;
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 155.95px;
+    position: sticky;
+    background-color: #ffffff;
+    bottom: 0px;
+}
+.bottom-navigator {
+    height: 40px;
+    width: 40px;
 }
 
 #friends-container {
@@ -91,6 +128,7 @@ font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, '
     justify-content: space-around;
     background-color: #F5F5F5;
     border-radius: 12px;
+    cursor: pointer;
 }
 #new-info-inner{
     margin: 8px 10px;
