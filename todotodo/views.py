@@ -63,10 +63,9 @@ def friend(request, id, pid):
 
 class PersonaView:
     def create(request):
-        name=request.POST['name']
-        message=request.POST['message']
-        persona = Persona.objects.create(name=name, message=message, user=request.user)
-        return JsonResponse({'personaId': persona.id, 'personaCreatedAt':persona.created_at})
+        name = request.POST['name']
+        persona = Persona.objects.create(user=request.user, name=name)
+        return JsonResponse({'personaId': persona.id})
 
     def delete(request, id):
         persona = Persona.objects.get(id=id)

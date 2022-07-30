@@ -34,18 +34,22 @@ const resetInput = (obj) => {
 
 const completeAddPersonaModal = async () => {
     const newNameInput = document.getElementById("new-persona-name-input");
-
-    if (newNameInput.value) {
-        const data = new FormData();
-        data.append('name', newNameInput.value);
-        // const response = await axios.post('createpersona/', data);
-
-        // const { personaId, personaName, success} = response.data;
-        const personaId = 1;
         const personaName = newNameInput.value;
-        document.getElementById('persona-list').appendChild(getNewPersonaElement(personaId, personaName));
+    
+    if (personaName) {
+        const data = new FormData();
+        data.append('name', personaName);
 
-        hideAddPersonaModal();
+        const response = await axios.post('createpersona/', data);
+        const { personaId } = response.data;
+
+        if (personaId) {
+            document.getElementById('persona-list').appendChild(getNewPersonaElement(personaId, personaName));
+
+            hideAddPersonaModal();
+        }
+    } else {
+
     }
 }
 
@@ -57,22 +61,38 @@ const getNewPersonaElement = (personaId, personaName) => {
     const eachPersona = document.createElement('div');
     eachPersona.setAttribute('class', 'each-persona');
     eachPersona.setAttribute('onclick', `showEditPersonaModal(${personaId})`);
+
     const personaImg = document.createElement('img');
+    personaImg.setAttribute('id', `${personaId}-imoji`)
     const personaNameSpan = document.createElement('span');
+    personaNameSpan.setAttribute('id', `persona-name-${personaId}`);
     personaNameSpan.textContent = personaName;
     const arrowImg = document.createElement('img');
-    arrowImg.src = document.querySelector('div.each-persona img').src;
+    arrowImg.setAttribute('src', "{% static 'mypage/img/arrow_back_persona_details.svg' %}"); // 화살표 안뜸
+
     eachPersona.appendChild(personaImg);
     eachPersona.appendChild(personaNameSpan);
     eachPersona.appendChild(arrowImg);
 
     const categoryList = document.createElement('div');
+    categoryList.setAttribute('id', `${personaId}-category-list`);
     categoryList.setAttribute('class', 'category-list');
+
+    const defaultCategory = document.createElement('div');
+    defaultCategory.setAttribute('class', 'each-category');
+    const defaultCategoryName = document.createElement('span');
+    defaultCategoryName.setAttribute('class', 'category-name');
+    defaultCategoryName.innerText = 'Routine'; // default Category = Routine
+
+    defaultCategory.appendChild(defaultCategoryName);
+
     const accCategoryButton = document.createElement('div');
     accCategoryButton.setAttribute('class', 'each-category');
     accCategoryButton.setAttribute('id', `add-category-button-example-${personaId}`);
     accCategoryButton.setAttribute('onclick', `showAddCategoryModal(${personaId})`);
     accCategoryButton.innerHTML = "+";
+
+    categoryList.appendChild(defaultCategory);
     categoryList.appendChild(accCategoryButton);
 
     newPersona.appendChild(eachPersona);
@@ -80,7 +100,7 @@ const getNewPersonaElement = (personaId, personaName) => {
 
     return newPersona;
 }
-
+//edit부터 이어서
 const showEditPersonaModal = (personaId) => {
     editPersonaModal.querySelector('input').value = document.getElementById(`each-persona-${personaId}`).querySelector(`span#persona-name-${personaId}`).innerHTML;
     editPersonaModal.setAttribute('data-persona-id', personaId);
@@ -117,9 +137,10 @@ const completeEditPersonaModal = () => {
 }
 
 const deletePersona = async () => {
-    // const response = await axios.delete('deletepersona/');
-
     const personaId = editPersonaModal.getAttribute('data-persona-id');
+
+    const response = await axios.delete(`deletepersona/${personaId}/`);
+
     document.getElementById(`each-persona-${personaId}`).remove();
     hideEditPersonaModal();
 }

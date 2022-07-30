@@ -10,6 +10,6 @@ urlpatterns = [
     path('add_category/', views.add_category),
     path('add_friend/', views.add_friend),
     path('createpersona/', todotodo.views.PersonaView.create),
-    path('editpersona/', todotodo.views.PersonaView.edit),
-    path('deletepersona/', todotodo.views.PersonaView.delete),
+    path('editpersona/<int:id>/', todotodo.views.PersonaView.edit),
+    path('deletepersona/<int:id>/', todotodo.views.PersonaView.delete),
 ]
