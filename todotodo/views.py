@@ -2,6 +2,7 @@ from re import I, L
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .models import Persona, TodoRequest, Category, Todo, Friendship, PersonaPermission
+from accounts.models import User
 from django.utils import timezone
 from datetime import date
 import calendar as cd
@@ -119,6 +120,11 @@ class TodoView:
 
     def complete(request, id):
         todo = Todo.objects.get(id=id)
-        todo.completed = True
+        if todo.completed:
+            todo.completed = False
+        else:
+            todo.completed = True
         todo.save()
-        return JsonResponse({})
+        return JsonResponse({
+            "is_completed": todo.completed
+        })
