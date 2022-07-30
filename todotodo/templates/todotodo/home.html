@@ -37,7 +37,35 @@ href="{% sass_src 'todotodo/scss/home.css' %}"
                         {% endfor %}
                     </div>
                 </a>
+                                    <button id='persona-create-button' onclick="showAddPersonaModal()"> + </button>
+                    <div class="mypage-modal hide" id="add-persona-modal">
+                        <div class="background-space" onclick="hideAddPersonaModal()"></div>
+                        <div id="inner-add-persona-modal">
+                            <div class="modal-top">
+                                <span>새 페르소나</span>
+                                <div class="modal-complete" onclick="completeAddPersonaModal()">
+                                    <object type="image/svg+xml" data="{% static 'mypage/img/complete_check.svg'%}"></object>
+                                    <span>완료</span>
+                                </div>
+                            </div>
+                            <div id="new-persona-imoji-div">
+                                <img id="new-persona-imoji"/>
+                            </div>
+                            <div id="new-persona-name">
+                                <span>새로운 페르소나에 이름을 붙여주세요.</span>
+                                <div class="name-input-field">
+                                    <input id="new-persona-name-input" class="name-input" type="text" placeholder="ex. 열심히 일하는" oninput="handleResetAndCompleteButton(this)" />
+                                    <img class="name-input-reset-button hide" src="{% static 'mypage/img/reset_input_x.svg' %}" onclick="resetInput(this)" />
+                                    <span>{{user.get_username}}님</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='persona-create-modal' class='persona-create-modal'>
+                        {% comment %} 아무튼 페르소나 생성 모달 내용 {% endcomment %}
+                        <button id='persona-complete' onclick='hideModal()'>완료</button>
             </div>
+            
             <div class="profile-container">
                 <div class="profile-photo">
                     <img id="profile-img" src="{{ persona.emoji }}"/>
@@ -52,6 +80,7 @@ href="{% sass_src 'todotodo/scss/home.css' %}"
                     </div>
                 </div>
             </div>
+            
             <div class="calendar-container" id="calendar-container">
                 <div class="calendar-selection">
                     <div id="current-month">
@@ -84,7 +113,7 @@ href="{% sass_src 'todotodo/scss/home.css' %}"
                 </div>
                 {% comment %} {% if %} {% endcomment %}
                 {% comment %} <div class="calendar-date" id="calendar-date"> {% endcomment %}
-                    <div id="week-week-date">
+                    <div class="week-date" id="week-week-date">
                         {% for date in weekcal %}
                         {% if date == 0 %}
                         <div class="date-int">
@@ -93,14 +122,14 @@ href="{% sass_src 'todotodo/scss/home.css' %}"
                         {% endif %}
                         {% if date != 0 %}
                         {% if date == todaydate %}
-                        <div class="date-ind" id="{{todaydate}}-date">
+                        <div class="date-int" id="{{todaydate}}-date">
                             <div class="today"> 
                                 {{date}} 
                             </div>                        
                         </div>
                         {% endif %}
                         {% if date != todaydate %}
-                        <div class="date-ind" id="{{date}}-date">
+                        <div class="date-int" id="{{date}}-date">
                             <span > {{date}} </span>
                         </div>
                         {% endif %}
