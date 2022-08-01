@@ -34,7 +34,7 @@ const resetInput = (obj) => {
 
 const completeAddPersonaModal = async () => {
     const newNameInput = document.getElementById("new-persona-name-input");
-        const personaName = newNameInput.value;
+    const personaName = newNameInput.value;
     
     if (personaName) {
         const data = new FormData();
