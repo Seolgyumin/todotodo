@@ -116,7 +116,7 @@ const hideEditPersonaModal = () => {
     editPersonaModal.classList.add('hide');
 }
 
-const completeEditPersonaModal = () => {
+const completeEditPersonaModal = async () => {
     const personaId = editPersonaModal.getAttribute('data-persona-id');
     const priorNameElement = document.getElementById(`each-persona-${personaId}`).querySelector(`span#persona-name-${personaId}`);
     const updateName = document.querySelector('div#inner-edit-persona-modal input').value;
@@ -124,14 +124,12 @@ const completeEditPersonaModal = () => {
         const data = new FormData();
         data.append('name', updateName);
 
-        // const response = await axios.post('editpersona/', data);
+        const response = await axios.post(`editpersona/${personaId}/`, data);
 
         // if (response.data.success) {
         priorNameElement.innerText = updateName;
-        //     hideEditPersonaModal();
-        // }
-
         hideEditPersonaModal();
+        // }
     } else {
         hideEditPersonaModal();
     }

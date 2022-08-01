@@ -75,7 +75,8 @@ class PersonaView:
 
     def edit(request, id):
         persona = Persona.objects.get(id=id)
-        persona.update(name=request.POST['name'])
+        persona.name = request.POST['name']
+        persona.save()
         return JsonResponse({'updatePersonaName':persona.name})
     
 
