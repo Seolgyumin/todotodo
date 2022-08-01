@@ -268,19 +268,30 @@ const resetInput = (obj) => {
 
 const completeAddPersonaModal = async () => {
   const newNameInput = document.getElementById("new-persona-name-input");
-  if (newNameInput.value) {
-    const data = new FormData();
-    data.append("name", newNameInput.value);
-    // const response = await axios.post('createpersona/', data);
+  const personaName = newNameInput.value;
+    
+    if (personaName) {
+        const data = new FormData();
+        data.append('name', personaName);
 
-    // const { personaId, personaName, success} = response.data;
-    const personaId = 1;
-    const personaName = newNameInput.value;
+        const response = await axios.post('createpersona/', data);
+        const { personaId } = response.data;
+
+        if (personaId) {
+            const personaList = document.getElementById('persona-list');
+            const personaCreateButton = document.getElementById('persona-create-button');
+
+            personaList.insertBefore(getNewPersonaElement(personaId, personaName), personaCreateButton);
+
+            hideAddPersonaModal();
+        }
+    } else {
+
+    }
     document
       .getElementById("persona-list")
       .appendChild(getNewPersonaElement(personaId, personaName));
     hideAddPersonaModal();
-  }
 };
 const getNewPersonaElement = (personaId, personaName) => {
   const newPersona = document.createElement("div");
