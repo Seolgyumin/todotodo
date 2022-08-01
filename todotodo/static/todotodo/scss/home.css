@@ -6,18 +6,48 @@
     "Malgun Gothic", sans-serif;
 }
 
-.body-container {
+.body-container{
+  -ms-overflow-style: none;
+}
+#main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.main-view-container {
+  height: 100%;
+  width: 100%;
   position: relative;
-  height: 840px;
+  z-index: 1;
+}
+.main-content {
+  height: 676px;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  scrollbar-width: none; 
+}
+.main-content::-webkit-scrollbar {
+  width: 7px;
+}
+.main-content::-webkit-scrollbar-thumb {
+  height: 30%;
+  background: #E2C2C2;
+  border-radius: 10px;
+}
+.main-content::-webkit-scrollbar-track {
+  background: #F8E6E6;
 }
 
 .container-top {
   width: 500px;
   height: 64px;
-  margin-block: 12px;
   margin-right: 20px;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row-reverse;
+  align-items: center;
 }
 
 #alerticon {
@@ -53,7 +83,7 @@
   margin-left: 8px;
   background-color: #f4f4f4;
   width: 40px;
-  height: 40px;p
+  height: 40px;
   border-radius: 20px;
 }
 
@@ -125,7 +155,7 @@
 
 #current-month {
   height: 29px;
-  width: 35px;
+  width: 40px;
   margin-left: 30px;
   font-size: 24px;
   font-weight: 600;
@@ -177,7 +207,7 @@
   text-align: left;
 }
 
-/* .day-of-weeks {
+.day-of-weeks {
   height: 21px;
   margin-top: 20px;
   margin-left: 29px;
@@ -192,7 +222,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-} */
+}
 
 .day-of-weeks {
   display: flex;
@@ -215,7 +245,7 @@
   height: fit-content;
 }
 
-/* .calendar-date {
+.calendar-date {
   margin-top: 30.23px;
   margin-left: 17px;
   margin-right: 17px;
@@ -225,7 +255,7 @@
   line-height: 21px;
   letter-spacing: -0.2113157957792282px;
   text-align: center;
-} */
+}
 
 #week-week-date {
   display: flex;
@@ -328,7 +358,6 @@
 
 .category-container {
   margin-left: 20px;
-  overflow-y: scroll; 
   height: 400px;
 }
 
@@ -370,6 +399,12 @@
   align-items: center;
 }
 
+.todo-individual {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .todo-checkbox {
   width: 20px;
   height: 20px;
@@ -388,6 +423,7 @@
 }
 
 .todo-detail {
+  position: relative;
   margin-right: 24px;
   right: 0px;
 }
@@ -422,14 +458,21 @@
   display: block;
 }
 
-.footer {
+.bottom-navigation-bar {
+  height: 100px;
+  width: 500px;
   position: absolute;
   background-color: #ffffff;
   bottom: 0px;
-  width: 100%;
-  height: 100px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 155.95px;
+}
+.bottom-navigator {
+  height: 40px;
+  width: 40px;
 }
 
 .movetodo {
@@ -466,6 +509,7 @@ input:focus {
 }
 
 .entiretodomodal {
+  display:block;
   position: fixed;
   overflow: hidden;
   height: 100%;
@@ -541,6 +585,7 @@ input:focus {
   height: 61px;
   background: #f5f5f5;
   border-radius: 16px;
+  border:none;
 }
 
 #profile-img {
@@ -555,9 +600,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.2);
-  position: fixed;
-  bottom:0px;
-  left: 33.55%;
+  position: absolute;
 }
 
 .mypage-modal.hide {

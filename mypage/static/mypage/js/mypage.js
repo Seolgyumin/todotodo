@@ -68,7 +68,8 @@ const getNewPersonaElement = (personaId, personaName) => {
     personaNameSpan.setAttribute('id', `persona-name-${personaId}`);
     personaNameSpan.textContent = personaName;
     const arrowImg = document.createElement('img');
-    arrowImg.setAttribute('src', "{% static 'mypage/img/arrow_back_persona_details.svg' %}"); // 화살표 안뜸
+    const svgSrc = document.querySelector('.arrow-back-persona-details').getAttribute('src');
+    arrowImg.setAttribute('src', svgSrc);
 
     eachPersona.appendChild(personaImg);
     eachPersona.appendChild(personaNameSpan);
@@ -100,7 +101,7 @@ const getNewPersonaElement = (personaId, personaName) => {
 
     return newPersona;
 }
-//edit부터 이어서
+
 const showEditPersonaModal = (personaId) => {
     editPersonaModal.querySelector('input').value = document.getElementById(`each-persona-${personaId}`).querySelector(`span#persona-name-${personaId}`).innerHTML;
     editPersonaModal.setAttribute('data-persona-id', personaId);
@@ -115,7 +116,7 @@ const hideEditPersonaModal = () => {
     editPersonaModal.classList.add('hide');
 }
 
-const completeEditPersonaModal = () => {
+const completeEditPersonaModal = async () => {
     const personaId = editPersonaModal.getAttribute('data-persona-id');
     const priorNameElement = document.getElementById(`each-persona-${personaId}`).querySelector(`span#persona-name-${personaId}`);
     const updateName = document.querySelector('div#inner-edit-persona-modal input').value;
@@ -123,14 +124,12 @@ const completeEditPersonaModal = () => {
         const data = new FormData();
         data.append('name', updateName);
 
-        // const response = await axios.post('editpersona/', data);
+        const response = await axios.post(`editpersona/${personaId}/`, data);
 
         // if (response.data.success) {
         priorNameElement.innerText = updateName;
-        //     hideEditPersonaModal();
-        // }
-
         hideEditPersonaModal();
+        // }
     } else {
         hideEditPersonaModal();
     }
@@ -146,23 +145,24 @@ const deletePersona = async () => {
 }
 
 let globalPersonaId = '';
+
 const showAddCategoryModal = (personaId) => {
     addCategoryModal.classList.remove('hide');
     globalPersonaId = personaId;
 }
 
-const completeAddCategoryModal = () => {
+const completeAddCategoryModal = async () => {
     const newCategoryNameInput = document.getElementById('new-category-name-input');
 
     if (newCategoryNameInput.value) {
         const data = new FormData();
         data.append('name', newCategoryNameInput.value);
 
-        // const response = await axios.post
-        // const { personaId, categoryId } = response.data;
-        const categoryId = 1;
-        const categoryList = document.getElementById(`${globalPersonaId}-category-list`);
-        const addCategoryButton = document.getElementById(`add-category-button-${globalPersonaId}`);
+        const response = await axios.post(`createcategory/${globalPersonaId}/`, data);
+        const { personaId } = response.data;
+        console.log(personaId + 'category added');
+        const categoryList = document.getElementById(`${personaId}-category-list`);
+        const addCategoryButton = document.getElementById(`add-category-button-${personaId}`);
         categoryList.insertBefore(getNewCategoryElement(newCategoryNameInput.value), addCategoryButton);
 
         hideCategoryModal();

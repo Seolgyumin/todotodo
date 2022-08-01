@@ -75,7 +75,8 @@ class PersonaView:
 
     def edit(request, id):
         persona = Persona.objects.get(id=id)
-        persona.update(name=request.POST['name'])
+        persona.name = request.POST['name']
+        persona.save()
         return JsonResponse({'updatePersonaName':persona.name})
     
 
@@ -86,7 +87,7 @@ class CategoryView:
         name=request.POST['name']
         persona=Persona.objects.get(id=id)
         category = Category.objects.create(persona=persona, name=name)
-        return JsonResponse({'categoryId':category.id, 'categoryCreatedAt':category.created_at})
+        return JsonResponse({'personaId': persona.id, 'categoryId': category.id, 'categoryCreatedAt': category.created_at})
 
     def delete(request, id):
         category = Category.objects.get(id=id)
