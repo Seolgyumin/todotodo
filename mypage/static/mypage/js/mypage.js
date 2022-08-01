@@ -101,7 +101,7 @@ const getNewPersonaElement = (personaId, personaName) => {
 
     return newPersona;
 }
-//edit부터 이어서
+
 const showEditPersonaModal = (personaId) => {
     editPersonaModal.querySelector('input').value = document.getElementById(`each-persona-${personaId}`).querySelector(`span#persona-name-${personaId}`).innerHTML;
     editPersonaModal.setAttribute('data-persona-id', personaId);
