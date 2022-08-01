@@ -69,7 +69,7 @@ const getNewPersonaElement = (personaId, personaName) => {
     personaNameSpan.textContent = personaName;
     const arrowImg = document.createElement('img');
     const svgSrc = document.querySelector('.arrow-back-persona-details').getAttribute('src');
-    arrowImg.setAttribute('src', svgSrc); // 화살표 안뜸
+    arrowImg.setAttribute('src', svgSrc);
 
     eachPersona.appendChild(personaImg);
     eachPersona.appendChild(personaNameSpan);
@@ -101,7 +101,7 @@ const getNewPersonaElement = (personaId, personaName) => {
 
     return newPersona;
 }
-//edit부터 이어서
+
 const showEditPersonaModal = (personaId) => {
     editPersonaModal.querySelector('input').value = document.getElementById(`each-persona-${personaId}`).querySelector(`span#persona-name-${personaId}`).innerHTML;
     editPersonaModal.setAttribute('data-persona-id', personaId);
