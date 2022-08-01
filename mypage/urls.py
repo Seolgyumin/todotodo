@@ -11,5 +11,6 @@ urlpatterns = [
     path('add_friend/', views.add_friend),
     path('createpersona/', todotodo.views.PersonaView.create),
     path('editpersona/<int:id>/', todotodo.views.PersonaView.edit),
+    path('createcategory/<int:id>/', todotodo.views.CategoryView.create, name='category-create'),
     path('deletepersona/<int:id>/', todotodo.views.PersonaView.delete),
 ]
